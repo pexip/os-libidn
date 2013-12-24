@@ -1,3 +1,9 @@
+libidn (1.23-2pexip1) pexip; urgency=low
+
+  * Prepare Pexip packaging
+
+ -- John-Mark Bell <jmb@pexip.com>  Tue, 24 Dec 2013 21:38:45 +0000
+
 libidn (1.23-2) unstable; urgency=low
 
   * Change Maintainer: field to point at mailing list.

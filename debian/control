@@ -1,14 +1,16 @@
 Source: libidn
 Section: libs
 Priority: optional
-Maintainer: Debian Libidn Team <help-libidn@gnu.org>
-Uploaders: Anibal Monsalve Salazar <anibal@debian.org>, Simon Josefsson <simon@josefsson.org>
+Maintainer: Pexip AS <packaging@pexip.com>
+XSBC-Pexip-Original-Maintainer: Debian Libidn Team <help-libidn@gnu.org>
+XSBC-Pexip-Original-Uploaders: Anibal Monsalve Salazar <anibal@debian.org>, Simon Josefsson <simon@josefsson.org>
 XS-Dm-Upload-Allowed: yes
 Standards-Version: 3.9.2
 Build-Depends: debhelper (>= 8.1.3), gcj-jdk [!arm !hppa !hurd-i386], fastjar [!arm !hppa !hurd-i386]
 Vcs-Cvs: :pserver:anonymous@cvs.savannah.gnu.org:/sources/libidn
 Vcs-Browser: http://cvs.savannah.gnu.org/viewvc/debian-libidn/?root=libidn
 Homepage: http://www.gnu.org/software/libidn/
+XS-Pexip-Upstream: http://archive.ubuntu.com/ubuntu/ precise
 
 Package: idn
 Section: misc
