@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-dnl Copyright (C) 2002-2011 Simon Josefsson
+dnl Copyright (C) 2002-2015 Simon Josefsson
 dnl
 dnl This file is part of GNU Libidn.
 dnl
@@ -18,8 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 AC_PREREQ(2.61)
-AC_INIT([GNU Libidn], [1.23], [bug-libidn@gnu.org])
-AC_COPYRIGHT([Copyright (c) 2002-2011 Simon Josefsson <simon@josefsson.org>.])
+AC_INIT([GNU Libidn], [1.31], [bug-libidn@gnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS(config.h)
@@ -31,7 +30,7 @@ AM_SILENT_RULES([yes])
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
 AC_SUBST(LT_CURRENT, 17)
-AC_SUBST(LT_REVISION, 6)
+AC_SUBST(LT_REVISION, 14)
 AC_SUBST(LT_AGE, 6)
 
 AC_PROG_CC
@@ -42,17 +41,15 @@ lgl_EARLY
 DLL_VERSION=`expr ${LT_CURRENT} - ${LT_AGE}`
 AC_SUBST(DLL_VERSION)
 
-# We can't replace this with LT_INIT([win32-dll]) yet.  For example,
-# the Ubuntu 8.04 LTS is still shipping a libtool version that doesn't
-# have it.
-AC_LIBTOOL_WIN32_DLL
+LT_INIT([win32-dll])
+m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 AC_PROG_LIBTOOL
 
 # Checks for programs.
 AM_MISSING_PROG(PERL, perl, $missing_dir)
 AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
 AM_GNU_GETTEXT(external)
-AM_GNU_GETTEXT_VERSION(0.18.1)
+AM_GNU_GETTEXT_VERSION(0.19.3)
 AM_ICONV
 AM_PATH_LISPDIR
 
@@ -156,6 +153,7 @@ if test "$gl_gcc_warnings" = yes; then
   done
 
   gl_WARN_ADD([-fdiagnostics-show-option])
+  gl_WARN_ADD([-Wno-missing-field-initializers]) # Rely on missing field = 0.
 fi
 
 AC_CONFIG_FILES([
@@ -173,16 +171,22 @@ AC_CONFIG_FILES([
   gl/Makefile
   gltests/Makefile
   java/Makefile
-  java/gnu/Makefile
-  java/gnu/inet/Makefile
-  java/gnu/inet/encoding/Makefile
-  java/misc/Makefile
+  java/pom.xml
+  java/src/Makefile
+  java/src/main/Makefile
+  java/src/main/java/Makefile
+  java/src/main/java/gnu/Makefile
+  java/src/main/java/gnu/inet/Makefile
+  java/src/main/java/gnu/inet/encoding/Makefile
+  java/src/util/Makefile
+  java/src/util/java/Makefile
+  java/src/test/Makefile
+  java/src/test/java/Makefile
   lib/Makefile
   lib/gl/Makefile
   lib/gltests/Makefile
   libidn.pc
   po/Makefile.in
-  pom.xml
   src/Makefile
   tests/Makefile
 ])
@@ -196,6 +200,7 @@ AC_MSG_NOTICE([summary of build options:
   Compiler:         ${CC}
   Warning flags:    ${WARN_CFLAGS}
   Library types:    Shared=${enable_shared}, Static=${enable_static}
+  Libiconv:         $am_cv_func_iconv
   Valgrind:         ${VALGRIND}
   Version script:   $have_ld_version_script
   TLD code:         $enable_tld

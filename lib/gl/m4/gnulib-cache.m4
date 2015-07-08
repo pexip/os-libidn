@@ -1,4 +1,4 @@
-# Copyright (C) 2002-2011 Free Software Foundation, Inc.
+# Copyright (C) 2002-2015 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --dir=. --local-dir=lib/gl/override --lib=libgnu --source-base=lib/gl --m4-base=lib/gl/m4 --doc-base=doc --tests-base=lib/gltests --aux-dir=build-aux --with-tests --avoid=iconv-h-tests --avoid=string-tests --avoid=wchar-tests --lgpl=2 --makefile-name=gnulib.mk --no-conditional-dependencies --libtool --macro-prefix=lgl --no-vc-files gettext-h lib-msvc-compat lib-symbol-versions lib-symbol-visibility stdint striconv strverscmp
+#   gnulib-tool --import --dir=. --local-dir=lib/gl/override --lib=libgnu --source-base=lib/gl --m4-base=lib/gl/m4 --doc-base=doc --tests-base=lib/gltests --aux-dir=build-aux --with-tests --avoid=iconv-h-tests --avoid=string-tests --avoid=wchar-tests --lgpl=2 --no-conditional-dependencies --libtool --macro-prefix=lgl --no-vc-files gettext-h lib-msvc-compat lib-symbol-versions lib-symbol-visibility stdint striconv strverscmp unistr/u8-check
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([lib/gl/override])
@@ -39,6 +39,7 @@ gl_MODULES([
   stdint
   striconv
   strverscmp
+  unistr/u8-check
 ])
 gl_AVOID([iconv-h-tests string-tests wchar-tests])
 gl_SOURCE_BASE([lib/gl])
@@ -49,9 +50,9 @@ gl_TESTS_BASE([lib/gltests])
 gl_WITH_TESTS
 gl_LIB([libgnu])
 gl_LGPL([2])
-gl_MAKEFILE_NAME([gnulib.mk])
+gl_MAKEFILE_NAME([])
 gl_LIBTOOL
 gl_MACRO_PREFIX([lgl])
 gl_PO_DOMAIN([])
-gl_WITNESS_C_DOMAIN([])
+gl_WITNESS_C_MACRO([])
 gl_VC_FILES([false])

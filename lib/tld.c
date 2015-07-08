@@ -1,27 +1,34 @@
-/* tld.c --- Handle TLD restriction checking.
- * Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Simon
- * Josefsson.
- * Copyright (C) 2003, 2004, 2010, 2011 Free Software Foundation, Inc.
- *
- * Author: Thomas Jacob, Internet24.de
- *
- * This file is part of GNU Libidn.
- *
- * GNU Libidn is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * GNU Libidn is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with GNU Libidn; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
- *
- */
+/* tld.c --- Declarations for TLD restriction checking.
+   Copyright (C) 2004-2015 Simon Josefsson.
+   Copyright (C) 2003-2014 Free Software Foundation, Inc.
+
+   Author: Thomas Jacob, Internet24.de
+
+   This file is part of GNU Libidn.
+
+   GNU Libidn is free software: you can redistribute it and/or
+   modify it under the terms of either:
+
+     * the GNU Lesser General Public License as published by the Free
+       Software Foundation; either version 3 of the License, or (at
+       your option) any later version.
+
+   or
+
+     * the GNU General Public License as published by the Free
+       Software Foundation; either version 2 of the License, or (at
+       your option) any later version.
+
+   or both in parallel, as here.
+
+   GNU Libidn is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
+
+   You should have received copies of the GNU General Public License and
+   the GNU Lesser General Public License along with this program.  If
+   not, see <http://www.gnu.org/licenses/>. */
 
 #include <config.h>
 
@@ -128,8 +135,9 @@ tld_get_4 (const uint32_t * in, size_t inlen, char **out)
 			(*ipos >= 0x61 && *ipos <= 0x7A)))
     ipos--, olen++;
 
-  if (olen > 0 && DOTP (*ipos))	/* Found something that appears a TLD. */
+  if (olen > 0 && ipos >= in && DOTP (*ipos))
     {
+      /* Found something that appears a TLD. */
       char *out_s = malloc (sizeof (char) * (olen + 1));
       char *opos = out_s;
 

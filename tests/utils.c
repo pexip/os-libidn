@@ -1,6 +1,5 @@
 /* utils.c --- Self test utilities.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
- * 2011 Simon Josefsson
+ * Copyright (C) 2002-2015 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -113,7 +112,7 @@ ucs4print (const uint32_t * str, size_t len)
   size_t i;
 
   printf ("\t;; ");
-  for (i = 0; i < len; i++)
+  for (i = 0; (len == (size_t) -1) ? str[i] : i < len; i++)
     {
       printf ("U+%04x ", str[i]);
       if ((i + 1) % 4 == 0)

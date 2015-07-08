@@ -16,7 +16,7 @@ charset it is encoded in.  Use stringprep_convert from the external
 representation into the charset returned by this function, to have
 data in the locale encoding.
 
-@strong{Return value:} Return the character set used by the current locale.
+Return value: Return the character set used by the current locale.
 It will never return NULL, but use "ASCII" as a fallback.
 @end deftypefun
 
@@ -27,13 +27,13 @@ It will never return NULL, but use "ASCII" as a fallback.
 
 @var{to_codeset}: name of destination character set.
 
-@var{from_codeset}: name of origin character set, as used by @code{str}.
+@var{from_codeset}: name of origin character set, as used by  @code{str} .
 
 Convert the string from one character set to another using the
-system's @code{iconv()} function.
+system's @code{iconv()}  function.
 
-@strong{Return value:} Returns newly allocated zero-terminated string which
-is @code{str} transcoded into to_codeset.
+Return value: Returns newly allocated zero-terminated string which
+is  @code{str} transcoded into to_codeset.
 @end deftypefun
 
 @subheading stringprep_locale_to_utf8
@@ -42,10 +42,10 @@ is @code{str} transcoded into to_codeset.
 @var{str}: input zero terminated string.
 
 Convert string encoded in the locale's character set into UTF-8 by
-using @code{stringprep_convert()}.
+using @code{stringprep_convert()} .
 
-@strong{Return value:} Returns newly allocated zero-terminated string which
-is @code{str} transcoded into UTF-8.
+Return value: Returns newly allocated zero-terminated string which
+is  @code{str} transcoded into UTF-8.
 @end deftypefun
 
 @subheading stringprep_utf8_to_locale
@@ -54,9 +54,9 @@ is @code{str} transcoded into UTF-8.
 @var{str}: input zero terminated string.
 
 Convert string encoded in UTF-8 into the locale's character set by
-using @code{stringprep_convert()}.
+using @code{stringprep_convert()} .
 
-@strong{Return value:} Returns newly allocated zero-terminated string which
-is @code{str} transcoded into the locale's character set.
+Return value: Returns newly allocated zero-terminated string which
+is  @code{str} transcoded into the locale's character set.
 @end deftypefun
 

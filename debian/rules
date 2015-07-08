@@ -4,9 +4,12 @@
 export DH_VERBOSE=1
 
 # Don't build libidn11-java on platforms that doesn't have gcj.
-NO_JAVA_ARCHES := arm hppa hurd-i386
+NO_JAVA_ARCHES := arm hppa hurd-i386 mips64el or1k
 DEB_HOST_ARCH  ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
-ifeq (,$(filter $(DEB_HOST_ARCH),$(NO_JAVA_ARCHES)))
+ifneq (,$(filter stage1,$(DEB_BUILD_PROFILES)))
+  # Or when bootstrapping, because libidn is needed before gcj, see #738147.
+  export DH_OPTIONS=-Nlibidn11-java
+else ifeq (,$(filter $(DEB_HOST_ARCH),$(NO_JAVA_ARCHES)))
   ENABLE_JAVA := --enable-java
 else
   export DH_OPTIONS=-Nlibidn11-java
@@ -21,13 +24,21 @@ DEB_HOST_MULTIARCH  ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 CFG_CROSS = --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE)
 CFG_PATHS = --prefix=/usr --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info
 CFG_VERS = `dpkg-parsechangelog|grep ^Version:|cut -d\  -f2`
-CFG_DEBP = --with-packager=Debian --with-packager-version=$(CFG_VERS) --with-packager-bug-reports=http://bugs.debian.org/
+CFG_DEBP = --with-packager=Debian --with-packager-version=$(CFG_VERS) --with-packager-bug-reports=http://bugs.debian.org/ --disable-silent-rules
+
+# http://wiki.debian.org/Hardening
+CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
+CFLAGS:=$(shell dpkg-buildflags --get CFLAGS)
+CXXFLAGS:=$(shell dpkg-buildflags --get CXXFLAGS)
+LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
 
 config.status: configure
 	dh_testdir
+	dh_autoreconf
 	# Add here commands to configure the package.
 	./configure $(CFG_CROSS) $(CFG_PATHS) $(CFG_DEBP) $(ENABLE_JAVA) \
-		CFLAGS="$(CFLAGS)" LDFLAGS="-Wl,-z,defs"
+		CFLAGS="$(CFLAGS)" CPPFLAGS="$(CPPFLAGS)" \
+		LDFLAGS="$(LDFLAGS) -Wl,-z,defs"
 
 build: build-arch build-indep
 build-arch: build-stamp
@@ -36,13 +47,17 @@ build-stamp:  config.status
 	dh_testdir
 
 	# Add here commands to compile the package.
-	$(MAKE) all check
+	$(MAKE) all
+ifeq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
+	$(MAKE) check
+endif
 
 	touch $@
 
 clean:
 	dh_testdir
 	dh_testroot
+	dh_autoreconf_clean
 	rm -f build-stamp 
 
 	# Add here commands to clean up after the build process.

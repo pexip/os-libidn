@@ -1,24 +1,31 @@
 /* strerror-stringprep.c --- Convert stringprep errors into text.
- * Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Simon
- * Josefsson
- *
- * This file is part of GNU Libidn.
- *
- * GNU Libidn is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * GNU Libidn is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with GNU Libidn; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
- *
- */
+   Copyright (C) 2004-2015 Simon Josefsson
+
+   This file is part of GNU Libidn.
+
+   GNU Libidn is free software: you can redistribute it and/or
+   modify it under the terms of either:
+
+     * the GNU Lesser General Public License as published by the Free
+       Software Foundation; either version 3 of the License, or (at
+       your option) any later version.
+
+   or
+
+     * the GNU General Public License as published by the Free
+       Software Foundation; either version 2 of the License, or (at
+       your option) any later version.
+
+   or both in parallel, as here.
+
+   GNU Libidn is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
+
+   You should have received copies of the GNU General Public License and
+   the GNU Lesser General Public License along with this program.  If
+   not, see <http://www.gnu.org/licenses/>. */
 
 #ifdef HAVE_CONFIG_H
 # include "config.h"
@@ -58,6 +65,7 @@
  *   This usually indicate a problem in the calling application.
  * STRINGPREP_UNKNOWN_PROFILE: The supplied profile name was not
  *   known to the library.
+ * STRINGPREP_ICONV_ERROR: Could not convert string in locale encoding.
  * STRINGPREP_NFKC_FAILED: The Unicode NFKC operation failed.  This
  *   usually indicate an internal error in the library.
  * STRINGPREP_MALLOC_ERROR: The malloc() was out of memory.  This is
@@ -113,6 +121,9 @@ stringprep_strerror (Stringprep_rc rc)
 
     case STRINGPREP_UNKNOWN_PROFILE:
       p = _("Unknown profile");
+      break;
+    case STRINGPREP_ICONV_ERROR:
+      p = _("Could not convert string in locale encoding.");
       break;
 
     case STRINGPREP_NFKC_FAILED:

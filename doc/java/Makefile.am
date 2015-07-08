@@ -1,6 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Simon
-# Josefsson
+# Copyright (C) 2004-2015 Simon Josefsson
 #
 # This file is part of GNU Libidn.
 #
@@ -38,8 +37,8 @@ EXTRA_DIST = $(HTML)
 
 all-local: $(HTML)
 
-$(HTML): $(top_srcdir)/java/gnu/inet/encoding/*.java
-	cd ../../java && make javadoc
+$(HTML): $(top_srcdir)/java/src/main/java/gnu/inet/encoding/*.java
+	cd ../../java/src/main/java && make javadoc
 
 clean-local:
 	rm -f $(HTML)

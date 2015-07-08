@@ -1,3 +1,90 @@
+libidn (1.31-1) unstable; urgency=low
+
+  * New upstream release.
+  * Fix README.source.
+
+ -- Simon Josefsson <simon@josefsson.org>  Wed, 08 Jul 2015 23:22:44 +0200
+
+libidn (1.30-1) unstable; urgency=low
+
+  * New upstream release.
+  * Move to collab-maint.  Closes: #781192.
+  * Add debian/gbp.conf and update debian/README.source.
+  * Add debian/lintian-overrides.
+  * Clarify debian/copyright wrt punycode.
+  * Disable java on mips64el.  Closes: #779548.
+  * Update Standards-Version from 3.9.5 to 3.9.6.
+
+ -- Simon Josefsson <simon@josefsson.org>  Tue, 21 Apr 2015 09:56:55 +0200
+
+libidn (1.29-2) unstable; urgency=low
+
+  * Update upstream-signing-key.pgp.
+  * Use 'or' instead of '|' in debian/copyright.
+  * Wrap overlong debian/copyright lines.
+
+ -- Simon Josefsson <simon@josefsson.org>  Thu, 13 Nov 2014 12:58:19 +0100
+
+libidn (1.29-1) unstable; urgency=low
+
+  [ Simon Josefsson ]
+  * New upstream release.
+  * Use dh-autoreconf.  Closes: #755839.
+  * Update README.source to reflect move from CVS to git.
+  * Change VCS-* headers.
+  * Build-Depends on debhelper >= 9.
+
+  [ Andreas Barth ]
+  * include fix for or1k from http://cvs.savannah.gnu.org/viewvc/debian-libidn/rules?root=libidn&r1=1.25&r2=1.26
+  * debian/control: add gengetopt to avoid FTBFS
+
+ -- Simon Josefsson <simon@josefsson.org>  Sun, 10 Aug 2014 23:24:03 +0200
+
+libidn (1.28-2) unstable; urgency=low
+
+  * Bump Standards-Version to 3.9.5.
+  * Respect DEB_BUILD_OPTIONS=nocheck.  Closes: #719980.
+  * When bootstrapping, drop gcj.  Closes: #738147.
+  * Improve watch file and add upstream-signing-key.pgp.
+
+ -- Simon Josefsson <simon@josefsson.org>  Thu, 24 Apr 2014 22:48:43 +0200
+
+libidn (1.28-1) unstable; urgency=low
+
+  * New upstream release.
+  * Drop obsolete XS-Dm-Upload-Allowed.
+  * Bump Standards-Version to 3.9.4.
+
+ -- Simon Josefsson <simon@josefsson.org>  Tue, 09 Jul 2013 21:58:35 +0200
+
+libidn (1.25-2) unstable; urgency=low
+
+  * Fix copyright format.  Use https for upstream homepage.
+  * Use dpkg-buildflags to provide, e.g., hardening flags.
+
+ -- Simon Josefsson <simon@josefsson.org>  Wed, 30 May 2012 13:27:25 +0200
+
+libidn (1.25-1) unstable; urgency=low
+
+  * New upstream release.
+  * Disable silent rules (to get more info in build logs).
+
+ -- Simon Josefsson <simon@josefsson.org>  Thu, 24 May 2012 15:52:07 +0200
+
+libidn (1.24-2) unstable; urgency=low
+
+  * Moved from experimental to unstable after testing.
+  * Bump Standards-Version to 3.9.3.
+
+ -- Simon Josefsson <simon@josefsson.org>  Tue, 06 Mar 2012 20:06:11 +0100
+
+libidn (1.24-1) experimental; urgency=low
+
+  * New upstream release.
+    - License changes, see updated copyright file.
+
+ -- Simon Josefsson <simon@josefsson.org>  Tue, 10 Jan 2012 22:26:22 +0100
+
 libidn (1.23-2) unstable; urgency=low
 
   * Change Maintainer: field to point at mailing list.

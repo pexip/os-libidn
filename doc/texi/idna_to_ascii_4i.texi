@@ -8,8 +8,8 @@
 @var{out}: output zero terminated string that must have room for at
 least 63 characters plus the terminating zero.
 
-@var{flags}: an @code{Idna_flags} value, e.g., @code{IDNA_ALLOW_UNASSIGNED} or
-@code{IDNA_USE_STD3_ASCII_RULES}.
+@var{flags}: an @code{Idna_flags}  value, e.g., @code{IDNA_ALLOW_UNASSIGNED}  or
+@code{IDNA_USE_STD3_ASCII_RULES} .
 
 The ToASCII operation takes a sequence of Unicode code points that
 make up one domain label and transforms it into a sequence of code
@@ -31,6 +31,6 @@ range to begin with (although it could fail). Applying the ToASCII
 operation multiple times has exactly the same effect as applying it just
 once.
 
-@strong{Return value:} Returns 0 on success, or an @code{Idna_rc} error code.
+Return value: Returns 0 on success, or an @code{Idna_rc}  error code.
 @end deftypefun
 
