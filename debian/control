@@ -10,7 +10,7 @@ Build-Depends: debhelper (>= 8.1.3), gcj-jdk [!arm !hppa !hurd-i386], fastjar [!
 Vcs-Cvs: :pserver:anonymous@cvs.savannah.gnu.org:/sources/libidn
 Vcs-Browser: http://cvs.savannah.gnu.org/viewvc/debian-libidn/?root=libidn
 Homepage: http://www.gnu.org/software/libidn/
-XS-Pexip-Upstream: http://archive.ubuntu.com/ubuntu/ precise
+XS-Pexip-Upstream: http://ftp.debian.org/debian/ stretch
 
 Package: idn
 Section: misc
