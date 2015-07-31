@@ -16,7 +16,7 @@ charset it is encoded in.  Use stringprep_convert from the external
 representation into the charset returned by this function, to have
 data in the locale encoding.
 
-@strong{Return value:} Return the character set used by the current locale.
+Return value: Return the character set used by the current locale.
 It will never return NULL, but use "ASCII" as a fallback.
 @end deftypefun
 

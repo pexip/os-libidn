@@ -1,6 +1,151 @@
 Libidn NEWS -- History of user-visible changes.                 -*- outline -*-
-Copyright (C) 2002-2011 Simon Josefsson
+Copyright (C) 2002-2015 Simon Josefsson
 See the end for copying conditions.
+
+* Version 1.31 (released 2015-07-08) [beta]
+
+** libidn: stringprep_utf8_to_ucs4 now rejects invalid UTF-8. CVE-2015-2059
+This function has always been documented to not validate that the
+input UTF-8 string is actually valid UTF-8.  Like the rest of the API,
+when you call a function that works on UTF-8 data, you have to pass it
+valid UTF-8 data.  Application writers appear to have difficulties
+using interfaces designed like that, as bugs triggered by invalid
+UTF-8 has been identified in a number of projects (jabberd2, gnutls,
+wget, and curl).  While we could introduce a new API to perform UTF-8
+validation, so that applications can easily implement the proper
+checks, this appear error prone because there is a risk that the check
+will be forgotten.  Instead, we took the more radical approach of
+modifying the documentation and the implementation of the API.  The
+intention is that all functions that accepts UTF-8 data should
+validate it before use.  This will solve the problem for applications,
+without needing to change them.  This change has the unfortunate
+side-effect that Surrogate codes (see section 5.5 of RFC 3454) no
+longer trigger the STRINGPREP_CONTAINS_PROHIBITED error code but
+instead will trigger the newly introduced STRINGPREP_ICONV_ERROR error
+code, as the gnulib/libunistring-based code that we use to test
+UTF-8-compliance rejects Surrogate codes.  We hope that this is an
+acceptable cost to live with in order to improve application security.
+We welcome feedback on this solution, and we are marking this release
+as beta rather than stable to signal that we may reconsider this
+approach if people disagree.  Reported by several people including
+Thijs Alkemade, Gustavo Grieco, Daniel Stenberg, and Nikos
+Mavrogiannopoulos.
+
+** libidn: Added STRINGPREP_ICONV_ERROR error code.
+
+** libidn: Workaround valgrind/gcc/glibc issue.
+Valgrind reported a 'Invalid read of size 4' that was caused by
+optimized strlen implementation.  Reported and patch by Alessandro
+Ghedini <alessandro@ghedini.me>.
+
+** build: Use LOG_COMPILER instead of TESTS_ENVIRONMENT to fix valgrind use.
+Errors caught by valgrind did not always trigger 'make check' failures
+before.
+
+** i18n: Updated Danish translation.
+Thanks to Joe Hansen.
+
+** API and ABI is backwards compatible with the previous version.
+
+* Version 1.30 (released 2015-03-02) [stable]
+
+** libidn: The punycode.{c,h} files were re-imported from RFC 3492bis.
+A comment explaining the origin and what was changed was added.
+
+** Bump gettext to 0.19.3.
+
+** Use LT_INIT instead of AC_LIBTOOL_WIN32_DLL.
+
+** i18n: Added Hungarian translation.  Updated some other languages.
+Thanks to Balázs Úr.
+
+** API and ABI is backwards compatible with the previous version.
+
+* Version 1.29 (released 2014-08-10) [stable]
+
+** libidn: Mark internal variable "g_utf8_skip" as static.
+Reported by Thomas Dineen <tdineen@ix.netcom.com>.
+
+** idn: Flush stdout to simplify for tools that buffer too heavily.
+Tiny patch from Hugh Daschbach <hugh@ccss.com>.
+
+** i18n: Added Brazilian Portuguese translation.
+Thanks to Rafael Ferreira.
+
+** Update gnulib files.
+
+** API and ABI is backwards compatible with the previous version.
+
+* Version 1.28 (released 2013-07-10) [stable]
+
+** idn: Don't crash when string conversion from UTF-8 to locale fails.
+Reported by Jeffrey Frey <frey@udel.edu>.
+
+** java: Fix build failures.
+
+** java: TestIDNA -a and -u logic was reversed, now fixed.
+
+** API and ABI is backwards compatible with the previous version.
+
+* Version 1.27 (released 2013-06-05) [stable]
+
+** Java library can be built using Maven.  Speed improvements.
+Thanks to several patches from Stefan Larsson.  Testing indicate 70-90
+times faster node/name/resource-prep.
+
+** Update gnulib files and translations.
+
+** API and ABI is backwards compatible with the previous version.
+
+* Version 1.26 (released 2012-12-11) [stable]
+
+** libidn, idna_to_ascii: Propagate error on malloc failure.
+Reported by Sarat Chandra Addepalli <s.addepalli@samsung.com>.
+
+** libidn, tld_get_4: Fix out of bounds read access violation.
+
+** i18n: Added Croatian translation.  Updated Vietnamese translation.
+Thanks to Tomislav Krznar and Trần Ngọc Quân.
+
+** java: Permit usage by Apache projects.
+Thanks to Oliver Hitz and Angus Turner.
+
+** tests: Improve tld self-tests.
+
+** API and ABI is backwards compatible with the previous version.
+
+* Version 1.25 (released 2012-05-23) [stable]
+
+** MSVC: Build fixes related to _GL_ATTRIBUTE_CONST and _GL_ATTRIBUTE_PURE.
+Reported by Bartosz Brachaczek <b.brachaczek@gmail.com>.
+
+** examples: Fix compiler warning about ignoring return value from fgets.
+
+** tests: Ship with a valgrind suppressions file for the strlen issue.
+See tests/libidn.supp and  bottom of HACKING for discussion.
+
+** Update gnulib files and translations.
+
+** API and ABI is backwards compatible with the previous version.
+
+* Version 1.24 (released 2012-01-10) [stable]
+
+** Libraries are re-licensed from LGPLv2+ to dual-GPLv2+|LGPLv3+.
+
+** build: Fix parallel Windows builds.
+Reported by René Berber <r.berber@computer.org>.
+
+** libidn: Fix potential infloop in pr29 code.
+Reported by Jon Nelson <jnelson@jamponi.net> in
+<http://lists.gnu.org/archive/html/help-libidn/2012-01/msg00008.html>.
+
+** libidn: Add 'const' keyword to 'stringprep_ucs4_nfkc_normalize' function.
+
+** Sync glib NFKC code and improve copyright/license statements.
+
+** Update gnulib files and translations.
+
+** API and ABI is backwards compatible with the previous version.
 
 * Version 1.23 (released 2011-11-25) [stable]
 

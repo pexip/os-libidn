@@ -8,31 +8,30 @@ on exit, length of output array with Unicode code points.
 
 @var{maxucs4len}: maximum length of input/output array.
 
-@var{flags}: a @code{Stringprep_profile_flags} value, or 0.
+@var{flags}: a @code{Stringprep_profile_flags}  value, or 0.
 
-@var{profile}: pointer to @code{Stringprep_profile} to use.
+@var{profile}: pointer to @code{Stringprep_profile}  to use.
 
 Prepare the input UCS-4 string according to the stringprep profile,
 and write back the result to the input string.
 
-The input is not required to be zero terminated (@code{ucs4}[@code{len}] = 0).
-The output will not be zero terminated unless @code{ucs4}[@code{len}] = 0.
-Instead, see @code{stringprep_4zi()} if your input is zero terminated or
+The input is not required to be zero terminated ( @code{ucs4} [ @code{len} ] = 0).
+The output will not be zero terminated unless  @code{ucs4} [ @code{len} ] = 0.
+Instead, see @code{stringprep_4zi()}  if your input is zero terminated or
 if you want the output to be.
 
-Since the stringprep operation can expand the string, @code{maxucs4len}
-indicate how large the buffer holding the string is.  This function
+Since the stringprep operation can expand the string,  @code{maxucs4len} indicate how large the buffer holding the string is.  This function
 will not read or write to code points outside that size.
 
-The @code{flags} are one of @code{Stringprep_profile_flags} values, or 0.
+The  @code{flags} are one of @code{Stringprep_profile_flags}  values, or 0.
 
-The @code{profile} contain the @code{Stringprep_profile} instructions to
+The  @code{profile} contain the @code{Stringprep_profile}  instructions to
 perform.  Your application can define new profiles, possibly
 re-using the generic stringprep tables that always will be part of
 the library, or use one of the currently supported profiles.
 
-@strong{Return value:} Returns @code{STRINGPREP_OK} iff successful, or an
-@code{Stringprep_rc} error code.
+Return value: Returns @code{STRINGPREP_OK}  iff successful, or an
+@code{Stringprep_rc}  error code.
 @end deftypefun
 
 @subheading stringprep_4zi
@@ -42,26 +41,25 @@ the library, or use one of the currently supported profiles.
 
 @var{maxucs4len}: maximum length of input/output array.
 
-@var{flags}: a @code{Stringprep_profile_flags} value, or 0.
+@var{flags}: a @code{Stringprep_profile_flags}  value, or 0.
 
-@var{profile}: pointer to @code{Stringprep_profile} to use.
+@var{profile}: pointer to @code{Stringprep_profile}  to use.
 
 Prepare the input zero terminated UCS-4 string according to the
 stringprep profile, and write back the result to the input string.
 
-Since the stringprep operation can expand the string, @code{maxucs4len}
-indicate how large the buffer holding the string is.  This function
+Since the stringprep operation can expand the string,  @code{maxucs4len} indicate how large the buffer holding the string is.  This function
 will not read or write to code points outside that size.
 
-The @code{flags} are one of @code{Stringprep_profile_flags} values, or 0.
+The  @code{flags} are one of @code{Stringprep_profile_flags}  values, or 0.
 
-The @code{profile} contain the @code{Stringprep_profile} instructions to
+The  @code{profile} contain the @code{Stringprep_profile}  instructions to
 perform.  Your application can define new profiles, possibly
 re-using the generic stringprep tables that always will be part of
 the library, or use one of the currently supported profiles.
 
-@strong{Return value:} Returns @code{STRINGPREP_OK} iff successful, or an
-@code{Stringprep_rc} error code.
+Return value: Returns @code{STRINGPREP_OK}  iff successful, or an
+@code{Stringprep_rc}  error code.
 @end deftypefun
 
 @subheading stringprep
@@ -71,29 +69,28 @@ the library, or use one of the currently supported profiles.
 
 @var{maxlen}: maximum length of input/output array.
 
-@var{flags}: a @code{Stringprep_profile_flags} value, or 0.
+@var{flags}: a @code{Stringprep_profile_flags}  value, or 0.
 
-@var{profile}: pointer to @code{Stringprep_profile} to use.
+@var{profile}: pointer to @code{Stringprep_profile}  to use.
 
 Prepare the input zero terminated UTF-8 string according to the
 stringprep profile, and write back the result to the input string.
 
 Note that you must convert strings entered in the systems locale
 into UTF-8 before using this function, see
-@code{stringprep_locale_to_utf8()}.
+@code{stringprep_locale_to_utf8()} .
 
-Since the stringprep operation can expand the string, @code{maxlen}
-indicate how large the buffer holding the string is.  This function
+Since the stringprep operation can expand the string,  @code{maxlen} indicate how large the buffer holding the string is.  This function
 will not read or write to characters outside that size.
 
-The @code{flags} are one of @code{Stringprep_profile_flags} values, or 0.
+The  @code{flags} are one of @code{Stringprep_profile_flags}  values, or 0.
 
-The @code{profile} contain the @code{Stringprep_profile} instructions to
+The  @code{profile} contain the @code{Stringprep_profile}  instructions to
 perform.  Your application can define new profiles, possibly
 re-using the generic stringprep tables that always will be part of
 the library, or use one of the currently supported profiles.
 
-@strong{Return value:} Returns @code{STRINGPREP_OK} iff successful, or an error code.
+Return value: Returns @code{STRINGPREP_OK}  iff successful, or an error code.
 @end deftypefun
 
 @subheading stringprep_profile
@@ -105,7 +102,7 @@ the library, or use one of the currently supported profiles.
 
 @var{profile}: name of stringprep profile to use.
 
-@var{flags}: a @code{Stringprep_profile_flags} value, or 0.
+@var{flags}: a @code{Stringprep_profile_flags}  value, or 0.
 
 Prepare the input zero terminated UTF-8 string according to the
 stringprep profile, and return the result in a newly allocated
@@ -113,15 +110,15 @@ variable.
 
 Note that you must convert strings entered in the systems locale
 into UTF-8 before using this function, see
-@code{stringprep_locale_to_utf8()}.
+@code{stringprep_locale_to_utf8()} .
 
-The output @code{out} variable must be deallocated by the caller.
+The output  @code{out} variable must be deallocated by the caller.
 
-The @code{flags} are one of @code{Stringprep_profile_flags} values, or 0.
+The  @code{flags} are one of @code{Stringprep_profile_flags}  values, or 0.
 
-The @code{profile} specifies the name of the stringprep profile to use.
+The  @code{profile} specifies the name of the stringprep profile to use.
 It must be one of the internally supported stringprep profiles.
 
-@strong{Return value:} Returns @code{STRINGPREP_OK} iff successful, or an error code.
+Return value: Returns @code{STRINGPREP_OK}  iff successful, or an error code.
 @end deftypefun
 

@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002, 2003, 2004, 2006, 2007, 2008, 2009, 2010, 2011 Simon Josefsson
+# Copyright (C) 2002-2015 Simon Josefsson
 #
 # This file is part of GNU Libidn.
 #
@@ -20,19 +20,21 @@ AM_CFLAGS = $(WERROR_CFLAGS) $(WARN_CFLAGS)
 AM_CPPFLAGS = -I$(top_srcdir)/lib -I../lib -I$(top_srcdir)/gl -I../gl
 AM_LDFLAGS = -no-install
 
-LDADD = libutils.a ../lib/libidn.la
+LDADD = libutils.a ../lib/libidn.la ../gl/libgnu.la
 
 check_LIBRARIES = libutils.a
 libutils_a_SOURCES = utils.h utils.c
 
 ctests = tst_stringprep tst_punycode tst_idna tst_idna2 tst_idna3	\
 	tst_idna4 tst_nfkc tst_pr29 tst_strerror tst_toutf8		\
-	tst_symbols
+	tst_symbols tst_badutf8
 if TLD
 ctests += tst_tld
 endif
 
+EXTRA_DIST = libidn.supp
+
 TESTS = $(ctests)
 check_PROGRAMS = $(ctests)
 
-TESTS_ENVIRONMENT = $(VALGRIND)
+LOG_COMPILER = $(VALGRIND)

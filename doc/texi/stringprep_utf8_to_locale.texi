@@ -4,9 +4,9 @@
 @var{str}: input zero terminated string.
 
 Convert string encoded in UTF-8 into the locale's character set by
-using @code{stringprep_convert()}.
+using @code{stringprep_convert()} .
 
-@strong{Return value:} Returns newly allocated zero-terminated string which
-is @code{str} transcoded into the locale's character set.
+Return value: Returns newly allocated zero-terminated string which
+is  @code{str} transcoded into the locale's character set.
 @end deftypefun
 

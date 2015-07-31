@@ -1,4 +1,4 @@
-# Copyright (C) 2006-2011 Simon Josefsson
+# Copyright (C) 2006-2015 Simon Josefsson
 #
 # This file is part of GNU Libidn.
 #
@@ -29,14 +29,15 @@ local-checks-to-skip = sc_prohibit_strcmp sc_prohibit_have_config_h	\
 	sc_prohibit_HAVE_MBRTOWC sc_program_name sc_trailing_blank	\
 	sc_GPL_version sc_immutable_NEWS
 VC_LIST_ALWAYS_EXCLUDE_REGEX = \
-	^(maint.mk|gtk-doc.make|m4/pkg.m4|doc/specifications|contrib/doxygen/Doxyfile|doc/fdl-1.3.texi|csharp/libidn.*suo|(lib/)?(gl|gltests|build-aux)/)
-update-copyright-env = UPDATE_COPYRIGHT_HOLDER="Simon Josefsson"
+	^(GNUmakefile|maint.mk|gtk-doc.make|m4/pkg.m4|doc/specifications|contrib/doxygen/Doxyfile|doc/fdl-1.3.texi|csharp/libidn.*suo|(lib/)?(gl|gltests|build-aux)/)
+update-copyright-env = UPDATE_COPYRIGHT_HOLDER="Simon Josefsson" UPDATE_COPYRIGHT_USE_INTERVALS=1
 
 # Explicit syntax-check exceptions.
 exclude_file_name_regexp--sc_bindtextdomain = ^examples/|libc/|tests/
 exclude_file_name_regexp--sc_prohibit_atoi_atof = ^examples/example2.c$$
 exclude_file_name_regexp--sc_copyright_check = ^doc/libidn.texi
 exclude_file_name_regexp--sc_useless_cpp_parens = ^lib/nfkc.c$$
+exclude_file_name_regexp--sc_prohibit_strncpy = ^src/idn.c$$
 
 doc/Makefile.gdoc:
 	printf "gdoc_MANS =\ngdoc_TEXINFOS =\n" > doc/Makefile.gdoc
@@ -45,6 +46,7 @@ autoreconf: doc/Makefile.gdoc
 	for f in po/*.po.in; do \
 		cp $$f `echo $$f | sed 's/.in//'`; \
 	done
+	touch ChangeLog
 	mv build-aux/config.rpath build-aux/config.rpath-
 	test -f ./configure || autoreconf --install
 	mv build-aux/config.rpath- build-aux/config.rpath
@@ -110,9 +112,8 @@ cyclo-upload:
 	cd $(htmldir) && cvs commit -m "Update." cyclo/index.html
 
 gendoc-copy:
-	cd doc && env MAKEINFO="makeinfo -I ../examples" \
-		      TEXI2DVI="texi2dvi -I ../examples" \
-		$(SHELL) ../build-aux/gendocs.sh \
+	cd doc && $(SHELL) ../build-aux/gendocs.sh -I ../examples -I . \
+		--email $(PACKAGE_BUGREPORT) \
 		--html "--css-include=texinfo.css" \
 		-o ../$(htmldir)/manual/ $(PACKAGE) "$(PACKAGE_NAME)"
 
@@ -120,7 +121,8 @@ gendoc-upload:
 	cd $(htmldir) && \
 		cvs add manual || true && \
 		cvs add manual/html_node || true && \
-		cvs add -kb manual/*.gz manual/*.pdf || true && \
+		cvs add -kb manual/*.gz manual/*.pdf \
+			manual/html_node/*.png || true && \
 		cvs add manual/*.txt manual/*.html \
 			manual/html_node/*.html || true && \
 		cvs commit -m "Update." manual/
@@ -130,7 +132,7 @@ gtkdoc-copy:
 	cp -v doc/reference/$(PACKAGE).pdf \
 		doc/reference/html/*.html \
 		doc/reference/html/*.png \
-		doc/reference/html/*.devhelp \
+		doc/reference/html/*.devhelp2 \
 		doc/reference/html/*.css \
 		$(htmldir)/reference/
 
@@ -139,7 +141,7 @@ gtkdoc-upload:
 		cvs add reference || true && \
 		cvs add -kb reference/*.png reference/*.pdf || true && \
 		cvs add reference/*.html reference/*.css \
-			reference/*.devhelp || true && \
+			reference/*.devhelp2 || true && \
 		cvs commit -m "Update." reference/
 
 javadoc-copy:
@@ -154,6 +156,9 @@ doxygen-copy:
 
 doxygen-upload:
 	cd $(htmldir) && \
+		cvs add doxygen || true && \
+		cvs add -kb doxygen/*.png || true && \
+		cvs add doxygen/*.js doxygen/*.html || true && \
 		cvs commit -m "Update." doxygen/
 
 ChangeLog:
@@ -168,23 +173,22 @@ tarball:
 	$(MAKE) ChangeLog distcheck
 
 binaries:
-	cd win32 && make -f libidn4win.mk libidn4win VERSION=$(VERSION)
+	cd windows && make -f libidn4win.mk libidn4win VERSION=$(VERSION)
 
 binaries-upload:
-	cd win32 && make -f libidn4win.mk upload VERSION=$(VERSION)
+	cd windows && make -f libidn4win.mk upload VERSION=$(VERSION)
 
 source:
-	git commit -m Generated. ChangeLog
-	git tag -u b565716f! -m $(VERSION) $(tag)
+	git tag -u 54265e8c -m $(VERSION) $(tag)
 
 release-check: syntax-check i18n tarball binaries gendoc-copy gtkdoc-copy coverage-my coverage-copy clang clang-copy cyclo-copy javadoc-copy doxygen-copy
 
-release-upload-www: gendoc-upload gtkdoc-upload coverage-upload clang-upload cyclo-copy javadoc-copy doxygen-upload
+release-upload-www: gendoc-upload gtkdoc-upload coverage-upload clang-upload cyclo-upload javadoc-upload doxygen-upload
 
 release-upload-ftp:
-	git push
-	git push --tags
 	build-aux/gnupload --to ftp.gnu.org:$(PACKAGE) $(distdir).tar.gz
 	cp $(distdir).tar.gz $(distdir).tar.gz.sig ../releases/$(PACKAGE)/
+	git push
+	git push --tags
 
 release: release-check release-upload-www source release-upload-ftp binaries-upload

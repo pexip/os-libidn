@@ -1,7 +1,7 @@
 @subheading stringprep_strerror
 @anchor{stringprep_strerror}
 @deftypefun {const char *} {stringprep_strerror} (Stringprep_rc @var{rc})
-@var{rc}: a @code{Stringprep_rc} return code.
+@var{rc}: a @code{Stringprep_rc}  return code.
 
 Convert a return code integer to a text string.  This string can be
 used to output a diagnostic message to the user.
@@ -38,13 +38,15 @@ This usually indicate a problem in the calling application.
 @strong{STRINGPREP_UNKNOWN_PROFILE:} The supplied profile name was not
 known to the library.
 
+@strong{STRINGPREP_ICONV_ERROR:} Could not convert string in locale encoding.
+
 @strong{STRINGPREP_NFKC_FAILED:} The Unicode NFKC operation failed.  This
 usually indicate an internal error in the library.
 
-@strong{STRINGPREP_MALLOC_ERROR:} The @code{malloc()} was out of memory.  This is
+@strong{STRINGPREP_MALLOC_ERROR:} The @code{malloc()}  was out of memory.  This is
 usually a fatal error.
 
-@strong{Return value:} Returns a pointer to a statically allocated string
-containing a description of the error with the return code @code{rc}.
+Return value: Returns a pointer to a statically allocated string
+containing a description of the error with the return code  @code{rc} .
 @end deftypefun
 

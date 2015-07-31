@@ -1,24 +1,31 @@
 /* stringprep.h --- Header file for stringprep functions.
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
- * 2011 Simon Josefsson
- *
- * This file is part of GNU Libidn.
- *
- * GNU Libidn is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * GNU Libidn is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with GNU Libidn; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA
- *
- */
+   Copyright (C) 2002-2015 Simon Josefsson
+
+   This file is part of GNU Libidn.
+
+   GNU Libidn is free software: you can redistribute it and/or
+   modify it under the terms of either:
+
+     * the GNU Lesser General Public License as published by the Free
+       Software Foundation; either version 3 of the License, or (at
+       your option) any later version.
+
+   or
+
+     * the GNU General Public License as published by the Free
+       Software Foundation; either version 2 of the License, or (at
+       your option) any later version.
+
+   or both in parallel, as here.
+
+   GNU Libidn is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   General Public License for more details.
+
+   You should have received copies of the GNU General Public License and
+   the GNU Lesser General Public License along with this program.  If
+   not, see <http://www.gnu.org/licenses/>. */
 
 #ifndef STRINGPREP_H
 # define STRINGPREP_H
@@ -44,7 +51,7 @@ extern "C"
 {
 # endif
 
-# define STRINGPREP_VERSION "1.23"
+# define STRINGPREP_VERSION "1.31"
 
 /* Error codes. */
   typedef enum
@@ -61,6 +68,7 @@ extern "C"
     STRINGPREP_PROFILE_ERROR = 101,
     STRINGPREP_FLAG_ERROR = 102,
     STRINGPREP_UNKNOWN_PROFILE = 103,
+    STRINGPREP_ICONV_ERROR = 104,
     /* Internal errors. */
     STRINGPREP_NFKC_FAILED = 200,
     STRINGPREP_MALLOC_ERROR = 201
@@ -217,7 +225,7 @@ extern "C"
 
   extern IDNAPI char *stringprep_utf8_nfkc_normalize (const char *str,
 						      ssize_t len);
-  extern IDNAPI uint32_t *stringprep_ucs4_nfkc_normalize (uint32_t * str,
+  extern IDNAPI uint32_t *stringprep_ucs4_nfkc_normalize (const uint32_t * str,
 							  ssize_t len);
 
   extern IDNAPI const char *stringprep_locale_charset (void);

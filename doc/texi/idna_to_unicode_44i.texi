@@ -10,8 +10,8 @@
 @var{outlen}: on input, maximum size of output array with unicode code points,
 on exit, actual size of output array with unicode code points.
 
-@var{flags}: an @code{Idna_flags} value, e.g., @code{IDNA_ALLOW_UNASSIGNED} or
-@code{IDNA_USE_STD3_ASCII_RULES}.
+@var{flags}: an @code{Idna_flags}  value, e.g., @code{IDNA_ALLOW_UNASSIGNED}  or
+@code{IDNA_USE_STD3_ASCII_RULES} .
 
 The ToUnicode operation takes a sequence of Unicode code points
 that make up one domain label and returns a sequence of Unicode
@@ -31,7 +31,7 @@ The inputs to ToUnicode are a sequence of code points, the
 AllowUnassigned flag, and the UseSTD3ASCIIRules flag. The output of
 ToUnicode is always a sequence of Unicode code points.
 
-@strong{Return value:} Returns @code{Idna_rc} error condition, but it must only be
+Return value: Returns @code{Idna_rc}  error condition, but it must only be
 used for debugging purposes.  The output buffer is always
 guaranteed to contain the correct data according to the
 specification (sans malloc induced errors).  NB!  This means that

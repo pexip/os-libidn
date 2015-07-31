@@ -1,6 +1,5 @@
 /* tst_pr29.c --- Self tests for pr29_*().
- * Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Simon
- * Josefsson
+ * Copyright (C) 2004-2015 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -53,7 +52,7 @@ static const struct tv tv[] = {
    PR29_PROBLEM},
   {
    "Instability Example",
-   3,
+   4,
    {0x1100, 0x0300, 0x1161, 0x0323, 0},
    PR29_PROBLEM},
   {
@@ -80,7 +79,13 @@ static const struct tv tv[] = {
    "Not a problem sequence 5",
    3,
    {0x1100, 0x00AA, 0x1161, 0},
-   PR29_SUCCESS}
+   PR29_SUCCESS},
+  {
+    /* http://lists.gnu.org/archive/html/help-libidn/2012-01/msg00008.html */
+    "Infloop",
+    3,
+    {0x1100, 0x0300, 0x4711, 0},
+    PR29_SUCCESS}
 };
 
 void
@@ -92,12 +97,24 @@ doit (void)
   for (i = 0; i < sizeof (tv) / sizeof (tv[0]); i++)
     {
       if (debug)
-	printf ("PR29 entry %ld: %s\n", i, tv[i].name);
-
-      if (debug)
 	{
+	  uint32_t *p, *q;
+
+	  printf ("PR29 entry %ld: %s\n", i, tv[i].name);
+
 	  printf ("in:\n");
 	  ucs4print (tv[i].in, tv[i].inlen);
+
+	  printf ("nfkc:\n");
+	  p = stringprep_ucs4_nfkc_normalize (tv[i].in, tv[i].inlen);
+	  ucs4print (p, -1);
+
+	  printf ("second nfkc:\n");
+	  q = stringprep_ucs4_nfkc_normalize (p, -1);
+	  ucs4print (q, -1);
+
+	  free (p);
+	  free (q);
 	}
 
       rc = pr29_4 (tv[i].in, tv[i].inlen);
@@ -142,6 +159,11 @@ doit (void)
       }
 
       if (debug)
-	printf ("OK\n");
+	{
+	  if (tv[i].rc != PR29_SUCCESS)
+	    printf ("EXPECTED FAIL\n");
+	  else
+	    printf ("OK\n");
+	}
     }
 }

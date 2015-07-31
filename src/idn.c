@@ -1,6 +1,5 @@
 /* idn.c --- Command line interface to libidn.
- * Copyright (C) 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011
- * Simon Josefsson
+ * Copyright (C) 2003-2015 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -49,11 +48,9 @@
 #include "idn_cmd.h"
 
 #define GREETING \
-  "Copyright 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009 Simon Josefsson.\n" \
-  "GNU Libidn comes with NO WARRANTY, to the extent permitted by law.\n" \
-  "You may redistribute copies of GNU Libidn under the terms of\n"	\
-  "the GNU Lesser General Public License.  For more information\n"	\
-  "about these matters, see the file named COPYING.LIB.\n"
+  "Copyright 2002-2015 Simon Josefsson.\n"				 \
+  "GNU Libidn is free software with ABSOLUTELY NO WARRANTY.  For more\n" \
+  "information about these matters, see <http://www.gnu.org/licenses/>.\n"
 
 const char version_etc_copyright[] =
   /* Do *not* mark this string for translation.  %s is a copyright
@@ -502,7 +499,7 @@ main (int argc, char *argv[])
 
 	  p = stringprep_utf8_to_locale (r);
 	  free (r);
-	  if (!r)
+	  if (!p)
 	    error (EXIT_FAILURE, 0, _("could not convert from UTF-8 to %s"),
 		   stringprep_locale_charset ());
 
@@ -571,6 +568,8 @@ main (int argc, char *argv[])
 
 	  free (p);
 	}
+
+      fflush (stdout);
     }
   while (!feof (stdin) && !ferror (stdin) && (args_info.inputs_num == 0 ||
 					      cmdn < args_info.inputs_num));

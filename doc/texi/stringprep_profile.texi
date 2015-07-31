@@ -7,7 +7,7 @@
 
 @var{profile}: name of stringprep profile to use.
 
-@var{flags}: a @code{Stringprep_profile_flags} value, or 0.
+@var{flags}: a @code{Stringprep_profile_flags}  value, or 0.
 
 Prepare the input zero terminated UTF-8 string according to the
 stringprep profile, and return the result in a newly allocated
@@ -15,15 +15,15 @@ variable.
 
 Note that you must convert strings entered in the systems locale
 into UTF-8 before using this function, see
-@code{stringprep_locale_to_utf8()}.
+@code{stringprep_locale_to_utf8()} .
 
-The output @code{out} variable must be deallocated by the caller.
+The output  @code{out} variable must be deallocated by the caller.
 
-The @code{flags} are one of @code{Stringprep_profile_flags} values, or 0.
+The  @code{flags} are one of @code{Stringprep_profile_flags}  values, or 0.
 
-The @code{profile} specifies the name of the stringprep profile to use.
+The  @code{profile} specifies the name of the stringprep profile to use.
 It must be one of the internally supported stringprep profiles.
 
-@strong{Return value:} Returns @code{STRINGPREP_OK} iff successful, or an error code.
+Return value: Returns @code{STRINGPREP_OK}  iff successful, or an error code.
 @end deftypefun
 
