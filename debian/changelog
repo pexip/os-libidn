@@ -1,6 +1,9 @@
 libidn (1.31-1pexip1) pexip; urgency=low
 
   * New upstream release
+  * Backport for Pexip
+    - debian/control: Build-Depend on autopoint
+    - debian/patches/relax-gettext.patch: Permit build against gettext 0.18.1
 
  -- John-Mark Bell <jmb@pexip.com>  Fri, 31 Jul 2015 01:32:43 +0100
 
