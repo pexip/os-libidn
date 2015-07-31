@@ -20,7 +20,7 @@ non-zero values, for logical comparison purposes.
 
 @strong{TLD_NO_TLD:} No top-level domain found in domain string.
 
-@strong{Return value:} Returns a pointer to a statically allocated string
-containing a description of the error with the return code @code{rc}.
+Return value: Returns a pointer to a statically allocated string
+containing a description of the error with the return code  @code{rc} .
 @end deftypefun
 

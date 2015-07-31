@@ -1,2 +1,2 @@
 version=3
-ftp://ftp.gnu.org/pub/gnu/libidn/libidn-(.*)\.tar\.gz
+opts=pgpsigurlmangle=s/$/.sig/ ftp://ftp.gnu.org/pub/gnu/libidn/libidn-(.*)\.tar\.gz

@@ -3,7 +3,7 @@
 @deftypefun {char *} {stringprep_utf8_nfkc_normalize} (const char * @var{str}, ssize_t @var{len})
 @var{str}: a UTF-8 encoded string.
 
-@var{len}: length of @code{str}, in bytes, or -1 if @code{str} is nul-terminated.
+@var{len}: length of  @code{str} , in bytes, or -1 if  @code{str} is nul-terminated.
 
 Converts a string into canonical form, standardizing
 such issues as whether a character with an accent
@@ -19,7 +19,7 @@ information may be lost but for most text operations such
 characters should be considered the same. It returns a result with
 composed forms rather than a maximally decomposed form.
 
-@strong{Return value:} a newly allocated string, that is the
-NFKC normalized form of @code{str}.
+Return value: a newly allocated string, that is the
+NFKC normalized form of  @code{str} .
 @end deftypefun
 

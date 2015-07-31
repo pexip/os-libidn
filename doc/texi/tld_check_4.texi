@@ -8,20 +8,20 @@ zero terminated.
 
 @var{errpos}: Position of offending character is returned here.
 
-@var{overrides}: A @code{Tld_table} array of additional domain restriction
+@var{overrides}: A @code{Tld_table}  array of additional domain restriction
 structures that complement and supersede the built-in information.
 
-Test each of the code points in @code{in} for whether or not they are
-allowed by the information in @code{overrides} or by the built-in TLD
+Test each of the code points in  @code{in} for whether or not they are
+allowed by the information in  @code{overrides} or by the built-in TLD
 restriction data. When data for the same TLD is available both
-internally and in @code{overrides}, the information in @code{overrides} takes
+internally and in  @code{overrides} , the information in  @code{overrides} takes
 precedence. If several entries for a specific TLD are found, the
-first one is used.  If @code{overrides} is @code{NULL}, only the built-in
+first one is used.  If  @code{overrides} is @code{NULL} , only the built-in
 information is used.  The position of the first offending character
-is returned in @code{errpos}.
+is returned in  @code{errpos} .
 
-@strong{Return value:} Returns the @code{Tld_rc} value @code{TLD_SUCCESS} if all code
-points are valid or when @code{tld} is null, @code{TLD_INVALID} if a
+Return value: Returns the @code{Tld_rc}  value @code{TLD_SUCCESS}  if all code
+points are valid or when  @code{tld} is null, @code{TLD_INVALID}  if a
 character is not allowed, or additional error codes on general
 failure conditions.
 @end deftypefun

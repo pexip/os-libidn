@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libidn 0.5.16\n"
 "Report-Msgid-Bugs-To: bug-libidn@gnu.org\n"
-"POT-Creation-Date: 2011-11-25 11:38+0100\n"
+"POT-Creation-Date: 2015-07-08 23:04+0200\n"
 "PO-Revision-Date: 2006-03-21 11:20+0900\n"
 "Last-Translator: GOTO Masanori <gotom@debian.or.jp>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
@@ -16,141 +16,150 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-JP\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/strerror-idna.c:75 lib/strerror-pr29.c:59 lib/strerror-punycode.c:59
-#: lib/strerror-stringprep.c:79 lib/strerror-tld.c:61
+#: lib/strerror-idna.c:82 lib/strerror-pr29.c:66 lib/strerror-punycode.c:66
+#: lib/strerror-stringprep.c:87 lib/strerror-tld.c:68
 msgid "Success"
 msgstr "成功"
 
-#: lib/strerror-idna.c:79 lib/strerror-pr29.c:67
+#: lib/strerror-idna.c:86 lib/strerror-pr29.c:74
 msgid "String preparation failed"
 msgstr "文字列準備中で失敗"
 
-#: lib/strerror-idna.c:83
+#: lib/strerror-idna.c:90
 msgid "Punycode failed"
 msgstr "Punycode操作中で失敗"
 
-#: lib/strerror-idna.c:87
+#: lib/strerror-idna.c:94
 msgid "Non-digit/letter/hyphen in input"
 msgstr "入力中に数値/文字/ハイフン以外が存在"
 
-#: lib/strerror-idna.c:91
+#: lib/strerror-idna.c:98
 msgid "Forbidden leading or trailing minus sign (`-')"
 msgstr "先頭または末尾にあるマイナス記号(`-')は許されていません"
 
-#: lib/strerror-idna.c:95
+#: lib/strerror-idna.c:102
 msgid "Output would be too large or too small"
 msgstr "出力は大きすぎるか小さすぎる"
 
-#: lib/strerror-idna.c:99
+#: lib/strerror-idna.c:106
 msgid "Input does not start with ACE prefix (`xn--')"
 msgstr "入力はACE接頭辞(`xn--')で始まっていません"
 
-#: lib/strerror-idna.c:103
+#: lib/strerror-idna.c:110
 msgid "String not idempotent under ToASCII"
 msgstr "ToASCII操作による出力文字列は等しくありません"
 
-#: lib/strerror-idna.c:107
+#: lib/strerror-idna.c:114
 msgid "Input already contain ACE prefix (`xn--')"
 msgstr "入力は既にACE接頭辞(`xn--')を含んでいます"
 
-#: lib/strerror-idna.c:111 lib/strerror-tld.c:77
-msgid "System iconv failed"
-msgstr "システム関数iconvで失敗"
+#: lib/strerror-idna.c:118
+msgid "Could not convert string in locale encoding"
+msgstr ""
 
-#: lib/strerror-idna.c:115 lib/strerror-stringprep.c:123 lib/strerror-tld.c:73
+#: lib/strerror-idna.c:122 lib/strerror-stringprep.c:134 lib/strerror-tld.c:80
 msgid "Cannot allocate memory"
 msgstr "メモリ確保に失敗"
 
-#: lib/strerror-idna.c:119
+#: lib/strerror-idna.c:126
 msgid "System dlopen failed"
 msgstr "システム関数dlopenで失敗"
 
-#: lib/strerror-idna.c:123 lib/strerror-pr29.c:71 lib/strerror-punycode.c:75
-#: lib/strerror-stringprep.c:127 lib/strerror-tld.c:85
+#: lib/strerror-idna.c:130 lib/strerror-pr29.c:78 lib/strerror-punycode.c:82
+#: lib/strerror-stringprep.c:138 lib/strerror-tld.c:92
 msgid "Unknown error"
 msgstr "未知のエラー"
 
-#: lib/strerror-pr29.c:63
+#: lib/strerror-pr29.c:70
 msgid "String not idempotent under Unicode NFKC normalization"
 msgstr "UnicodeのNFKC正規化による出力文字列は等しくありません"
 
-#: lib/strerror-punycode.c:63
+#: lib/strerror-punycode.c:70
 msgid "Invalid input"
 msgstr "不正な入力"
 
-#: lib/strerror-punycode.c:67 lib/strerror-stringprep.c:103
+#: lib/strerror-punycode.c:74 lib/strerror-stringprep.c:111
 msgid "Output would exceed the buffer space provided"
 msgstr "出力は与えられたバッファ空間に収まりません"
 
-#: lib/strerror-punycode.c:71
+#: lib/strerror-punycode.c:78
 msgid "String size limit exceeded"
 msgstr "文字列長の限界を越えました"
 
-#: lib/strerror-stringprep.c:83
+#: lib/strerror-stringprep.c:91
 msgid "Forbidden unassigned code points in input"
 msgstr "許されていない未割当てのコードポイントが入力にあります"
 
-#: lib/strerror-stringprep.c:87
+#: lib/strerror-stringprep.c:95
 msgid "Prohibited code points in input"
 msgstr "禁止コードポイントが入力にあります"
 
-#: lib/strerror-stringprep.c:91
+#: lib/strerror-stringprep.c:99
 msgid "Conflicting bidirectional properties in input"
 msgstr "双方向(bidirectional)性が入力中で衝突しています"
 
-#: lib/strerror-stringprep.c:95
+#: lib/strerror-stringprep.c:103
 msgid "Malformed bidirectional string"
 msgstr "不正な双方向(bidirectional)文字列"
 
-#: lib/strerror-stringprep.c:99
+#: lib/strerror-stringprep.c:107
 msgid "Prohibited bidirectional code points in input"
 msgstr "禁止双方向(bidirectional)コードポイントが入力にあります"
 
-#: lib/strerror-stringprep.c:107
+#: lib/strerror-stringprep.c:115
 msgid "Error in stringprep profile definition"
 msgstr "stringprepプロファイル定義でエラー"
 
-#: lib/strerror-stringprep.c:111
+#: lib/strerror-stringprep.c:119
 msgid "Flag conflict with profile"
 msgstr "フラグがプロファイルと衝突しています"
 
-#: lib/strerror-stringprep.c:115
+#: lib/strerror-stringprep.c:123
 msgid "Unknown profile"
 msgstr "未知のプロファイル"
 
-#: lib/strerror-stringprep.c:119
+#: lib/strerror-stringprep.c:126
+#, fuzzy
+msgid "Could not convert string in locale encoding."
+msgstr "%sからUTF-8に変換できませんでした."
+
+#: lib/strerror-stringprep.c:130
 msgid "Unicode normalization failed (internal error)"
 msgstr "Unicode正規化に失敗(内部エラー)"
 
-#: lib/strerror-tld.c:65
+#: lib/strerror-tld.c:72
 msgid "Code points prohibited by top-level domain"
 msgstr "トップレベルドメインによって禁止されたコードポイント"
 
-#: lib/strerror-tld.c:69
+#: lib/strerror-tld.c:76
 msgid "Missing input"
 msgstr "入力がありません"
 
-#: lib/strerror-tld.c:81
+#: lib/strerror-tld.c:84
+msgid "System iconv failed"
+msgstr "システム関数iconvで失敗"
+
+#: lib/strerror-tld.c:88
 msgid "No top-level domain found in input"
 msgstr "トップレベルドメインが入力中に発見できません"
 
-#: src/idn.c:68
+#: src/idn.c:65
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr ""
 
-#: src/idn.c:72
+#: src/idn.c:69
 #, c-format
 msgid "Usage: %s [OPTION]... [STRINGS]...\n"
 msgstr ""
 
-#: src/idn.c:75
+#: src/idn.c:72
 msgid ""
 "Internationalized Domain Name (IDN) convert STRINGS, or standard input.\n"
 "\n"
 msgstr ""
 
-#: src/idn.c:79
+#: src/idn.c:76
 msgid ""
 "Command line interface to the internationalized domain name library.\n"
 "\n"
@@ -164,13 +173,13 @@ msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr ""
 
-#: src/idn.c:91
+#: src/idn.c:88
 msgid ""
 "  -h, --help               Print help and exit\n"
 "  -V, --version            Print version and exit\n"
 msgstr ""
 
-#: src/idn.c:95
+#: src/idn.c:92
 msgid ""
 "  -s, --stringprep         Prepare string according to nameprep profile\n"
 "  -d, --punycode-decode    Decode Punycode\n"
@@ -179,24 +188,24 @@ msgid ""
 "  -u, --idna-to-unicode    Convert from ACE according to IDNA\n"
 msgstr ""
 
-#: src/idn.c:102
+#: src/idn.c:99
 msgid ""
 "      --allow-unassigned   Toggle IDNA AllowUnassigned flag (default off)\n"
 "      --usestd3asciirules  Toggle IDNA UseSTD3ASCIIRules flag (default off)\n"
 msgstr ""
 
-#: src/idn.c:106
+#: src/idn.c:103
 msgid ""
 "      --no-tld             Don't check string for TLD specific rules\n"
 "                             Only for --idna-to-ascii and --idna-to-unicode\n"
 msgstr ""
 
-#: src/idn.c:110
+#: src/idn.c:107
 msgid ""
 "  -n, --nfkc               Normalize string according to Unicode v3.2 NFKC\n"
 msgstr ""
 
-#: src/idn.c:113
+#: src/idn.c:110
 msgid ""
 "  -p, --profile=STRING     Use specified stringprep profile instead\n"
 "                             Valid stringprep profiles: `Nameprep',\n"
@@ -204,100 +213,101 @@ msgid ""
 "                             `trace', `SASLprep'\n"
 msgstr ""
 
-#: src/idn.c:119
+#: src/idn.c:116
 msgid ""
 "      --debug              Print debugging information\n"
 "      --quiet              Silent operation\n"
 msgstr ""
 
-#: src/idn.c:175
+#: src/idn.c:172
 #, fuzzy, c-format
 msgid "only one of -s, -e, -d, -a, -u or -n can be specified"
 msgstr "-s, -e, -d, -a, -uのいずれか1つだけが指定できます."
 
-#: src/idn.c:185
+#: src/idn.c:182
 #, c-format
 msgid "Charset `%s'.\n"
 msgstr "文字セット`%s'.\n"
 
-#: src/idn.c:190
+#: src/idn.c:187
 #, c-format
 msgid ""
 "Type each input string on a line by itself, terminated by a newline "
 "character.\n"
 msgstr "改行文字で終端された入力文字列を1行ずつタイプしてください.\n"
 
-#: src/idn.c:205
+#: src/idn.c:202
 #, fuzzy, c-format
 msgid "input error"
 msgstr "入力エラー"
 
-#: src/idn.c:215 src/idn.c:277 src/idn.c:360 src/idn.c:437 src/idn.c:518
+#: src/idn.c:212 src/idn.c:274 src/idn.c:357 src/idn.c:434 src/idn.c:515
 #, fuzzy, c-format
 msgid "could not convert from %s to UTF-8"
 msgstr "%sからUTF-8に変換できませんでした."
 
-#: src/idn.c:223 src/idn.c:248 src/idn.c:284 src/idn.c:501 src/idn.c:530
-#: src/idn.c:554
+#: src/idn.c:220 src/idn.c:245 src/idn.c:281 src/idn.c:498 src/idn.c:527
+#: src/idn.c:551
 #, fuzzy, c-format
 msgid "could not convert from UTF-8 to UCS-4"
 msgstr "UTF-8からUCS-4に変換できませんでした."
 
-#: src/idn.c:240
+#: src/idn.c:237
 #, c-format
 msgid "stringprep_profile: %s"
 msgstr "stringprep_profile: %s"
 
-#: src/idn.c:263 src/idn.c:305 src/idn.c:348 src/idn.c:506 src/idn.c:567
+#: src/idn.c:260 src/idn.c:302 src/idn.c:345 src/idn.c:503 src/idn.c:564
 #, fuzzy, c-format
 msgid "could not convert from UTF-8 to %s"
 msgstr "UTF-8から%sに変換できませんでした."
 
-#: src/idn.c:298
+#: src/idn.c:295
 #, c-format
 msgid "punycode_encode: %s"
 msgstr "punycode_encode: %s"
 
-#: src/idn.c:320
+#: src/idn.c:317
+#, c-format
 msgid "malloc"
 msgstr "malloc"
 
-#: src/idn.c:326
+#: src/idn.c:323
 #, c-format
 msgid "punycode_decode: %s"
 msgstr "punycode_decode: %s"
 
-#: src/idn.c:343 src/idn.c:367 src/idn.c:445
+#: src/idn.c:340 src/idn.c:364 src/idn.c:442
 #, fuzzy, c-format
 msgid "could not convert from UCS-4 to UTF-8"
 msgstr "UCS-4からUTF-8に変換できませんでした."
 
-#: src/idn.c:384
+#: src/idn.c:381
 #, c-format
 msgid "idna_to_ascii_4z: %s"
 msgstr "idna_to_ascii_4z: %s"
 
-#: src/idn.c:398
+#: src/idn.c:395
 #, c-format
 msgid "idna_to_unicode_8z4z (TLD): %s"
 msgstr "idna_to_unicode_8z4z (TLD): %s"
 
-#: src/idn.c:412 src/idn.c:485
+#: src/idn.c:409 src/idn.c:482
 #, fuzzy, c-format
 msgid "tld_check_4z (position %lu): %s"
 msgstr "tld_check_4z (位置 %d): %s"
 
-#: src/idn.c:415 src/idn.c:491
+#: src/idn.c:412 src/idn.c:488
 #, c-format
 msgid "tld_check_4z: %s"
 msgstr "tld_check_4z: %s"
 
-#: src/idn.c:464
+#: src/idn.c:461
 #, c-format
 msgid "idna_to_unicode_8z4z: %s"
 msgstr "idna_to_unicode_8z4z: %s"
 
-#: src/idn.c:543
+#: src/idn.c:540
 #, fuzzy, c-format
 msgid "could not do NFKC normalization"
 msgstr "UnicodeのNFKC正規化による出力文字列は等しくありません"

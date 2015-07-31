@@ -5,12 +5,12 @@
 
 @var{to_codeset}: name of destination character set.
 
-@var{from_codeset}: name of origin character set, as used by @code{str}.
+@var{from_codeset}: name of origin character set, as used by  @code{str} .
 
 Convert the string from one character set to another using the
-system's @code{iconv()} function.
+system's @code{iconv()}  function.
 
-@strong{Return value:} Returns newly allocated zero-terminated string which
-is @code{str} transcoded into to_codeset.
+Return value: Returns newly allocated zero-terminated string which
+is  @code{str} transcoded into to_codeset.
 @end deftypefun
 

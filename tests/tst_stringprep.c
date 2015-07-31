@@ -1,6 +1,5 @@
 /* tst_stringprep.c --- Self tests for stringprep().
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
- * 2011 Simon Josefsson
+ * Copyright (C) 2002-2015 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -101,7 +100,8 @@ const struct stringprep strprep[] = {
    "\xF4\x8F\xBF\xBF", NULL, "Nameprep", 0,
    STRINGPREP_CONTAINS_PROHIBITED},
   {"Surrogate code U+DF42",
-   "\xED\xBD\x82", NULL, "Nameprep", 0, STRINGPREP_CONTAINS_PROHIBITED},
+   "\xED\xBD\x82", NULL, "Nameprep", 0, STRINGPREP_ICONV_ERROR
+   /* was STRINGPREP_CONTAINS_PROHIBITED */},
   {"Non-plain text character U+FFFD",
    "\xEF\xBF\xBD", NULL, "Nameprep", 0, STRINGPREP_CONTAINS_PROHIBITED},
   {"Ideographic description character U+2FF5",
@@ -208,10 +208,15 @@ doit (void)
   size_t i;
 
   if (!stringprep_check_version (STRINGPREP_VERSION))
-    fail ("stringprep_check_version(%s) failed\n", STRINGPREP_VERSION);
+    fail ("stringprep_check_version failed (header %s runtime %s)\n",
+	  STRINGPREP_VERSION, stringprep_check_version (NULL));
 
   if (!stringprep_check_version (NULL))
     fail ("stringprep_check_version(NULL) failed\n");
+
+  if (strcmp (stringprep_check_version (NULL), STRINGPREP_VERSION) != 0)
+    fail ("stringprep_check_version failure (header %s runtime %s)\n",
+	  STRINGPREP_VERSION, stringprep_check_version (NULL));
 
   if (stringprep_check_version ("100.100"))
     fail ("stringprep_check_version(\"100.100\") failed\n");
@@ -230,15 +235,22 @@ doit (void)
 	  hexprint (strprep[i].in, strlen (strprep[i].in));
 	  binprint (strprep[i].in, strlen (strprep[i].in));
 	}
-
       {
 	uint32_t *l;
-	char *x;
+	char *x = NULL;
 	l = stringprep_utf8_to_ucs4 (strprep[i].in, -1, NULL);
-	x = stringprep_ucs4_to_utf8 (l, -1, NULL, NULL);
+	if (l)
+	  x = stringprep_ucs4_to_utf8 (l, -1, NULL, NULL);
 	free (l);
-
-	if (strcmp (strprep[i].in, x) != 0)
+	if (i == 29)
+	  /* Ignoring known bad UTF-8 in entry 29 */
+	  continue;
+	else if (l == NULL)
+	  {
+	    fail ("bad UTF-8 in entry %ld\n", i);
+	    continue;
+	  }
+	else if (strcmp (strprep[i].in, x) != 0)
 	  {
 	    fail ("bad UTF-8 in entry %ld\n", i);
 	    if (debug)
@@ -250,10 +262,12 @@ doit (void)
 		escapeprint (x, strlen (x));
 		hexprint (x, strlen (x));
 	      }
+	    continue;
 	  }
 
 	free (x);
       }
+
       rc = stringprep_profile (strprep[i].in, &p,
 			       strprep[i].profile ?
 			       strprep[i].profile :

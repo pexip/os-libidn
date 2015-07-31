@@ -1,6 +1,5 @@
 /* example.c --- Example code showing how to use stringprep().
- * Copyright (C) 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
- * 2011 Simon Josefsson
+ * Copyright (C) 2002-2015 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -50,9 +49,11 @@ main (void)
 
   printf ("Input string encoded as `%s': ", stringprep_locale_charset ());
   fflush (stdout);
-  fgets (buf, BUFSIZ, stdin);
+  if (!fgets (buf, BUFSIZ, stdin))
+    perror ("fgets");
+  buf[strlen (buf) - 1] = '\0';
 
-  printf ("Before locale2utf8 (length %ld): ", strlen (buf));
+  printf ("Before locale2utf8 (length %ld): ", (long int) strlen (buf));
   for (i = 0; i < strlen (buf); i++)
     printf ("%02x ", buf[i] & 0xFF);
   printf ("\n");
@@ -66,7 +67,7 @@ main (void)
   else
     printf ("Could not convert string to UTF-8, continuing anyway...\n");
 
-  printf ("Before stringprep (length %ld): ", strlen (buf));
+  printf ("Before stringprep (length %ld): ", (long int) strlen (buf));
   for (i = 0; i < strlen (buf); i++)
     printf ("%02x ", buf[i] & 0xFF);
   printf ("\n");
@@ -76,7 +77,7 @@ main (void)
     printf ("Stringprep failed (%d): %s\n", rc, stringprep_strerror (rc));
   else
     {
-      printf ("After stringprep (length %ld): ", strlen (buf));
+      printf ("After stringprep (length %ld): ", (long int) strlen (buf));
       for (i = 0; i < strlen (buf); i++)
 	printf ("%02x ", buf[i] & 0xFF);
       printf ("\n");

@@ -1,24 +1,51 @@
-# stdio_h.m4 serial 40
-dnl Copyright (C) 2007-2011 Free Software Foundation, Inc.
+# stdio_h.m4 serial 46
+dnl Copyright (C) 2007-2015 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
 
 AC_DEFUN([gl_STDIO_H],
 [
+  dnl For __USE_MINGW_ANSI_STDIO
+  AC_REQUIRE([gl_USE_SYSTEM_EXTENSIONS])
+
   AC_REQUIRE([gl_STDIO_H_DEFAULTS])
-  AC_REQUIRE([AC_C_INLINE])
   gl_NEXT_HEADERS([stdio.h])
+
+  dnl Determine whether __USE_MINGW_ANSI_STDIO makes printf and
+  dnl inttypes.h behave like gnu instead of system; we must give our
+  dnl printf wrapper the right attribute to match.
+  AC_CACHE_CHECK([which flavor of printf attribute matches inttypes macros],
+    [gl_cv_func_printf_attribute_flavor],
+    [AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+       #define __STDC_FORMAT_MACROS 1
+       #include <stdio.h>
+       #include <inttypes.h>
+       /* For non-mingw systems, compilation will trivially succeed.
+          For mingw, compilation will succeed for older mingw (system
+          printf, "I64d") and fail for newer mingw (gnu printf, "lld"). */
+       #if ((defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__) && \
+         (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4))
+       extern char PRIdMAX_probe[sizeof PRIdMAX == sizeof "I64d" ? 1 : -1];
+       #endif
+      ]])], [gl_cv_func_printf_attribute_flavor=system],
+      [gl_cv_func_printf_attribute_flavor=gnu])])
+  if test "$gl_cv_func_printf_attribute_flavor" = gnu; then
+    AC_DEFINE([GNULIB_PRINTF_ATTRIBUTE_FLAVOR_GNU], [1],
+      [Define to 1 if printf and friends should be labeled with
+       attribute "__gnu_printf__" instead of "__printf__"])
+  fi
 
   dnl No need to create extra modules for these functions. Everyone who uses
   dnl <stdio.h> likely needs them.
   GNULIB_FSCANF=1
+  gl_MODULE_INDICATOR([fscanf])
   GNULIB_SCANF=1
+  gl_MODULE_INDICATOR([scanf])
   GNULIB_FGETC=1
   GNULIB_GETC=1
   GNULIB_GETCHAR=1
   GNULIB_FGETS=1
-  GNULIB_GETS=1
   GNULIB_FREAD=1
   dnl This ifdef is necessary to avoid an error "missing file lib/stdio-read.c"
   dnl "expected source file, required through AC_LIBSOURCES, not found". It is
@@ -72,10 +99,10 @@ AC_DEFUN([gl_STDIO_H],
 
   dnl Check for declarations of anything we want to poison if the
   dnl corresponding gnulib module is not in use, and which is not
-  dnl guaranteed by C89.
+  dnl guaranteed by both C89 and C11.
   gl_WARN_ON_USE_PREPARE([[#include <stdio.h>
-    ]], [dprintf fpurge fseeko ftello getdelim getline pclose popen renameat
-    snprintf tmpfile vdprintf vsnprintf])
+    ]], [dprintf fpurge fseeko ftello getdelim getline gets pclose popen
+    renameat snprintf tmpfile vdprintf vsnprintf])
 ])
 
 AC_DEFUN([gl_STDIO_MODULE_INDICATOR],
@@ -113,7 +140,6 @@ AC_DEFUN([gl_STDIO_H_DEFAULTS],
   GNULIB_GETCHAR=0;              AC_SUBST([GNULIB_GETCHAR])
   GNULIB_GETDELIM=0;             AC_SUBST([GNULIB_GETDELIM])
   GNULIB_GETLINE=0;              AC_SUBST([GNULIB_GETLINE])
-  GNULIB_GETS=0;                 AC_SUBST([GNULIB_GETS])
   GNULIB_OBSTACK_PRINTF=0;       AC_SUBST([GNULIB_OBSTACK_PRINTF])
   GNULIB_OBSTACK_PRINTF_POSIX=0; AC_SUBST([GNULIB_OBSTACK_PRINTF_POSIX])
   GNULIB_PCLOSE=0;               AC_SUBST([GNULIB_PCLOSE])

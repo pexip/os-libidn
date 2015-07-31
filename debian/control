@@ -4,12 +4,11 @@ Priority: optional
 Maintainer: Pexip AS <packaging@pexip.com>
 XSBC-Pexip-Original-Maintainer: Debian Libidn Team <help-libidn@gnu.org>
 XSBC-Pexip-Original-Uploaders: Anibal Monsalve Salazar <anibal@debian.org>, Simon Josefsson <simon@josefsson.org>
-XS-Dm-Upload-Allowed: yes
-Standards-Version: 3.9.2
-Build-Depends: debhelper (>= 8.1.3), gcj-jdk [!arm !hppa !hurd-i386], fastjar [!arm !hppa !hurd-i386]
-Vcs-Cvs: :pserver:anonymous@cvs.savannah.gnu.org:/sources/libidn
-Vcs-Browser: http://cvs.savannah.gnu.org/viewvc/debian-libidn/?root=libidn
-Homepage: http://www.gnu.org/software/libidn/
+Standards-Version: 3.9.6
+Build-Depends: debhelper (>= 9), gcj-jdk [!arm !hppa !hurd-i386 !mips64el], fastjar [!arm !hppa !hurd-i386 !mips64el], dh-autoreconf, gengetopt
+Homepage: https://www.gnu.org/software/libidn/
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/libidn.git
+Vcs-Git: git://anonscm.debian.org/collab-maint/libidn.git
 XS-Pexip-Upstream: http://ftp.debian.org/debian/ stretch
 
 Package: idn

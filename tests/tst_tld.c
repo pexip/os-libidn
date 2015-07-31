@@ -1,6 +1,5 @@
 /* tst_tld.c --- Self tests for tld_*().
- * Copyright (C) 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Simon
- * Josefsson
+ * Copyright (C) 2004-2015 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -29,6 +28,7 @@
 #include <string.h>
 
 #include <stringprep.h>
+#include <idn-free.h>
 #include <tld.h>
 
 #include "utils.h"
@@ -62,11 +62,27 @@ static const struct tld tld[] = {
    3}
 };
 
+static const Tld_table _tld_fr_override =
+  {
+    "fr",
+    "2.0",
+    0,
+    NULL
+  };
+
+/* Main array */
+const Tld_table * my_tld_tables[] =
+  {
+    &_tld_fr_override,
+    NULL
+  };
+
 void
 doit (void)
 {
   size_t i;
   const Tld_table *tldtable;
+  char *out;
   size_t errpos;
   int rc;
 
@@ -81,6 +97,111 @@ doit (void)
   tldtable = tld_default_table (NULL, NULL);
   if (tldtable != NULL)
     fail ("FAIL: tld_default_table (NULL, NULL) != NULL\n");
+
+  tldtable = tld_default_table (NULL, NULL);
+  if (tldtable != NULL)
+    fail ("FAIL: tld_default_table (NULL, NULL) != NULL\n");
+
+  tldtable = tld_default_table ("fr", NULL);
+  if (tldtable == NULL)
+    fail ("FAIL: tld_default_table (\"fr\", NULL) == NULL\n");
+  else if (tldtable->version == NULL)
+    fail ("FAIL: tld_default_table (\"fr\", NULL)->version == NULL\n");
+  else if (tldtable->name && strcmp (tldtable->version, "1.0") != 0)
+    fail ("FAIL: tld_default_table (\"fr\", NULL)->version = \"%s\""
+	  " != \"1.0\"\n", tldtable->version);
+
+  tldtable = tld_default_table ("fr", my_tld_tables);
+  if (tldtable == NULL)
+    fail ("FAIL: tld_default_table (\"fr\", NULL) == NULL\n");
+  else if (tldtable->version == NULL)
+    fail ("FAIL: tld_default_table (\"fr\", NULL)->version == NULL\n");
+  else if (tldtable->name && strcmp (tldtable->version, "2.0") != 0)
+    fail ("FAIL: tld_default_table (\"fr\", NULL)->version = \"%s\""
+	  " != \"2.0\"\n", tldtable->version);
+
+  rc = tld_get_4 (NULL, 42, &out);
+  if (rc != TLD_NODATA)
+    fail ("FAIL: tld_get_4 (NULL, 42, &out) != TLD_NODATA: %d\n", rc);
+
+  rc = tld_get_4 (tld[0].in, 0, &out);
+  if (rc != TLD_NODATA)
+    fail ("FAIL: tld_get_4 (NULL, 42, &out) != TLD_NODATA: %d\n", rc);
+
+  rc = tld_check_4t (tld[0].in, tld[0].inlen, NULL, NULL);
+  if (rc != TLD_SUCCESS)
+    fail ("FAIL: tld_check_4t (tld=NULL) != TLD_SUCCESS: %d\n", rc);
+
+  rc = tld_check_4z (NULL, NULL, NULL);
+  if (rc != TLD_NODATA)
+    fail ("FAIL: tld_check_4z (NULL) != TLD_NODATA: %d\n", rc);
+
+  rc = tld_check_4z (tld[0].in, NULL, NULL);
+  if (rc != TLD_SUCCESS)
+    fail ("FAIL: tld_check_4z (in) != TLD_SUCCESS: %d\n", rc);
+
+  rc = tld_check_8z (NULL, NULL, NULL);
+  if (rc != TLD_NODATA)
+    fail ("FAIL: tld_check_8z (NULL) != TLD_NODATA: %d\n", rc);
+
+  rc = tld_check_lz (NULL, NULL, NULL);
+  if (rc != TLD_NODATA)
+    fail ("FAIL: tld_check_lz (NULL) != TLD_NODATA: %d\n", rc);
+
+  rc = tld_check_lz ("foo", NULL, NULL);
+  if (rc != TLD_SUCCESS)
+    fail ("FAIL: tld_check_lz (\"foo\") != TLD_SUCCESS: %d\n", rc);
+
+  {
+    uint32_t in[] = { 0x73, 0x6a, 0x64, 0x2e, 0x73, 0x65, 0x00 };
+    const char *p;
+
+    rc = tld_get_4 (in, 6, &out);
+    if (rc != TLD_SUCCESS)
+      fail ("FAIL: tld_get_4 (in, 6, &out) != TLD_OK: %d\n", rc);
+    if (strcmp ("se", out) != 0)
+      fail ("FAIL: tld_get_4 (in, 6, &out): %s\n", out);
+    idn_free (out);
+
+    rc = tld_get_4z (in, &out);
+    if (rc != TLD_SUCCESS)
+      fail ("FAIL: tld_get_4z (in, &out) != TLD_OK: %d\n", rc);
+    if (strcmp ("se", out) != 0)
+      fail ("FAIL: tld_get_4z (in, &out): %s\n", out);
+    idn_free (out);
+
+    p = "sjd.se";
+    rc = tld_get_z (p, &out);
+    if (rc != TLD_SUCCESS)
+      fail ("FAIL: tld_get_z (\"%s\", &out) != TLD_OK: %d\n", p, rc);
+    if (strcmp ("se", out) != 0)
+      fail ("FAIL: tld_get_z (\"%s\", &out): %s\n", p, out);
+    idn_free (out);
+
+    p = "foo.bar.baz.sjd.se";
+    rc = tld_get_z (p, &out);
+    if (rc != TLD_SUCCESS)
+      fail ("FAIL: tld_get_z (\"%s\", &out) != TLD_OK: %d\n", p, rc);
+    if (strcmp ("se", out) != 0)
+      fail ("FAIL: tld_get_z (\"%s\", &out): %s\n", p, out);
+    idn_free (out);
+
+    p = ".sjd.se";
+    rc = tld_get_z (p, &out);
+    if (rc != TLD_SUCCESS)
+      fail ("FAIL: tld_get_z (\"%s\", &out) != TLD_OK: %d\n", p, rc);
+    if (strcmp ("se", out) != 0)
+      fail ("FAIL: tld_get_z (\"%s\", &out): %s\n", p, out);
+    idn_free (out);
+
+    p = ".se";
+    rc = tld_get_z (p, &out);
+    if (rc != TLD_SUCCESS)
+      fail ("FAIL: tld_get_z (\"%s\", &out) != TLD_OK: %d\n", p, rc);
+    if (strcmp ("se", out) != 0)
+      fail ("FAIL: tld_get_z (\"%s\", &out): %s\n", p, out);
+    idn_free (out);
+  }
 
   for (i = 0; i < sizeof (tld) / sizeof (tld[0]); i++)
     {

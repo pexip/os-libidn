@@ -1,7 +1,7 @@
 @subheading idna_strerror
 @anchor{idna_strerror}
 @deftypefun {const char *} {idna_strerror} (Idna_rc @var{rc})
-@var{rc}: an @code{Idna_rc} return code.
+@var{rc}: an @code{Idna_rc}  return code.
 
 Convert a return code integer to a text string.  This string can be
 used to output a diagnostic message to the user.
@@ -40,7 +40,7 @@ fatal error).
 @strong{IDNA_DLOPEN_ERROR:} Could not dlopen the libcidn DSO (only used
 internally in libc).
 
-@strong{Return value:} Returns a pointer to a statically allocated string
-containing a description of the error with the return code @code{rc}.
+Return value: Returns a pointer to a statically allocated string
+containing a description of the error with the return code  @code{rc} .
 @end deftypefun
 
