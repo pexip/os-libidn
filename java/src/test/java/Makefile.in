@@ -14,7 +14,7 @@
 
 @SET_MAKE@
 
-# Copyright (C) 2004-2015 Free Software Foundation, Inc.
+# Copyright (C) 2004-2016 Free Software Foundation, Inc.
 #
 # This file is part of GNU Libidn.
 #
@@ -98,7 +98,8 @@ subdir = java/src/test/java
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(dist_noinst_JAVA)
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/lib/gl/m4/gnulib-comp.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/lib/gl/m4/ctype.m4 \
+	$(top_srcdir)/lib/gl/m4/gnulib-comp.m4 \
 	$(top_srcdir)/lib/gl/m4/iconv_h.m4 \
 	$(top_srcdir)/lib/gl/m4/iconv_open.m4 \
 	$(top_srcdir)/lib/gl/m4/inline.m4 \
@@ -127,8 +128,9 @@ am__aclocal_m4_deps = $(top_srcdir)/lib/gl/m4/gnulib-comp.m4 \
 	$(top_srcdir)/gl/m4/extensions.m4 \
 	$(top_srcdir)/gl/m4/fcntl_h.m4 $(top_srcdir)/gl/m4/fdopen.m4 \
 	$(top_srcdir)/gl/m4/fstat.m4 $(top_srcdir)/gl/m4/getcwd.m4 \
+	$(top_srcdir)/gl/m4/getdelim.m4 \
 	$(top_srcdir)/gl/m4/getdtablesize.m4 \
-	$(top_srcdir)/gl/m4/getopt.m4 \
+	$(top_srcdir)/gl/m4/getline.m4 $(top_srcdir)/gl/m4/getopt.m4 \
 	$(top_srcdir)/gl/m4/gettimeofday.m4 \
 	$(top_srcdir)/gl/m4/gnulib-common.m4 \
 	$(top_srcdir)/gl/m4/gnulib-comp.m4 \
@@ -143,12 +145,12 @@ am__aclocal_m4_deps = $(top_srcdir)/lib/gl/m4/gnulib-comp.m4 \
 	$(top_srcdir)/gl/m4/multiarch.m4 \
 	$(top_srcdir)/gl/m4/nocrash.m4 $(top_srcdir)/gl/m4/off_t.m4 \
 	$(top_srcdir)/gl/m4/open.m4 $(top_srcdir)/gl/m4/pathmax.m4 \
-	$(top_srcdir)/gl/m4/putenv.m4 $(top_srcdir)/gl/m4/setenv.m4 \
-	$(top_srcdir)/gl/m4/ssize_t.m4 $(top_srcdir)/gl/m4/stat.m4 \
-	$(top_srcdir)/gl/m4/stdalign.m4 $(top_srcdir)/gl/m4/stdarg.m4 \
-	$(top_srcdir)/gl/m4/stdbool.m4 $(top_srcdir)/gl/m4/stddef_h.m4 \
-	$(top_srcdir)/gl/m4/stdint.m4 $(top_srcdir)/gl/m4/stdio_h.m4 \
-	$(top_srcdir)/gl/m4/stdlib_h.m4 \
+	$(top_srcdir)/gl/m4/putenv.m4 $(top_srcdir)/gl/m4/realloc.m4 \
+	$(top_srcdir)/gl/m4/setenv.m4 $(top_srcdir)/gl/m4/ssize_t.m4 \
+	$(top_srcdir)/gl/m4/stat.m4 $(top_srcdir)/gl/m4/stdalign.m4 \
+	$(top_srcdir)/gl/m4/stdarg.m4 $(top_srcdir)/gl/m4/stdbool.m4 \
+	$(top_srcdir)/gl/m4/stddef_h.m4 $(top_srcdir)/gl/m4/stdint.m4 \
+	$(top_srcdir)/gl/m4/stdio_h.m4 $(top_srcdir)/gl/m4/stdlib_h.m4 \
 	$(top_srcdir)/gl/m4/strerror.m4 \
 	$(top_srcdir)/gl/m4/string_h.m4 $(top_srcdir)/gl/m4/symlink.m4 \
 	$(top_srcdir)/gl/m4/sys_socket_h.m4 \
@@ -333,6 +335,7 @@ GNULIB_ICONV = @GNULIB_ICONV@
 GNULIB_IMAXABS = @GNULIB_IMAXABS@
 GNULIB_IMAXDIV = @GNULIB_IMAXDIV@
 GNULIB_ISATTY = @GNULIB_ISATTY@
+GNULIB_ISBLANK = @GNULIB_ISBLANK@
 GNULIB_LCHMOD = @GNULIB_LCHMOD@
 GNULIB_LCHOWN = @GNULIB_LCHOWN@
 GNULIB_LINK = @GNULIB_LINK@
@@ -451,6 +454,7 @@ GNULIB_SYMLINKAT = @GNULIB_SYMLINKAT@
 GNULIB_SYSTEM_POSIX = @GNULIB_SYSTEM_POSIX@
 GNULIB_TIMEGM = @GNULIB_TIMEGM@
 GNULIB_TIME_R = @GNULIB_TIME_R@
+GNULIB_TIME_RZ = @GNULIB_TIME_RZ@
 GNULIB_TMPFILE = @GNULIB_TMPFILE@
 GNULIB_TTYNAME_R = @GNULIB_TTYNAME_R@
 GNULIB_UNISTD_H_NONBLOCKING = @GNULIB_UNISTD_H_NONBLOCKING@
@@ -589,6 +593,7 @@ HAVE_GROUP_MEMBER = @HAVE_GROUP_MEMBER@
 HAVE_ILRUN = @HAVE_ILRUN@
 HAVE_ILRUN_IN_PATH = @HAVE_ILRUN_IN_PATH@
 HAVE_INTTYPES_H = @HAVE_INTTYPES_H@
+HAVE_ISBLANK = @HAVE_ISBLANK@
 HAVE_LANGINFO_CODESET = @HAVE_LANGINFO_CODESET@
 HAVE_LANGINFO_ERA = @HAVE_LANGINFO_ERA@
 HAVE_LANGINFO_H = @HAVE_LANGINFO_H@
@@ -676,6 +681,7 @@ HAVE_SYS_PARAM_H = @HAVE_SYS_PARAM_H@
 HAVE_SYS_TIME_H = @HAVE_SYS_TIME_H@
 HAVE_SYS_TYPES_H = @HAVE_SYS_TYPES_H@
 HAVE_TIMEGM = @HAVE_TIMEGM@
+HAVE_TIMEZONE_T = @HAVE_TIMEZONE_T@
 HAVE_UNISTD_H = @HAVE_UNISTD_H@
 HAVE_UNLINKAT = @HAVE_UNLINKAT@
 HAVE_UNLOCKPT = @HAVE_UNLOCKPT@
@@ -777,6 +783,7 @@ MONO_PATH_SEPARATOR = @MONO_PATH_SEPARATOR@
 MSGFMT = @MSGFMT@
 MSGFMT_015 = @MSGFMT_015@
 MSGMERGE = @MSGMERGE@
+NEXT_AS_FIRST_DIRECTIVE_CTYPE_H = @NEXT_AS_FIRST_DIRECTIVE_CTYPE_H@
 NEXT_AS_FIRST_DIRECTIVE_ERRNO_H = @NEXT_AS_FIRST_DIRECTIVE_ERRNO_H@
 NEXT_AS_FIRST_DIRECTIVE_FCNTL_H = @NEXT_AS_FIRST_DIRECTIVE_FCNTL_H@
 NEXT_AS_FIRST_DIRECTIVE_GETOPT_H = @NEXT_AS_FIRST_DIRECTIVE_GETOPT_H@
@@ -796,6 +803,7 @@ NEXT_AS_FIRST_DIRECTIVE_SYS_TYPES_H = @NEXT_AS_FIRST_DIRECTIVE_SYS_TYPES_H@
 NEXT_AS_FIRST_DIRECTIVE_TIME_H = @NEXT_AS_FIRST_DIRECTIVE_TIME_H@
 NEXT_AS_FIRST_DIRECTIVE_UNISTD_H = @NEXT_AS_FIRST_DIRECTIVE_UNISTD_H@
 NEXT_AS_FIRST_DIRECTIVE_WCHAR_H = @NEXT_AS_FIRST_DIRECTIVE_WCHAR_H@
+NEXT_CTYPE_H = @NEXT_CTYPE_H@
 NEXT_ERRNO_H = @NEXT_ERRNO_H@
 NEXT_FCNTL_H = @NEXT_FCNTL_H@
 NEXT_GETOPT_H = @NEXT_GETOPT_H@

@@ -1,5 +1,5 @@
 Libidn THANKS -- Acknowledgements.
-Copyright (C) 2002-2015 Simon Josefsson
+Copyright (C) 2002-2016 Simon Josefsson
 See the end for copying conditions.
 
 The punycode code was taken from the IETF IDN Punycode specification,
@@ -108,6 +108,8 @@ Jeffrey Frey <frey@udel.edu>
 Thijs Alkemade <me@thijsalkema.de>
 Nikos Mavrogiannopoulos <nmav@gnutls.org>
 Gustavo Grieco <gustavo.grieco@imag.fr>
+Adam Sampson <ats@offog.org>
+Hanno Böck <hanno@hboeck.de>
 
 ----------------------------------------------------------------------
 Copying and distribution of this file, with or without modification,

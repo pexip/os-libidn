@@ -14,7 +14,7 @@
 
 @SET_MAKE@
 
-# Copyright (C) 2002-2015 Simon Josefsson
+# Copyright (C) 2002-2016 Simon Josefsson
 #
 # This file is part of GNU Libidn.
 #
@@ -102,7 +102,8 @@ DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/build-aux/depcomp \
 	$(top_srcdir)/build-aux/test-driver
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/lib/gl/m4/gnulib-comp.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/lib/gl/m4/ctype.m4 \
+	$(top_srcdir)/lib/gl/m4/gnulib-comp.m4 \
 	$(top_srcdir)/lib/gl/m4/iconv_h.m4 \
 	$(top_srcdir)/lib/gl/m4/iconv_open.m4 \
 	$(top_srcdir)/lib/gl/m4/inline.m4 \
@@ -131,8 +132,9 @@ am__aclocal_m4_deps = $(top_srcdir)/lib/gl/m4/gnulib-comp.m4 \
 	$(top_srcdir)/gl/m4/extensions.m4 \
 	$(top_srcdir)/gl/m4/fcntl_h.m4 $(top_srcdir)/gl/m4/fdopen.m4 \
 	$(top_srcdir)/gl/m4/fstat.m4 $(top_srcdir)/gl/m4/getcwd.m4 \
+	$(top_srcdir)/gl/m4/getdelim.m4 \
 	$(top_srcdir)/gl/m4/getdtablesize.m4 \
-	$(top_srcdir)/gl/m4/getopt.m4 \
+	$(top_srcdir)/gl/m4/getline.m4 $(top_srcdir)/gl/m4/getopt.m4 \
 	$(top_srcdir)/gl/m4/gettimeofday.m4 \
 	$(top_srcdir)/gl/m4/gnulib-common.m4 \
 	$(top_srcdir)/gl/m4/gnulib-comp.m4 \
@@ -147,12 +149,12 @@ am__aclocal_m4_deps = $(top_srcdir)/lib/gl/m4/gnulib-comp.m4 \
 	$(top_srcdir)/gl/m4/multiarch.m4 \
 	$(top_srcdir)/gl/m4/nocrash.m4 $(top_srcdir)/gl/m4/off_t.m4 \
 	$(top_srcdir)/gl/m4/open.m4 $(top_srcdir)/gl/m4/pathmax.m4 \
-	$(top_srcdir)/gl/m4/putenv.m4 $(top_srcdir)/gl/m4/setenv.m4 \
-	$(top_srcdir)/gl/m4/ssize_t.m4 $(top_srcdir)/gl/m4/stat.m4 \
-	$(top_srcdir)/gl/m4/stdalign.m4 $(top_srcdir)/gl/m4/stdarg.m4 \
-	$(top_srcdir)/gl/m4/stdbool.m4 $(top_srcdir)/gl/m4/stddef_h.m4 \
-	$(top_srcdir)/gl/m4/stdint.m4 $(top_srcdir)/gl/m4/stdio_h.m4 \
-	$(top_srcdir)/gl/m4/stdlib_h.m4 \
+	$(top_srcdir)/gl/m4/putenv.m4 $(top_srcdir)/gl/m4/realloc.m4 \
+	$(top_srcdir)/gl/m4/setenv.m4 $(top_srcdir)/gl/m4/ssize_t.m4 \
+	$(top_srcdir)/gl/m4/stat.m4 $(top_srcdir)/gl/m4/stdalign.m4 \
+	$(top_srcdir)/gl/m4/stdarg.m4 $(top_srcdir)/gl/m4/stdbool.m4 \
+	$(top_srcdir)/gl/m4/stddef_h.m4 $(top_srcdir)/gl/m4/stdint.m4 \
+	$(top_srcdir)/gl/m4/stdio_h.m4 $(top_srcdir)/gl/m4/stdlib_h.m4 \
 	$(top_srcdir)/gl/m4/strerror.m4 \
 	$(top_srcdir)/gl/m4/string_h.m4 $(top_srcdir)/gl/m4/symlink.m4 \
 	$(top_srcdir)/gl/m4/sys_socket_h.m4 \
@@ -199,7 +201,9 @@ am__EXEEXT_2 = tst_stringprep$(EXEEXT) tst_punycode$(EXEEXT) \
 	tst_idna$(EXEEXT) tst_idna2$(EXEEXT) tst_idna3$(EXEEXT) \
 	tst_idna4$(EXEEXT) tst_nfkc$(EXEEXT) tst_pr29$(EXEEXT) \
 	tst_strerror$(EXEEXT) tst_toutf8$(EXEEXT) tst_symbols$(EXEEXT) \
-	tst_badutf8$(EXEEXT) $(am__EXEEXT_1)
+	tst_badutf8$(EXEEXT) tst_utf8crash$(EXEEXT) \
+	tst_toascii64oob$(EXEEXT) tst_badutf8nfkc$(EXEEXT) \
+	$(am__EXEEXT_1)
 tst_badutf8_SOURCES = tst_badutf8.c
 tst_badutf8_OBJECTS = tst_badutf8.$(OBJEXT)
 tst_badutf8_LDADD = $(LDADD)
@@ -208,6 +212,11 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
+tst_badutf8nfkc_SOURCES = tst_badutf8nfkc.c
+tst_badutf8nfkc_OBJECTS = tst_badutf8nfkc.$(OBJEXT)
+tst_badutf8nfkc_LDADD = $(LDADD)
+tst_badutf8nfkc_DEPENDENCIES = libutils.a ../lib/libidn.la \
+	../gl/libgnu.la
 tst_idna_SOURCES = tst_idna.c
 tst_idna_OBJECTS = tst_idna.$(OBJEXT)
 tst_idna_LDADD = $(LDADD)
@@ -255,10 +264,20 @@ tst_tld_SOURCES = tst_tld.c
 tst_tld_OBJECTS = tst_tld.$(OBJEXT)
 tst_tld_LDADD = $(LDADD)
 tst_tld_DEPENDENCIES = libutils.a ../lib/libidn.la ../gl/libgnu.la
+tst_toascii64oob_SOURCES = tst_toascii64oob.c
+tst_toascii64oob_OBJECTS = tst_toascii64oob.$(OBJEXT)
+tst_toascii64oob_LDADD = $(LDADD)
+tst_toascii64oob_DEPENDENCIES = libutils.a ../lib/libidn.la \
+	../gl/libgnu.la
 tst_toutf8_SOURCES = tst_toutf8.c
 tst_toutf8_OBJECTS = tst_toutf8.$(OBJEXT)
 tst_toutf8_LDADD = $(LDADD)
 tst_toutf8_DEPENDENCIES = libutils.a ../lib/libidn.la ../gl/libgnu.la
+tst_utf8crash_SOURCES = tst_utf8crash.c
+tst_utf8crash_OBJECTS = tst_utf8crash.$(OBJEXT)
+tst_utf8crash_LDADD = $(LDADD)
+tst_utf8crash_DEPENDENCIES = libutils.a ../lib/libidn.la \
+	../gl/libgnu.la
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -293,14 +312,16 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libutils_a_SOURCES) tst_badutf8.c tst_idna.c tst_idna2.c \
-	tst_idna3.c tst_idna4.c tst_nfkc.c tst_pr29.c tst_punycode.c \
-	tst_strerror.c tst_stringprep.c tst_symbols.c tst_tld.c \
-	tst_toutf8.c
-DIST_SOURCES = $(libutils_a_SOURCES) tst_badutf8.c tst_idna.c \
-	tst_idna2.c tst_idna3.c tst_idna4.c tst_nfkc.c tst_pr29.c \
-	tst_punycode.c tst_strerror.c tst_stringprep.c tst_symbols.c \
-	tst_tld.c tst_toutf8.c
+SOURCES = $(libutils_a_SOURCES) tst_badutf8.c tst_badutf8nfkc.c \
+	tst_idna.c tst_idna2.c tst_idna3.c tst_idna4.c tst_nfkc.c \
+	tst_pr29.c tst_punycode.c tst_strerror.c tst_stringprep.c \
+	tst_symbols.c tst_tld.c tst_toascii64oob.c tst_toutf8.c \
+	tst_utf8crash.c
+DIST_SOURCES = $(libutils_a_SOURCES) tst_badutf8.c tst_badutf8nfkc.c \
+	tst_idna.c tst_idna2.c tst_idna3.c tst_idna4.c tst_nfkc.c \
+	tst_pr29.c tst_punycode.c tst_strerror.c tst_stringprep.c \
+	tst_symbols.c tst_tld.c tst_toascii64oob.c tst_toutf8.c \
+	tst_utf8crash.c
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -658,6 +679,7 @@ GNULIB_ICONV = @GNULIB_ICONV@
 GNULIB_IMAXABS = @GNULIB_IMAXABS@
 GNULIB_IMAXDIV = @GNULIB_IMAXDIV@
 GNULIB_ISATTY = @GNULIB_ISATTY@
+GNULIB_ISBLANK = @GNULIB_ISBLANK@
 GNULIB_LCHMOD = @GNULIB_LCHMOD@
 GNULIB_LCHOWN = @GNULIB_LCHOWN@
 GNULIB_LINK = @GNULIB_LINK@
@@ -776,6 +798,7 @@ GNULIB_SYMLINKAT = @GNULIB_SYMLINKAT@
 GNULIB_SYSTEM_POSIX = @GNULIB_SYSTEM_POSIX@
 GNULIB_TIMEGM = @GNULIB_TIMEGM@
 GNULIB_TIME_R = @GNULIB_TIME_R@
+GNULIB_TIME_RZ = @GNULIB_TIME_RZ@
 GNULIB_TMPFILE = @GNULIB_TMPFILE@
 GNULIB_TTYNAME_R = @GNULIB_TTYNAME_R@
 GNULIB_UNISTD_H_NONBLOCKING = @GNULIB_UNISTD_H_NONBLOCKING@
@@ -914,6 +937,7 @@ HAVE_GROUP_MEMBER = @HAVE_GROUP_MEMBER@
 HAVE_ILRUN = @HAVE_ILRUN@
 HAVE_ILRUN_IN_PATH = @HAVE_ILRUN_IN_PATH@
 HAVE_INTTYPES_H = @HAVE_INTTYPES_H@
+HAVE_ISBLANK = @HAVE_ISBLANK@
 HAVE_LANGINFO_CODESET = @HAVE_LANGINFO_CODESET@
 HAVE_LANGINFO_ERA = @HAVE_LANGINFO_ERA@
 HAVE_LANGINFO_H = @HAVE_LANGINFO_H@
@@ -1001,6 +1025,7 @@ HAVE_SYS_PARAM_H = @HAVE_SYS_PARAM_H@
 HAVE_SYS_TIME_H = @HAVE_SYS_TIME_H@
 HAVE_SYS_TYPES_H = @HAVE_SYS_TYPES_H@
 HAVE_TIMEGM = @HAVE_TIMEGM@
+HAVE_TIMEZONE_T = @HAVE_TIMEZONE_T@
 HAVE_UNISTD_H = @HAVE_UNISTD_H@
 HAVE_UNLINKAT = @HAVE_UNLINKAT@
 HAVE_UNLOCKPT = @HAVE_UNLOCKPT@
@@ -1102,6 +1127,7 @@ MONO_PATH_SEPARATOR = @MONO_PATH_SEPARATOR@
 MSGFMT = @MSGFMT@
 MSGFMT_015 = @MSGFMT_015@
 MSGMERGE = @MSGMERGE@
+NEXT_AS_FIRST_DIRECTIVE_CTYPE_H = @NEXT_AS_FIRST_DIRECTIVE_CTYPE_H@
 NEXT_AS_FIRST_DIRECTIVE_ERRNO_H = @NEXT_AS_FIRST_DIRECTIVE_ERRNO_H@
 NEXT_AS_FIRST_DIRECTIVE_FCNTL_H = @NEXT_AS_FIRST_DIRECTIVE_FCNTL_H@
 NEXT_AS_FIRST_DIRECTIVE_GETOPT_H = @NEXT_AS_FIRST_DIRECTIVE_GETOPT_H@
@@ -1121,6 +1147,7 @@ NEXT_AS_FIRST_DIRECTIVE_SYS_TYPES_H = @NEXT_AS_FIRST_DIRECTIVE_SYS_TYPES_H@
 NEXT_AS_FIRST_DIRECTIVE_TIME_H = @NEXT_AS_FIRST_DIRECTIVE_TIME_H@
 NEXT_AS_FIRST_DIRECTIVE_UNISTD_H = @NEXT_AS_FIRST_DIRECTIVE_UNISTD_H@
 NEXT_AS_FIRST_DIRECTIVE_WCHAR_H = @NEXT_AS_FIRST_DIRECTIVE_WCHAR_H@
+NEXT_CTYPE_H = @NEXT_CTYPE_H@
 NEXT_ERRNO_H = @NEXT_ERRNO_H@
 NEXT_FCNTL_H = @NEXT_FCNTL_H@
 NEXT_GETOPT_H = @NEXT_GETOPT_H@
@@ -1408,8 +1435,8 @@ check_LIBRARIES = libutils.a
 libutils_a_SOURCES = utils.h utils.c
 ctests = tst_stringprep tst_punycode tst_idna tst_idna2 tst_idna3 \
 	tst_idna4 tst_nfkc tst_pr29 tst_strerror tst_toutf8 \
-	tst_symbols tst_badutf8 $(am__append_1)
-EXTRA_DIST = libidn.supp
+	tst_symbols tst_badutf8 tst_utf8crash tst_toascii64oob \
+	tst_badutf8nfkc $(am__append_1)
 LOG_COMPILER = $(VALGRIND)
 all: all-am
 
@@ -1467,6 +1494,10 @@ tst_badutf8$(EXEEXT): $(tst_badutf8_OBJECTS) $(tst_badutf8_DEPENDENCIES) $(EXTRA
 	@rm -f tst_badutf8$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(tst_badutf8_OBJECTS) $(tst_badutf8_LDADD) $(LIBS)
 
+tst_badutf8nfkc$(EXEEXT): $(tst_badutf8nfkc_OBJECTS) $(tst_badutf8nfkc_DEPENDENCIES) $(EXTRA_tst_badutf8nfkc_DEPENDENCIES) 
+	@rm -f tst_badutf8nfkc$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tst_badutf8nfkc_OBJECTS) $(tst_badutf8nfkc_LDADD) $(LIBS)
+
 tst_idna$(EXEEXT): $(tst_idna_OBJECTS) $(tst_idna_DEPENDENCIES) $(EXTRA_tst_idna_DEPENDENCIES) 
 	@rm -f tst_idna$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(tst_idna_OBJECTS) $(tst_idna_LDADD) $(LIBS)
@@ -1511,9 +1542,17 @@ tst_tld$(EXEEXT): $(tst_tld_OBJECTS) $(tst_tld_DEPENDENCIES) $(EXTRA_tst_tld_DEP
 	@rm -f tst_tld$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(tst_tld_OBJECTS) $(tst_tld_LDADD) $(LIBS)
 
+tst_toascii64oob$(EXEEXT): $(tst_toascii64oob_OBJECTS) $(tst_toascii64oob_DEPENDENCIES) $(EXTRA_tst_toascii64oob_DEPENDENCIES) 
+	@rm -f tst_toascii64oob$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tst_toascii64oob_OBJECTS) $(tst_toascii64oob_LDADD) $(LIBS)
+
 tst_toutf8$(EXEEXT): $(tst_toutf8_OBJECTS) $(tst_toutf8_DEPENDENCIES) $(EXTRA_tst_toutf8_DEPENDENCIES) 
 	@rm -f tst_toutf8$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(tst_toutf8_OBJECTS) $(tst_toutf8_LDADD) $(LIBS)
+
+tst_utf8crash$(EXEEXT): $(tst_utf8crash_OBJECTS) $(tst_utf8crash_DEPENDENCIES) $(EXTRA_tst_utf8crash_DEPENDENCIES) 
+	@rm -f tst_utf8crash$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tst_utf8crash_OBJECTS) $(tst_utf8crash_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -1522,6 +1561,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tst_badutf8.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tst_badutf8nfkc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tst_idna.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tst_idna2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tst_idna3.Po@am__quote@
@@ -1533,7 +1573,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tst_stringprep.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tst_symbols.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tst_tld.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tst_toascii64oob.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tst_toutf8.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tst_utf8crash.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/utils.Po@am__quote@
 
 .c.o:
@@ -1836,6 +1878,27 @@ tst_symbols.log: tst_symbols$(EXEEXT)
 tst_badutf8.log: tst_badutf8$(EXEEXT)
 	@p='tst_badutf8$(EXEEXT)'; \
 	b='tst_badutf8'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tst_utf8crash.log: tst_utf8crash$(EXEEXT)
+	@p='tst_utf8crash$(EXEEXT)'; \
+	b='tst_utf8crash'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tst_toascii64oob.log: tst_toascii64oob$(EXEEXT)
+	@p='tst_toascii64oob$(EXEEXT)'; \
+	b='tst_toascii64oob'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tst_badutf8nfkc.log: tst_badutf8nfkc$(EXEEXT)
+	@p='tst_badutf8nfkc$(EXEEXT)'; \
+	b='tst_badutf8nfkc'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

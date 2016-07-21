@@ -1,1 +1,2 @@
-debian/tmp/usr/share/java/libidn*.jar
+usr/share/java/libidn*.jar
+doc/java/* usr/share/doc/libidn11-java/api/

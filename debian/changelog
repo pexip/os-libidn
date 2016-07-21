@@ -1,3 +1,42 @@
+libidn (1.33-1) unstable; urgency=low
+
+  * New upstream release.
+  * Use https URLs in Vcs-Browser and Vcs-Git.
+  * Update Standards-Version from 3.9.6 to 3.9.8.
+  * Build with hardening=+all.
+  * Drop gengetopt Build-Depends.  Closes: #804047.
+  * Declare Build-Depends on autopoint >= 0.19.3.  Closes: #801073.
+  * Acknowledge NMU upload, thank you!
+
+ -- Simon Josefsson <simon@josefsson.org>  Thu, 21 Jul 2016 10:10:47 +0200
+
+libidn (1.32-3.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Move the library from /usr/lib to /lib (Closes: #814778)
+
+ -- Laurent Bigonville <bigon@debian.org>  Mon, 30 May 2016 11:50:09 +0200
+
+libidn (1.32-3) unstable; urgency=low
+
+  * Moved from experimental to unstable.
+
+ -- Simon Josefsson <simon@josefsson.org>  Tue, 22 Sep 2015 15:26:37 +0200
+
+libidn (1.32-2) experimental; urgency=low
+
+  * Rewrite debian/rules using debhelper.
+    - Bump compat from 5 to 9.
+    - Now builds with --twice.  Closes: #729346.
+
+ -- Simon Josefsson <simon@josefsson.org>  Sun, 16 Aug 2015 17:47:36 +0200
+
+libidn (1.32-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Simon Josefsson <simon@josefsson.org>  Sat, 01 Aug 2015 15:58:03 +0200
+
 libidn (1.31-1) unstable; urgency=low
 
   * New upstream release.

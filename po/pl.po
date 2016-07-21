@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libidn 1.21\n"
 "Report-Msgid-Bugs-To: bug-libidn@gnu.org\n"
-"POT-Creation-Date: 2015-07-08 23:04+0200\n"
+"POT-Creation-Date: 2016-07-20 19:22+0200\n"
 "PO-Revision-Date: 2011-04-28 20:02+0200\n"
 "Last-Translator: Jakub Bogusz <qboosh@pld-linux.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -257,17 +257,17 @@ msgstr ""
 "      --debug              Wypisywanie informacji diagnostycznych\n"
 "      --quiet              Dzia³enie po cichu\n"
 
-#: src/idn.c:172
+#: src/idn.c:173
 #, c-format
 msgid "only one of -s, -e, -d, -a, -u or -n can be specified"
 msgstr "Mo¿na podaæ tylko jedno z -s, -e, -d, -a, -u lub -n"
 
-#: src/idn.c:182
+#: src/idn.c:183
 #, c-format
 msgid "Charset `%s'.\n"
 msgstr "Zestaw znaków `%s'.\n"
 
-#: src/idn.c:187
+#: src/idn.c:188
 #, c-format
 msgid ""
 "Type each input string on a line by itself, terminated by a newline "
@@ -275,28 +275,28 @@ msgid ""
 msgstr ""
 "Nale¿y podaæ ka¿dy ³añcuch w osobnej linii, zakoñczony znakiem nowej linii.\n"
 
-#: src/idn.c:202
+#: src/idn.c:200
 #, c-format
 msgid "input error"
 msgstr "b³±d wej¶cia"
 
-#: src/idn.c:212 src/idn.c:274 src/idn.c:357 src/idn.c:434 src/idn.c:515
+#: src/idn.c:211 src/idn.c:274 src/idn.c:357 src/idn.c:434 src/idn.c:515
 #, c-format
 msgid "could not convert from %s to UTF-8"
 msgstr "nie mo¿na przekonwertowaæ z %s na UTF-8"
 
-#: src/idn.c:220 src/idn.c:245 src/idn.c:281 src/idn.c:498 src/idn.c:527
+#: src/idn.c:219 src/idn.c:244 src/idn.c:281 src/idn.c:498 src/idn.c:527
 #: src/idn.c:551
 #, c-format
 msgid "could not convert from UTF-8 to UCS-4"
 msgstr "nie mo¿na przekonwertowaæ z UTF-8 na UCS-4"
 
-#: src/idn.c:237
+#: src/idn.c:236
 #, c-format
 msgid "stringprep_profile: %s"
 msgstr "stringprep_profile: %s"
 
-#: src/idn.c:260 src/idn.c:302 src/idn.c:345 src/idn.c:503 src/idn.c:564
+#: src/idn.c:259 src/idn.c:302 src/idn.c:345 src/idn.c:503 src/idn.c:564
 #, c-format
 msgid "could not convert from UTF-8 to %s"
 msgstr "nie mo¿na przekonwertowaæ z UTF-8 na %s"
