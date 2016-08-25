@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libidn 1.25\n"
 "Report-Msgid-Bugs-To: bug-libidn@gnu.org\n"
-"POT-Creation-Date: 2015-07-08 23:04+0200\n"
+"POT-Creation-Date: 2016-07-20 19:22+0200\n"
 "PO-Revision-Date: 2012-12-17 16:42+0100\n"
 "Last-Translator: Benno Schulenberg <benno@vertaalt.nl>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
@@ -255,18 +255,18 @@ msgstr ""
 "      --debug              montri informojn por helpi al erarspurado\n"
 "      --quiet              funkcii silente\n"
 
-#: src/idn.c:172
+#: src/idn.c:173
 #, c-format
 msgid "only one of -s, -e, -d, -a, -u or -n can be specified"
 msgstr ""
 "nur unu el la opcioj '-s', '-e', '-d', '-a', '-u' aŭ '-n' povas esti indikata"
 
-#: src/idn.c:182
+#: src/idn.c:183
 #, c-format
 msgid "Charset `%s'.\n"
 msgstr "Signaro '%s'.\n"
 
-#: src/idn.c:187
+#: src/idn.c:188
 #, c-format
 msgid ""
 "Type each input string on a line by itself, terminated by a newline "
@@ -274,28 +274,28 @@ msgid ""
 msgstr ""
 "Tajpu ĉiun enigan ĉenon en propra linio, kun linifina signo ĉe la fino.\n"
 
-#: src/idn.c:202
+#: src/idn.c:200
 #, c-format
 msgid "input error"
 msgstr "enig-eraro"
 
-#: src/idn.c:212 src/idn.c:274 src/idn.c:357 src/idn.c:434 src/idn.c:515
+#: src/idn.c:211 src/idn.c:274 src/idn.c:357 src/idn.c:434 src/idn.c:515
 #, c-format
 msgid "could not convert from %s to UTF-8"
 msgstr "malsukcesis konverti de %s al UTF-8"
 
-#: src/idn.c:220 src/idn.c:245 src/idn.c:281 src/idn.c:498 src/idn.c:527
+#: src/idn.c:219 src/idn.c:244 src/idn.c:281 src/idn.c:498 src/idn.c:527
 #: src/idn.c:551
 #, c-format
 msgid "could not convert from UTF-8 to UCS-4"
 msgstr "malsukcesis konverti de UTF-8 al UCS-4"
 
-#: src/idn.c:237
+#: src/idn.c:236
 #, c-format
 msgid "stringprep_profile: %s"
 msgstr "## stringprep_profile(): %s"
 
-#: src/idn.c:260 src/idn.c:302 src/idn.c:345 src/idn.c:503 src/idn.c:564
+#: src/idn.c:259 src/idn.c:302 src/idn.c:345 src/idn.c:503 src/idn.c:564
 #, c-format
 msgid "could not convert from UTF-8 to %s"
 msgstr "malsukcesis konverti de UTF-8 al %s"

@@ -1,5 +1,5 @@
 /* idna.c --- Prototypes for Internationalized Domain Name library.
-   Copyright (C) 2002-2015 Simon Josefsson
+   Copyright (C) 2002-2016 Simon Josefsson
 
    This file is part of GNU Libidn.
 
@@ -212,6 +212,11 @@ step3:
       }
     if (i < 64)
       out[i] = '\0';
+    else
+      {
+	free (src);
+	return IDNA_INVALID_LENGTH;
+      }
     if (inasciirange)
       goto step8;
   }
@@ -266,7 +271,7 @@ step3:
 
 step8:
   free (src);
-  if (strlen (out) < 1 || strlen (out) > 63)
+  if (strlen (out) < 1)
     return IDNA_INVALID_LENGTH;
 
   return IDNA_SUCCESS;
@@ -744,13 +749,16 @@ idna_to_unicode_8z8z (const char *input, char **output, int flags)
   int rc;
 
   rc = idna_to_unicode_8z4z (input, &ucs4, flags);
+  if (rc != IDNA_SUCCESS)
+    return rc;
+
   *output = stringprep_ucs4_to_utf8 (ucs4, -1, NULL, NULL);
   free (ucs4);
 
   if (!*output)
     return IDNA_ICONV_ERROR;
 
-  return rc;
+  return IDNA_SUCCESS;
 }
 
 /**
@@ -775,13 +783,16 @@ idna_to_unicode_8zlz (const char *input, char **output, int flags)
   int rc;
 
   rc = idna_to_unicode_8z8z (input, &utf8, flags);
+  if (rc != IDNA_SUCCESS)
+    return rc;
+
   *output = stringprep_utf8_to_locale (utf8);
   free (utf8);
 
   if (!*output)
     return IDNA_ICONV_ERROR;
 
-  return rc;
+  return IDNA_SUCCESS;
 }
 
 /**

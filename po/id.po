@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libidn 1.24\n"
 "Report-Msgid-Bugs-To: bug-libidn@gnu.org\n"
-"POT-Creation-Date: 2015-07-08 23:04+0200\n"
+"POT-Creation-Date: 2016-07-20 19:22+0200\n"
 "PO-Revision-Date: 2012-05-18 17:42+0700\n"
 "Last-Translator: Andhika Padmawan <andhika.padmawan@gmail.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -253,18 +253,18 @@ msgstr ""
 "      --debug              Cetak informasi awakutu\n"
 "      --quiet              Operasi diam\n"
 
-#: src/idn.c:172
+#: src/idn.c:173
 #, c-format
 msgid "only one of -s, -e, -d, -a, -u or -n can be specified"
 msgstr ""
 "Hanya salah satu dari -s, -e, -d, -a, -u, atau -n yang dapat ditentukan"
 
-#: src/idn.c:182
+#: src/idn.c:183
 #, c-format
 msgid "Charset `%s'.\n"
 msgstr "Set karakter `%s'.\n"
 
-#: src/idn.c:187
+#: src/idn.c:188
 #, c-format
 msgid ""
 "Type each input string on a line by itself, terminated by a newline "
@@ -273,28 +273,28 @@ msgstr ""
 "Ketik tiap benang masukan pada baris itu sendiri, diakhiri oleh karakter "
 "newline.\n"
 
-#: src/idn.c:202
+#: src/idn.c:200
 #, c-format
 msgid "input error"
 msgstr "galat masukan"
 
-#: src/idn.c:212 src/idn.c:274 src/idn.c:357 src/idn.c:434 src/idn.c:515
+#: src/idn.c:211 src/idn.c:274 src/idn.c:357 src/idn.c:434 src/idn.c:515
 #, c-format
 msgid "could not convert from %s to UTF-8"
 msgstr "tak dapat konversi dari %s ke UTF-8."
 
-#: src/idn.c:220 src/idn.c:245 src/idn.c:281 src/idn.c:498 src/idn.c:527
+#: src/idn.c:219 src/idn.c:244 src/idn.c:281 src/idn.c:498 src/idn.c:527
 #: src/idn.c:551
 #, c-format
 msgid "could not convert from UTF-8 to UCS-4"
 msgstr "tak dapat konversi dari UTF-8 ke UCS-4"
 
-#: src/idn.c:237
+#: src/idn.c:236
 #, c-format
 msgid "stringprep_profile: %s"
 msgstr "stringprep_profile: %s"
 
-#: src/idn.c:260 src/idn.c:302 src/idn.c:345 src/idn.c:503 src/idn.c:564
+#: src/idn.c:259 src/idn.c:302 src/idn.c:345 src/idn.c:503 src/idn.c:564
 #, c-format
 msgid "could not convert from UTF-8 to %s"
 msgstr "tak dapat konversi dari UTF-8 ke %s"
