@@ -14,7 +14,7 @@
 
 @SET_MAKE@
 
-# Copyright (C) 2002-2015 Free Software Foundation, Inc.
+# Copyright (C) 2002-2016 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -106,7 +106,8 @@ TESTS = test-alloca-opt$(EXEEXT) test-binary-io.sh test-close$(EXEEXT) \
 	test-dup2$(EXEEXT) test-environ$(EXEEXT) test-errno$(EXEEXT) \
 	test-fdopen$(EXEEXT) test-fgetc$(EXEEXT) test-fputc$(EXEEXT) \
 	test-fread$(EXEEXT) test-fstat$(EXEEXT) test-fwrite$(EXEEXT) \
-	test-getcwd-lgpl$(EXEEXT) test-getdtablesize$(EXEEXT) \
+	test-getcwd-lgpl$(EXEEXT) test-getdelim$(EXEEXT) \
+	test-getdtablesize$(EXEEXT) test-getline$(EXEEXT) \
 	test-getopt$(EXEEXT) test-gettimeofday$(EXEEXT) \
 	test-ignore-value$(EXEEXT) test-intprops$(EXEEXT) \
 	test-inttypes$(EXEEXT) test-lstat$(EXEEXT) \
@@ -126,7 +127,8 @@ check_PROGRAMS = test-alloca-opt$(EXEEXT) test-binary-io$(EXEEXT) \
 	test-errno$(EXEEXT) test-fdopen$(EXEEXT) test-fgetc$(EXEEXT) \
 	test-fputc$(EXEEXT) test-fread$(EXEEXT) test-fstat$(EXEEXT) \
 	test-fwrite$(EXEEXT) test-getcwd-lgpl$(EXEEXT) \
-	test-getdtablesize$(EXEEXT) test-getopt$(EXEEXT) \
+	test-getdelim$(EXEEXT) test-getdtablesize$(EXEEXT) \
+	test-getline$(EXEEXT) test-getopt$(EXEEXT) \
 	test-gettimeofday$(EXEEXT) test-ignore-value$(EXEEXT) \
 	test-intprops$(EXEEXT) test-inttypes$(EXEEXT) \
 	test-lstat$(EXEEXT) test-malloca$(EXEEXT) test-open$(EXEEXT) \
@@ -142,7 +144,8 @@ DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/build-aux/depcomp $(noinst_HEADERS) \
 	$(top_srcdir)/build-aux/test-driver
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/lib/gl/m4/gnulib-comp.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/lib/gl/m4/ctype.m4 \
+	$(top_srcdir)/lib/gl/m4/gnulib-comp.m4 \
 	$(top_srcdir)/lib/gl/m4/iconv_h.m4 \
 	$(top_srcdir)/lib/gl/m4/iconv_open.m4 \
 	$(top_srcdir)/lib/gl/m4/inline.m4 \
@@ -171,8 +174,9 @@ am__aclocal_m4_deps = $(top_srcdir)/lib/gl/m4/gnulib-comp.m4 \
 	$(top_srcdir)/gl/m4/extensions.m4 \
 	$(top_srcdir)/gl/m4/fcntl_h.m4 $(top_srcdir)/gl/m4/fdopen.m4 \
 	$(top_srcdir)/gl/m4/fstat.m4 $(top_srcdir)/gl/m4/getcwd.m4 \
+	$(top_srcdir)/gl/m4/getdelim.m4 \
 	$(top_srcdir)/gl/m4/getdtablesize.m4 \
-	$(top_srcdir)/gl/m4/getopt.m4 \
+	$(top_srcdir)/gl/m4/getline.m4 $(top_srcdir)/gl/m4/getopt.m4 \
 	$(top_srcdir)/gl/m4/gettimeofday.m4 \
 	$(top_srcdir)/gl/m4/gnulib-common.m4 \
 	$(top_srcdir)/gl/m4/gnulib-comp.m4 \
@@ -187,12 +191,12 @@ am__aclocal_m4_deps = $(top_srcdir)/lib/gl/m4/gnulib-comp.m4 \
 	$(top_srcdir)/gl/m4/multiarch.m4 \
 	$(top_srcdir)/gl/m4/nocrash.m4 $(top_srcdir)/gl/m4/off_t.m4 \
 	$(top_srcdir)/gl/m4/open.m4 $(top_srcdir)/gl/m4/pathmax.m4 \
-	$(top_srcdir)/gl/m4/putenv.m4 $(top_srcdir)/gl/m4/setenv.m4 \
-	$(top_srcdir)/gl/m4/ssize_t.m4 $(top_srcdir)/gl/m4/stat.m4 \
-	$(top_srcdir)/gl/m4/stdalign.m4 $(top_srcdir)/gl/m4/stdarg.m4 \
-	$(top_srcdir)/gl/m4/stdbool.m4 $(top_srcdir)/gl/m4/stddef_h.m4 \
-	$(top_srcdir)/gl/m4/stdint.m4 $(top_srcdir)/gl/m4/stdio_h.m4 \
-	$(top_srcdir)/gl/m4/stdlib_h.m4 \
+	$(top_srcdir)/gl/m4/putenv.m4 $(top_srcdir)/gl/m4/realloc.m4 \
+	$(top_srcdir)/gl/m4/setenv.m4 $(top_srcdir)/gl/m4/ssize_t.m4 \
+	$(top_srcdir)/gl/m4/stat.m4 $(top_srcdir)/gl/m4/stdalign.m4 \
+	$(top_srcdir)/gl/m4/stdarg.m4 $(top_srcdir)/gl/m4/stdbool.m4 \
+	$(top_srcdir)/gl/m4/stddef_h.m4 $(top_srcdir)/gl/m4/stdint.m4 \
+	$(top_srcdir)/gl/m4/stdio_h.m4 $(top_srcdir)/gl/m4/stdlib_h.m4 \
 	$(top_srcdir)/gl/m4/strerror.m4 \
 	$(top_srcdir)/gl/m4/string_h.m4 $(top_srcdir)/gl/m4/symlink.m4 \
 	$(top_srcdir)/gl/m4/sys_socket_h.m4 \
@@ -307,11 +311,21 @@ am__DEPENDENCIES_2 = libtests.a ../gl/libgnu.la libtests.a \
 	$(am__DEPENDENCIES_1)
 test_getcwd_lgpl_DEPENDENCIES = $(am__DEPENDENCIES_2) \
 	$(am__DEPENDENCIES_1)
+test_getdelim_SOURCES = test-getdelim.c
+test_getdelim_OBJECTS = test-getdelim.$(OBJEXT)
+test_getdelim_LDADD = $(LDADD)
+test_getdelim_DEPENDENCIES = libtests.a ../gl/libgnu.la libtests.a \
+	$(am__DEPENDENCIES_1)
 test_getdtablesize_SOURCES = test-getdtablesize.c
 test_getdtablesize_OBJECTS = test-getdtablesize.$(OBJEXT)
 test_getdtablesize_LDADD = $(LDADD)
 test_getdtablesize_DEPENDENCIES = libtests.a ../gl/libgnu.la \
 	libtests.a $(am__DEPENDENCIES_1)
+test_getline_SOURCES = test-getline.c
+test_getline_OBJECTS = test-getline.$(OBJEXT)
+test_getline_LDADD = $(LDADD)
+test_getline_DEPENDENCIES = libtests.a ../gl/libgnu.la libtests.a \
+	$(am__DEPENDENCIES_1)
 test_getopt_SOURCES = test-getopt.c
 test_getopt_OBJECTS = test-getopt.$(OBJEXT)
 test_getopt_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_1)
@@ -459,26 +473,26 @@ SOURCES = $(libtests_a_SOURCES) $(EXTRA_libtests_a_SOURCES) \
 	test-alloca-opt.c test-binary-io.c test-close.c test-dup2.c \
 	test-environ.c test-errno.c test-fdopen.c test-fgetc.c \
 	test-fputc.c test-fread.c test-fstat.c test-fwrite.c \
-	test-getcwd-lgpl.c test-getdtablesize.c test-getopt.c \
-	test-gettimeofday.c test-ignore-value.c test-intprops.c \
-	test-inttypes.c test-lstat.c test-malloca.c test-open.c \
-	test-pathmax.c test-setenv.c test-stat.c test-stdalign.c \
-	test-stdbool.c test-stddef.c test-stdint.c test-stdio.c \
-	test-strerror.c test-symlink.c test-sys_time.c \
-	test-sys_types.c test-unsetenv.c test-verify.c \
-	test-version-etc.c
+	test-getcwd-lgpl.c test-getdelim.c test-getdtablesize.c \
+	test-getline.c test-getopt.c test-gettimeofday.c \
+	test-ignore-value.c test-intprops.c test-inttypes.c \
+	test-lstat.c test-malloca.c test-open.c test-pathmax.c \
+	test-setenv.c test-stat.c test-stdalign.c test-stdbool.c \
+	test-stddef.c test-stdint.c test-stdio.c test-strerror.c \
+	test-symlink.c test-sys_time.c test-sys_types.c \
+	test-unsetenv.c test-verify.c test-version-etc.c
 DIST_SOURCES = $(libtests_a_SOURCES) $(EXTRA_libtests_a_SOURCES) \
 	test-alloca-opt.c test-binary-io.c test-close.c test-dup2.c \
 	test-environ.c test-errno.c test-fdopen.c test-fgetc.c \
 	test-fputc.c test-fread.c test-fstat.c test-fwrite.c \
-	test-getcwd-lgpl.c test-getdtablesize.c test-getopt.c \
-	test-gettimeofday.c test-ignore-value.c test-intprops.c \
-	test-inttypes.c test-lstat.c test-malloca.c test-open.c \
-	test-pathmax.c test-setenv.c test-stat.c test-stdalign.c \
-	test-stdbool.c test-stddef.c test-stdint.c test-stdio.c \
-	test-strerror.c test-symlink.c test-sys_time.c \
-	test-sys_types.c test-unsetenv.c test-verify.c \
-	test-version-etc.c
+	test-getcwd-lgpl.c test-getdelim.c test-getdtablesize.c \
+	test-getline.c test-getopt.c test-gettimeofday.c \
+	test-ignore-value.c test-intprops.c test-inttypes.c \
+	test-lstat.c test-malloca.c test-open.c test-pathmax.c \
+	test-setenv.c test-stat.c test-stdalign.c test-stdbool.c \
+	test-stddef.c test-stdint.c test-stdio.c test-strerror.c \
+	test-symlink.c test-sys_time.c test-sys_types.c \
+	test-unsetenv.c test-verify.c test-version-etc.c
 RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
 	ctags-recursive dvi-recursive html-recursive info-recursive \
 	install-data-recursive install-dvi-recursive \
@@ -878,6 +892,7 @@ GNULIB_ICONV = @GNULIB_ICONV@
 GNULIB_IMAXABS = @GNULIB_IMAXABS@
 GNULIB_IMAXDIV = @GNULIB_IMAXDIV@
 GNULIB_ISATTY = @GNULIB_ISATTY@
+GNULIB_ISBLANK = @GNULIB_ISBLANK@
 GNULIB_LCHMOD = @GNULIB_LCHMOD@
 GNULIB_LCHOWN = @GNULIB_LCHOWN@
 GNULIB_LINK = @GNULIB_LINK@
@@ -996,6 +1011,7 @@ GNULIB_SYMLINKAT = @GNULIB_SYMLINKAT@
 GNULIB_SYSTEM_POSIX = @GNULIB_SYSTEM_POSIX@
 GNULIB_TIMEGM = @GNULIB_TIMEGM@
 GNULIB_TIME_R = @GNULIB_TIME_R@
+GNULIB_TIME_RZ = @GNULIB_TIME_RZ@
 GNULIB_TMPFILE = @GNULIB_TMPFILE@
 GNULIB_TTYNAME_R = @GNULIB_TTYNAME_R@
 GNULIB_UNISTD_H_NONBLOCKING = @GNULIB_UNISTD_H_NONBLOCKING@
@@ -1134,6 +1150,7 @@ HAVE_GROUP_MEMBER = @HAVE_GROUP_MEMBER@
 HAVE_ILRUN = @HAVE_ILRUN@
 HAVE_ILRUN_IN_PATH = @HAVE_ILRUN_IN_PATH@
 HAVE_INTTYPES_H = @HAVE_INTTYPES_H@
+HAVE_ISBLANK = @HAVE_ISBLANK@
 HAVE_LANGINFO_CODESET = @HAVE_LANGINFO_CODESET@
 HAVE_LANGINFO_ERA = @HAVE_LANGINFO_ERA@
 HAVE_LANGINFO_H = @HAVE_LANGINFO_H@
@@ -1221,6 +1238,7 @@ HAVE_SYS_PARAM_H = @HAVE_SYS_PARAM_H@
 HAVE_SYS_TIME_H = @HAVE_SYS_TIME_H@
 HAVE_SYS_TYPES_H = @HAVE_SYS_TYPES_H@
 HAVE_TIMEGM = @HAVE_TIMEGM@
+HAVE_TIMEZONE_T = @HAVE_TIMEZONE_T@
 HAVE_UNISTD_H = @HAVE_UNISTD_H@
 HAVE_UNLINKAT = @HAVE_UNLINKAT@
 HAVE_UNLOCKPT = @HAVE_UNLOCKPT@
@@ -1322,6 +1340,7 @@ MONO_PATH_SEPARATOR = @MONO_PATH_SEPARATOR@
 MSGFMT = @MSGFMT@
 MSGFMT_015 = @MSGFMT_015@
 MSGMERGE = @MSGMERGE@
+NEXT_AS_FIRST_DIRECTIVE_CTYPE_H = @NEXT_AS_FIRST_DIRECTIVE_CTYPE_H@
 NEXT_AS_FIRST_DIRECTIVE_ERRNO_H = @NEXT_AS_FIRST_DIRECTIVE_ERRNO_H@
 NEXT_AS_FIRST_DIRECTIVE_FCNTL_H = @NEXT_AS_FIRST_DIRECTIVE_FCNTL_H@
 NEXT_AS_FIRST_DIRECTIVE_GETOPT_H = @NEXT_AS_FIRST_DIRECTIVE_GETOPT_H@
@@ -1341,6 +1360,7 @@ NEXT_AS_FIRST_DIRECTIVE_SYS_TYPES_H = @NEXT_AS_FIRST_DIRECTIVE_SYS_TYPES_H@
 NEXT_AS_FIRST_DIRECTIVE_TIME_H = @NEXT_AS_FIRST_DIRECTIVE_TIME_H@
 NEXT_AS_FIRST_DIRECTIVE_UNISTD_H = @NEXT_AS_FIRST_DIRECTIVE_UNISTD_H@
 NEXT_AS_FIRST_DIRECTIVE_WCHAR_H = @NEXT_AS_FIRST_DIRECTIVE_WCHAR_H@
+NEXT_CTYPE_H = @NEXT_CTYPE_H@
 NEXT_ERRNO_H = @NEXT_ERRNO_H@
 NEXT_FCNTL_H = @NEXT_FCNTL_H@
 NEXT_GETOPT_H = @NEXT_GETOPT_H@
@@ -1635,30 +1655,31 @@ EXTRA_DIST = alloca.in.h test-alloca-opt.c test-binary-io.sh \
 	macros.h test-fputc.c signature.h macros.h test-fread.c \
 	signature.h macros.h fstat.c test-fstat.c signature.h macros.h \
 	test-fwrite.c signature.h macros.h getcwd-lgpl.c \
-	test-getcwd-lgpl.c signature.h macros.h getdtablesize.c \
-	test-getdtablesize.c signature.h macros.h macros.h signature.h \
-	test-getopt.c test-getopt.h test-getopt_long.h gettimeofday.c \
-	signature.h test-gettimeofday.c ignore-value.h \
-	test-ignore-value.c test-intprops.c macros.h inttypes.in.h \
-	test-inttypes.c lstat.c test-lstat.h test-lstat.c signature.h \
-	macros.h malloc.c malloca.h malloca.valgrind test-malloca.c \
-	open.c test-open.h test-open.c signature.h macros.h pathmax.h \
-	test-pathmax.c putenv.c same-inode.h setenv.c test-setenv.c \
-	signature.h macros.h \
-	$(top_srcdir)/build-aux/snippet/_Noreturn.h \
+	test-getcwd-lgpl.c signature.h macros.h test-getdelim.c \
+	signature.h macros.h getdtablesize.c test-getdtablesize.c \
+	signature.h macros.h test-getline.c signature.h macros.h \
+	macros.h signature.h test-getopt.c test-getopt.h \
+	test-getopt_long.h gettimeofday.c signature.h \
+	test-gettimeofday.c ignore-value.h test-ignore-value.c \
+	test-intprops.c macros.h inttypes.in.h test-inttypes.c lstat.c \
+	test-lstat.h test-lstat.c signature.h macros.h malloc.c \
+	malloca.h malloca.valgrind test-malloca.c open.c test-open.h \
+	test-open.c signature.h macros.h pathmax.h test-pathmax.c \
+	putenv.c same-inode.h setenv.c test-setenv.c signature.h \
+	macros.h $(top_srcdir)/build-aux/snippet/_Noreturn.h \
 	$(top_srcdir)/build-aux/snippet/arg-nonnull.h \
 	$(top_srcdir)/build-aux/snippet/c++defs.h \
 	$(top_srcdir)/build-aux/snippet/warn-on-use.h stat.c \
 	test-stat.h test-stat.c signature.h macros.h stdalign.in.h \
 	test-stdalign.c macros.h stdbool.in.h test-stdbool.c \
-	test-stddef.c stdint.in.h test-stdint.c test-stdio.c \
-	stdlib.in.h test-strerror.c signature.h macros.h symlink.c \
-	test-symlink.h test-symlink.c signature.h macros.h \
-	sys_stat.in.h sys_time.in.h test-sys_time.c test-sys_types.c \
-	init.sh test-init.sh time.in.h unsetenv.c test-unsetenv.c \
-	signature.h macros.h test-vc-list-files-git.sh \
-	test-vc-list-files-cvs.sh test-verify.c test-verify.sh \
-	test-version-etc.c test-version-etc.sh wchar.in.h
+	test-stddef.c test-stdint.c test-stdio.c test-strerror.c \
+	signature.h macros.h symlink.c test-symlink.h test-symlink.c \
+	signature.h macros.h sys_stat.in.h sys_time.in.h \
+	test-sys_time.c test-sys_types.c init.sh test-init.sh \
+	time.in.h unsetenv.c test-unsetenv.c signature.h macros.h \
+	test-vc-list-files-git.sh test-vc-list-files-cvs.sh \
+	test-verify.c test-verify.sh test-version-etc.c \
+	test-version-etc.sh wchar.in.h
 
 # The BUILT_SOURCES created by this Makefile snippet are not used via #include
 # statements but through direct file reference. Therefore this snippet must be
@@ -1670,16 +1691,20 @@ EXTRA_DIST = alloca.in.h test-alloca-opt.c test-binary-io.sh \
 # present in all Makefile.am that need it. This is ensured by the applicability
 # 'all' defined above.
 BUILT_SOURCES = $(ALLOCA_H) fcntl.h inttypes.h arg-nonnull.h c++defs.h \
-	warn-on-use.h $(STDALIGN_H) $(STDBOOL_H) $(STDINT_H) stdlib.h \
-	sys/stat.h sys/time.h time.h wchar.h
+	warn-on-use.h $(STDALIGN_H) $(STDBOOL_H) sys/stat.h sys/time.h \
+	time.h wchar.h
 SUFFIXES = 
+
+# This test expects compilation of test-verify.c to fail, and
+# each time it fails, the makefile rule does not perform the usual
+#  "mv -f $name.Tpo $name.po, so tell make clean to remove that file.
 MOSTLYCLEANFILES = core *.stackdump alloca.h alloca.h-t fcntl.h \
-	fcntl.h-t inttypes.h inttypes.h-t arg-nonnull.h \
-	arg-nonnull.h-t c++defs.h c++defs.h-t warn-on-use.h \
-	warn-on-use.h-t stdalign.h stdalign.h-t stdbool.h stdbool.h-t \
-	stdint.h stdint.h-t stdlib.h stdlib.h-t sys/stat.h \
-	sys/stat.h-t sys/time.h sys/time.h-t time.h time.h-t wchar.h \
-	wchar.h-t
+	fcntl.h-t test-getdelim.txt test-getline.txt inttypes.h \
+	inttypes.h-t arg-nonnull.h arg-nonnull.h-t c++defs.h \
+	c++defs.h-t warn-on-use.h warn-on-use.h-t stdalign.h \
+	stdalign.h-t stdbool.h stdbool.h-t sys/stat.h sys/stat.h-t \
+	sys/time.h sys/time.h-t time.h time.h-t .deps/test-verify.Tpo \
+	wchar.h wchar.h-t
 MOSTLYCLEANDIRS = sys
 CLEANFILES = 
 DISTCLEANFILES = 
@@ -1828,9 +1853,17 @@ test-getcwd-lgpl$(EXEEXT): $(test_getcwd_lgpl_OBJECTS) $(test_getcwd_lgpl_DEPEND
 	@rm -f test-getcwd-lgpl$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(test_getcwd_lgpl_OBJECTS) $(test_getcwd_lgpl_LDADD) $(LIBS)
 
+test-getdelim$(EXEEXT): $(test_getdelim_OBJECTS) $(test_getdelim_DEPENDENCIES) $(EXTRA_test_getdelim_DEPENDENCIES) 
+	@rm -f test-getdelim$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_getdelim_OBJECTS) $(test_getdelim_LDADD) $(LIBS)
+
 test-getdtablesize$(EXEEXT): $(test_getdtablesize_OBJECTS) $(test_getdtablesize_DEPENDENCIES) $(EXTRA_test_getdtablesize_DEPENDENCIES) 
 	@rm -f test-getdtablesize$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(test_getdtablesize_OBJECTS) $(test_getdtablesize_LDADD) $(LIBS)
+
+test-getline$(EXEEXT): $(test_getline_OBJECTS) $(test_getline_DEPENDENCIES) $(EXTRA_test_getline_DEPENDENCIES) 
+	@rm -f test-getline$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(test_getline_OBJECTS) $(test_getline_LDADD) $(LIBS)
 
 test-getopt$(EXEEXT): $(test_getopt_OBJECTS) $(test_getopt_DEPENDENCIES) $(EXTRA_test_getopt_DEPENDENCIES) 
 	@rm -f test-getopt$(EXEEXT)
@@ -1960,7 +1993,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-fstat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-fwrite.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-getcwd-lgpl.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-getdelim.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-getdtablesize.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-getline.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-getopt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-gettimeofday.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-ignore-value.Po@am__quote@
@@ -2345,9 +2380,23 @@ test-getcwd-lgpl.log: test-getcwd-lgpl$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-getdelim.log: test-getdelim$(EXEEXT)
+	@p='test-getdelim$(EXEEXT)'; \
+	b='test-getdelim'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 test-getdtablesize.log: test-getdtablesize$(EXEEXT)
 	@p='test-getdtablesize$(EXEEXT)'; \
 	b='test-getdtablesize'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test-getline.log: test-getline$(EXEEXT)
+	@p='test-getline$(EXEEXT)'; \
+	b='test-getline'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -2871,140 +2920,6 @@ warn-on-use.h: $(top_srcdir)/build-aux/snippet/warn-on-use.h
 @GL_GENERATE_STDBOOL_H_FALSE@stdbool.h: $(top_builddir)/config.status
 @GL_GENERATE_STDBOOL_H_FALSE@	rm -f $@
 
-# We need the following in order to create <stdint.h> when the system
-# doesn't have one that works with the given compiler.
-@GL_GENERATE_STDINT_H_TRUE@stdint.h: stdint.in.h $(top_builddir)/config.status
-@GL_GENERATE_STDINT_H_TRUE@	$(AM_V_GEN)rm -f $@-t $@ && \
-@GL_GENERATE_STDINT_H_TRUE@	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-@GL_GENERATE_STDINT_H_TRUE@	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''HAVE_STDINT_H''@/$(HAVE_STDINT_H)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's|@''NEXT_STDINT_H''@|$(NEXT_STDINT_H)|g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''HAVE_SYS_TYPES_H''@/$(HAVE_SYS_TYPES_H)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''HAVE_INTTYPES_H''@/$(HAVE_INTTYPES_H)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''HAVE_SYS_INTTYPES_H''@/$(HAVE_SYS_INTTYPES_H)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''HAVE_SYS_BITYPES_H''@/$(HAVE_SYS_BITYPES_H)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''HAVE_WCHAR_H''@/$(HAVE_WCHAR_H)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''HAVE_LONG_LONG_INT''@/$(HAVE_LONG_LONG_INT)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''HAVE_UNSIGNED_LONG_LONG_INT''@/$(HAVE_UNSIGNED_LONG_LONG_INT)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''APPLE_UNIVERSAL_BUILD''@/$(APPLE_UNIVERSAL_BUILD)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''BITSIZEOF_PTRDIFF_T''@/$(BITSIZEOF_PTRDIFF_T)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''PTRDIFF_T_SUFFIX''@/$(PTRDIFF_T_SUFFIX)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''BITSIZEOF_SIG_ATOMIC_T''@/$(BITSIZEOF_SIG_ATOMIC_T)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''HAVE_SIGNED_SIG_ATOMIC_T''@/$(HAVE_SIGNED_SIG_ATOMIC_T)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''SIG_ATOMIC_T_SUFFIX''@/$(SIG_ATOMIC_T_SUFFIX)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''BITSIZEOF_SIZE_T''@/$(BITSIZEOF_SIZE_T)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''SIZE_T_SUFFIX''@/$(SIZE_T_SUFFIX)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''BITSIZEOF_WCHAR_T''@/$(BITSIZEOF_WCHAR_T)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''HAVE_SIGNED_WCHAR_T''@/$(HAVE_SIGNED_WCHAR_T)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''WCHAR_T_SUFFIX''@/$(WCHAR_T_SUFFIX)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''BITSIZEOF_WINT_T''@/$(BITSIZEOF_WINT_T)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''HAVE_SIGNED_WINT_T''@/$(HAVE_SIGNED_WINT_T)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      -e 's/@''WINT_T_SUFFIX''@/$(WINT_T_SUFFIX)/g' \
-@GL_GENERATE_STDINT_H_TRUE@	      < $(srcdir)/stdint.in.h; \
-@GL_GENERATE_STDINT_H_TRUE@	} > $@-t && \
-@GL_GENERATE_STDINT_H_TRUE@	mv $@-t $@
-@GL_GENERATE_STDINT_H_FALSE@stdint.h: $(top_builddir)/config.status
-@GL_GENERATE_STDINT_H_FALSE@	rm -f $@
-
-# We need the following in order to create <stdlib.h> when the system
-# doesn't have one that works with the given compiler.
-stdlib.h: stdlib.in.h $(top_builddir)/config.status $(CXXDEFS_H) \
-  $(_NORETURN_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
-	$(AM_V_GEN)rm -f $@-t $@ && \
-	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */' && \
-	  sed -e 's|@''GUARD_PREFIX''@|GL|g' \
-	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
-	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
-	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
-	      -e 's|@''NEXT_STDLIB_H''@|$(NEXT_STDLIB_H)|g' \
-	      -e 's/@''GNULIB__EXIT''@/$(GNULIB__EXIT)/g' \
-	      -e 's/@''GNULIB_ATOLL''@/$(GNULIB_ATOLL)/g' \
-	      -e 's/@''GNULIB_CALLOC_POSIX''@/$(GNULIB_CALLOC_POSIX)/g' \
-	      -e 's/@''GNULIB_CANONICALIZE_FILE_NAME''@/$(GNULIB_CANONICALIZE_FILE_NAME)/g' \
-	      -e 's/@''GNULIB_GETLOADAVG''@/$(GNULIB_GETLOADAVG)/g' \
-	      -e 's/@''GNULIB_GETSUBOPT''@/$(GNULIB_GETSUBOPT)/g' \
-	      -e 's/@''GNULIB_GRANTPT''@/$(GNULIB_GRANTPT)/g' \
-	      -e 's/@''GNULIB_MALLOC_POSIX''@/$(GNULIB_MALLOC_POSIX)/g' \
-	      -e 's/@''GNULIB_MBTOWC''@/$(GNULIB_MBTOWC)/g' \
-	      -e 's/@''GNULIB_MKDTEMP''@/$(GNULIB_MKDTEMP)/g' \
-	      -e 's/@''GNULIB_MKOSTEMP''@/$(GNULIB_MKOSTEMP)/g' \
-	      -e 's/@''GNULIB_MKOSTEMPS''@/$(GNULIB_MKOSTEMPS)/g' \
-	      -e 's/@''GNULIB_MKSTEMP''@/$(GNULIB_MKSTEMP)/g' \
-	      -e 's/@''GNULIB_MKSTEMPS''@/$(GNULIB_MKSTEMPS)/g' \
-	      -e 's/@''GNULIB_POSIX_OPENPT''@/$(GNULIB_POSIX_OPENPT)/g' \
-	      -e 's/@''GNULIB_PTSNAME''@/$(GNULIB_PTSNAME)/g' \
-	      -e 's/@''GNULIB_PTSNAME_R''@/$(GNULIB_PTSNAME_R)/g' \
-	      -e 's/@''GNULIB_PUTENV''@/$(GNULIB_PUTENV)/g' \
-	      -e 's/@''GNULIB_QSORT_R''@/$(GNULIB_QSORT_R)/g' \
-	      -e 's/@''GNULIB_RANDOM''@/$(GNULIB_RANDOM)/g' \
-	      -e 's/@''GNULIB_RANDOM_R''@/$(GNULIB_RANDOM_R)/g' \
-	      -e 's/@''GNULIB_REALLOC_POSIX''@/$(GNULIB_REALLOC_POSIX)/g' \
-	      -e 's/@''GNULIB_REALPATH''@/$(GNULIB_REALPATH)/g' \
-	      -e 's/@''GNULIB_RPMATCH''@/$(GNULIB_RPMATCH)/g' \
-	      -e 's/@''GNULIB_SECURE_GETENV''@/$(GNULIB_SECURE_GETENV)/g' \
-	      -e 's/@''GNULIB_SETENV''@/$(GNULIB_SETENV)/g' \
-	      -e 's/@''GNULIB_STRTOD''@/$(GNULIB_STRTOD)/g' \
-	      -e 's/@''GNULIB_STRTOLL''@/$(GNULIB_STRTOLL)/g' \
-	      -e 's/@''GNULIB_STRTOULL''@/$(GNULIB_STRTOULL)/g' \
-	      -e 's/@''GNULIB_SYSTEM_POSIX''@/$(GNULIB_SYSTEM_POSIX)/g' \
-	      -e 's/@''GNULIB_UNLOCKPT''@/$(GNULIB_UNLOCKPT)/g' \
-	      -e 's/@''GNULIB_UNSETENV''@/$(GNULIB_UNSETENV)/g' \
-	      -e 's/@''GNULIB_WCTOMB''@/$(GNULIB_WCTOMB)/g' \
-	      < $(srcdir)/stdlib.in.h | \
-	  sed -e 's|@''HAVE__EXIT''@|$(HAVE__EXIT)|g' \
-	      -e 's|@''HAVE_ATOLL''@|$(HAVE_ATOLL)|g' \
-	      -e 's|@''HAVE_CANONICALIZE_FILE_NAME''@|$(HAVE_CANONICALIZE_FILE_NAME)|g' \
-	      -e 's|@''HAVE_DECL_GETLOADAVG''@|$(HAVE_DECL_GETLOADAVG)|g' \
-	      -e 's|@''HAVE_GETSUBOPT''@|$(HAVE_GETSUBOPT)|g' \
-	      -e 's|@''HAVE_GRANTPT''@|$(HAVE_GRANTPT)|g' \
-	      -e 's|@''HAVE_MKDTEMP''@|$(HAVE_MKDTEMP)|g' \
-	      -e 's|@''HAVE_MKOSTEMP''@|$(HAVE_MKOSTEMP)|g' \
-	      -e 's|@''HAVE_MKOSTEMPS''@|$(HAVE_MKOSTEMPS)|g' \
-	      -e 's|@''HAVE_MKSTEMP''@|$(HAVE_MKSTEMP)|g' \
-	      -e 's|@''HAVE_MKSTEMPS''@|$(HAVE_MKSTEMPS)|g' \
-	      -e 's|@''HAVE_POSIX_OPENPT''@|$(HAVE_POSIX_OPENPT)|g' \
-	      -e 's|@''HAVE_PTSNAME''@|$(HAVE_PTSNAME)|g' \
-	      -e 's|@''HAVE_PTSNAME_R''@|$(HAVE_PTSNAME_R)|g' \
-	      -e 's|@''HAVE_RANDOM''@|$(HAVE_RANDOM)|g' \
-	      -e 's|@''HAVE_RANDOM_H''@|$(HAVE_RANDOM_H)|g' \
-	      -e 's|@''HAVE_RANDOM_R''@|$(HAVE_RANDOM_R)|g' \
-	      -e 's|@''HAVE_REALPATH''@|$(HAVE_REALPATH)|g' \
-	      -e 's|@''HAVE_RPMATCH''@|$(HAVE_RPMATCH)|g' \
-	      -e 's|@''HAVE_SECURE_GETENV''@|$(HAVE_SECURE_GETENV)|g' \
-	      -e 's|@''HAVE_DECL_SETENV''@|$(HAVE_DECL_SETENV)|g' \
-	      -e 's|@''HAVE_STRTOD''@|$(HAVE_STRTOD)|g' \
-	      -e 's|@''HAVE_STRTOLL''@|$(HAVE_STRTOLL)|g' \
-	      -e 's|@''HAVE_STRTOULL''@|$(HAVE_STRTOULL)|g' \
-	      -e 's|@''HAVE_STRUCT_RANDOM_DATA''@|$(HAVE_STRUCT_RANDOM_DATA)|g' \
-	      -e 's|@''HAVE_SYS_LOADAVG_H''@|$(HAVE_SYS_LOADAVG_H)|g' \
-	      -e 's|@''HAVE_UNLOCKPT''@|$(HAVE_UNLOCKPT)|g' \
-	      -e 's|@''HAVE_DECL_UNSETENV''@|$(HAVE_DECL_UNSETENV)|g' \
-	      -e 's|@''REPLACE_CALLOC''@|$(REPLACE_CALLOC)|g' \
-	      -e 's|@''REPLACE_CANONICALIZE_FILE_NAME''@|$(REPLACE_CANONICALIZE_FILE_NAME)|g' \
-	      -e 's|@''REPLACE_MALLOC''@|$(REPLACE_MALLOC)|g' \
-	      -e 's|@''REPLACE_MBTOWC''@|$(REPLACE_MBTOWC)|g' \
-	      -e 's|@''REPLACE_MKSTEMP''@|$(REPLACE_MKSTEMP)|g' \
-	      -e 's|@''REPLACE_PTSNAME''@|$(REPLACE_PTSNAME)|g' \
-	      -e 's|@''REPLACE_PTSNAME_R''@|$(REPLACE_PTSNAME_R)|g' \
-	      -e 's|@''REPLACE_PUTENV''@|$(REPLACE_PUTENV)|g' \
-	      -e 's|@''REPLACE_QSORT_R''@|$(REPLACE_QSORT_R)|g' \
-	      -e 's|@''REPLACE_RANDOM_R''@|$(REPLACE_RANDOM_R)|g' \
-	      -e 's|@''REPLACE_REALLOC''@|$(REPLACE_REALLOC)|g' \
-	      -e 's|@''REPLACE_REALPATH''@|$(REPLACE_REALPATH)|g' \
-	      -e 's|@''REPLACE_SETENV''@|$(REPLACE_SETENV)|g' \
-	      -e 's|@''REPLACE_STRTOD''@|$(REPLACE_STRTOD)|g' \
-	      -e 's|@''REPLACE_UNSETENV''@|$(REPLACE_UNSETENV)|g' \
-	      -e 's|@''REPLACE_WCTOMB''@|$(REPLACE_WCTOMB)|g' \
-	      -e '/definitions of _GL_FUNCDECL_RPL/r $(CXXDEFS_H)' \
-	      -e '/definition of _Noreturn/r $(_NORETURN_H)' \
-	      -e '/definition of _GL_ARG_NONNULL/r $(ARG_NONNULL_H)' \
-	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)'; \
-	} > $@-t && \
-	mv $@-t $@
-
 # We need the following in order to create <sys/stat.h> when the system
 # has one that is incomplete.
 sys/stat.h: sys_stat.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
@@ -3098,10 +3013,12 @@ time.h: time.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) $(
 	      -e 's/@''GNULIB_STRPTIME''@/$(GNULIB_STRPTIME)/g' \
 	      -e 's/@''GNULIB_TIMEGM''@/$(GNULIB_TIMEGM)/g' \
 	      -e 's/@''GNULIB_TIME_R''@/$(GNULIB_TIME_R)/g' \
+	      -e 's/@''GNULIB_TIME_RZ''@/$(GNULIB_TIME_RZ)/g' \
 	      -e 's|@''HAVE_DECL_LOCALTIME_R''@|$(HAVE_DECL_LOCALTIME_R)|g' \
 	      -e 's|@''HAVE_NANOSLEEP''@|$(HAVE_NANOSLEEP)|g' \
 	      -e 's|@''HAVE_STRPTIME''@|$(HAVE_STRPTIME)|g' \
 	      -e 's|@''HAVE_TIMEGM''@|$(HAVE_TIMEGM)|g' \
+	      -e 's|@''HAVE_TIMEZONE_T''@|$(HAVE_TIMEZONE_T)|g' \
 	      -e 's|@''REPLACE_GMTIME''@|$(REPLACE_GMTIME)|g' \
 	      -e 's|@''REPLACE_LOCALTIME''@|$(REPLACE_LOCALTIME)|g' \
 	      -e 's|@''REPLACE_LOCALTIME_R''@|$(REPLACE_LOCALTIME_R)|g' \

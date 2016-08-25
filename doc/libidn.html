@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<!-- This manual is last updated 7 July 2015 for version
-1.31 of GNU Libidn.
+<!-- This manual is last updated 14 January 2016 for version
+1.33 of GNU Libidn.
 
-Copyright (C) 2002-2015 Simon Josefsson.
+Copyright (C) 2002-2016 Simon Josefsson.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -13,10 +13,10 @@ copy of the license is included in the section entitled "GNU Free
 Documentation License". -->
 <!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
 <head>
-<title>GNU Libidn 1.31</title>
+<title>GNU Libidn 1.33</title>
 
-<meta name="description" content="GNU Libidn 1.31">
-<meta name="keywords" content="GNU Libidn 1.31">
+<meta name="description" content="GNU Libidn 1.33">
+<meta name="keywords" content="GNU Libidn 1.33">
 <meta name="resource-type" content="document">
 <meta name="distribution" content="global">
 <meta name="Generator" content="makeinfo">
@@ -103,7 +103,7 @@ dd, li {
 </head>
 
 <body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
-<h1 class="settitle" align="center">GNU Libidn 1.31</h1>
+<h1 class="settitle" align="center">GNU Libidn 1.33</h1>
 
 
 
@@ -252,10 +252,10 @@ Next: <a href="#Introduction" accesskey="n" rel="next">Introduction</a>, Up: <a 
 <a name="GNU-Libidn"></a>
 <h1 class="top">GNU Libidn</h1>
 
-<p>This manual is last updated 7 July 2015 for version
-1.31 of GNU Libidn.
+<p>This manual is last updated 14 January 2016 for version
+1.33 of GNU Libidn.
 </p>
-<p>Copyright &copy; 2002-2015 Simon Josefsson.
+<p>Copyright &copy; 2002-2016 Simon Josefsson.
 </p>
 <blockquote>
 <p>Permission is granted to copy, distribute and/or modify this document
@@ -737,7 +737,7 @@ Next: <a href="#Bug-Reports" accesskey="n" rel="next">Bug Reports</a>, Previous:
 <p><a href="ftp://alpha.gnu.org/pub/gnu/libidn/">ftp://alpha.gnu.org/pub/gnu/libidn/</a>
 </p>
 <p>The latest version is stored in a file, e.g.,
-&lsquo;<samp>libidn-1.31.tar.gz</samp>&rsquo; where the &lsquo;<samp>1.31</samp>&rsquo;
+&lsquo;<samp>libidn-1.33.tar.gz</samp>&rsquo; where the &lsquo;<samp>1.33</samp>&rsquo;
 value is the highest version number in the directory.
 </p>
 <p>The package is then extracted, configured and built like many other
@@ -750,9 +750,9 @@ and install the package.  You will need a few basic tools, such as
 &lsquo;<samp>sh</samp>&rsquo;, &lsquo;<samp>make</samp>&rsquo; and &lsquo;<samp>cc</samp>&rsquo;.
 </p>
 <div class="example">
-<pre class="example">$ wget -q ftp://alpha.gnu.org/pub/gnu/libidn/libidn-1.31.tar.gz
-$ tar xfz libidn-1.31.tar.gz
-$ cd libidn-1.31/
+<pre class="example">$ wget -q ftp://alpha.gnu.org/pub/gnu/libidn/libidn-1.33.tar.gz
+$ tar xfz libidn-1.33.tar.gz
+$ cd libidn-1.33/
 $ ./configure
 ...
 $ make
@@ -2866,7 +2866,7 @@ Next: <a href="#Example-2" accesskey="n" rel="next">Example 2</a>, Up: <a href="
 <p>This example demonstrates how the stringprep functions are used.
 </p>
 <pre class="verbatim">/* example.c --- Example code showing how to use stringprep().
- * Copyright (C) 2002-2015 Simon Josefsson
+ * Copyright (C) 2002-2016 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -2965,7 +2965,7 @@ Next: <a href="#Example-3" accesskey="n" rel="next">Example 3</a>, Previous: <a 
 <p>This example demonstrates how the punycode functions are used.
 </p>
 <pre class="verbatim">/* example2.c --- Example code showing how to use punycode.
- * Copyright (C) 2002-2015 Simon Josefsson
+ * Copyright (C) 2002-2016 Simon Josefsson
  * Copyright (C) 2002  Adam M. Costello
  *
  * This file is part of GNU Libidn.
@@ -3212,7 +3212,7 @@ Next: <a href="#Example-4" accesskey="n" rel="next">Example 4</a>, Previous: <a 
 internationalized domain names into ASCII compatible names.
 </p>
 <pre class="verbatim">/* example3.c --- Example ToASCII() code showing how to use Libidn.
- * Copyright (C) 2002-2015 Simon Josefsson
+ * Copyright (C) 2002-2016 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -3302,7 +3302,7 @@ Next: <a href="#Example-5" accesskey="n" rel="next">Example 5</a>, Previous: <a 
 compatible names to internationalized domain names.
 </p>
 <pre class="verbatim">/* example4.c --- Example ToUnicode() code showing how to use Libidn.
- * Copyright (C) 2002-2015 Simon Josefsson
+ * Copyright (C) 2002-2016 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -3392,7 +3392,7 @@ Previous: <a href="#Example-4" accesskey="p" rel="prev">Example 4</a>, Up: <a hr
 for invalid characters within a specific TLD.
 </p>
 <pre class="verbatim">/* example5.c --- Example TLD checking.
- * Copyright (C) 2004-2015 Simon Josefsson
+ * Copyright (C) 2004-2016 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -3857,7 +3857,7 @@ pending.
 </p>
 <p>The Java library, if Libidn has been built with Java support
 (see <a href="#Downloading-and-Installing">Downloading and Installing</a>), will be placed in
-<samp>java/libidn-1.31.jar</samp>.  The source code is below
+<samp>java/libidn-1.33.jar</samp>.  The source code is below
 <samp>java/</samp> in Maven directory layout, and there is a Maven
 <samp>pom.xml</samp> build script as well.  Source code files are in
 <samp>java/src/main/java/gnu/inet/encoding/</samp>.

@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 
-dnl Copyright (C) 2002-2015 Simon Josefsson
+dnl Copyright (C) 2002-2016 Simon Josefsson
 dnl
 dnl This file is part of GNU Libidn.
 dnl
@@ -18,7 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 AC_PREREQ(2.61)
-AC_INIT([GNU Libidn], [1.31], [bug-libidn@gnu.org])
+AC_INIT([GNU Libidn], [1.33], [bug-libidn@gnu.org])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS(config.h)
@@ -30,7 +30,7 @@ AM_SILENT_RULES([yes])
 # Interfaces added:                             AGE++
 # Interfaces removed:                           AGE=0
 AC_SUBST(LT_CURRENT, 17)
-AC_SUBST(LT_REVISION, 14)
+AC_SUBST(LT_REVISION, 16)
 AC_SUBST(LT_AGE, 6)
 
 AC_PROG_CC
@@ -41,9 +41,8 @@ lgl_EARLY
 DLL_VERSION=`expr ${LT_CURRENT} - ${LT_AGE}`
 AC_SUBST(DLL_VERSION)
 
-LT_INIT([win32-dll])
 m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
-AC_PROG_LIBTOOL
+LT_INIT([win32-dll])
 
 # Checks for programs.
 AM_MISSING_PROG(PERL, perl, $missing_dir)
