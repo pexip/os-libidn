@@ -5,7 +5,7 @@ Maintainer: Pexip AS <packaging@pexip.com>
 XSBC-Pexip-Original-Maintainer: Debian Libidn Team <help-libidn@gnu.org>
 XSBC-Pexip-Original-Uploaders: Anibal Monsalve Salazar <anibal@debian.org>, Simon Josefsson <simon@josefsson.org>
 Standards-Version: 3.9.8
-Build-Depends: debhelper (>= 9), gcj-jdk [!arm !hppa !hurd-i386 !mips64el], fastjar [!arm !hppa !hurd-i386 !mips64el], dh-autoreconf, autopoint
+Build-Depends: debhelper (>= 9), gcj-jdk [!arm !hppa !hurd-i386 !mips64el], fastjar [!arm !hppa !hurd-i386 !mips64el], dh-autoreconf, autopoint, help2man
 Homepage: https://www.gnu.org/software/libidn/
 Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/libidn.git
 Vcs-Git: https://anonscm.debian.org/git/collab-maint/libidn.git
