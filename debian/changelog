@@ -1,7 +1,13 @@
+libidn (1.33-1pexip2) pexip; urgency=low
+
+  * Resync with Debian: drops all Pexip changes.
+
+ -- John-Mark Bell <jmb@pexip.com>  Sun, 16 Apr 2017 20:18:26 +0100
+
 libidn (1.33-1pexip1) pexip; urgency=low
 
   * New upstream release
-    - debian/control: relax autopoint requiements
+    - debian/control: relax autopoint requirements
 
  -- John-Mark Bell <jmb@pexip.com>  Thu, 25 Aug 2016 22:58:39 +0100
 
