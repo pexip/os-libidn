@@ -1,3 +1,11 @@
+libidn (1.33-1pexip3) pexip; urgency=low
+
+  * Backport fix for CVE-2017-14062
+  * Fix FTBFS: use GDOC_BIN instead of hard-coded path
+  * Fix FTBFS: build-depend on texinfo
+
+ -- John-Mark Bell <jmb@pexip.com>  Mon, 15 Jan 2018 15:21:13 +0000
+
 libidn (1.33-1pexip2) pexip; urgency=low
 
   * Resync with Debian: drops all Pexip changes.
