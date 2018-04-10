@@ -4,16 +4,16 @@ export DH_VERBOSE=1
 
 export DEB_BUILD_MAINT_OPTIONS=hardening=+all
 
-# Don't build libidn11-java on platforms that doesn't have gcj.
-NO_JAVA_ARCHES := arm hppa hurd-i386 mips64el or1k
-DEB_HOST_ARCH  ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
-ifneq (,$(filter stage1,$(DEB_BUILD_PROFILES)))
-  # Or when bootstrapping, because libidn is needed before gcj, see #738147.
-  export DH_OPTIONS=-Nlibidn11-java
-else ifeq (,$(filter $(DEB_HOST_ARCH),$(NO_JAVA_ARCHES)))
-  ENABLE_JAVA := --enable-java
+DOPACKAGES = $(shell dh_listpackages)
+CONFIGURE_FLAGS :=
+ifneq ($(filter libidn11-java,$(DOPACKAGES)),)
+CONFIGURE_FLAGS += --enable-java
 else
-  export DH_OPTIONS=-Nlibidn11-java
+CONFIGURE_FLAGS += --disable-java
+endif
+
+ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
+export HELP2MAN=true
 endif
 
 %:
@@ -26,7 +26,7 @@ override_dh_auto_configure:
 		--with-packager-version=$(CFG_VERS) \
 		--with-packager-bug-reports=https://bugs.debian.org/ \
 		--disable-silent-rules \
-		 $(ENABLE_JAVA)
+		$(CONFIGURE_FLAGS)
 
 override_dh_auto_install:
 	dh_auto_install
@@ -40,3 +40,7 @@ override_dh_auto_install:
 override_dh_install:
 	dh_install
 	rm -f debian/libidn11-java/usr/share/doc/libidn11-java/api/package-list
+ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
+	mkdir -p debian/tmp/usr/share/man/man1/
+	cp -fv doc/idn.1 debian/tmp/usr/share/man/man1/idn.1
+endif

@@ -1,14 +1,37 @@
-libidn (1.33-1+deb9u1) stretch; urgency=medium
+libidn (1.33-2.2) unstable; urgency=medium
 
   * Non-maintainer upload.
-  * Fix CVE-2017-14062: An integer overflow vulnerability in libidn's Punycode
-    handling (an encoding used to convert Unicode characters to ASCII) which
-    would have allowed remote attackers to cause a denial of service.
-  * Import 0004-Update-Makefile.gdoc-to-use-GDOC_BIN-instead-of-hard.patch
-    from unstable to avoid a FTBFS.
-    - Add textinfo to Build-Deps.
 
- -- Santiago R.R. <santiagorr@riseup.net>  Tue, 14 Jan 2020 15:42:19 +0100
+  [ Matthias Klose ]
+  * Build using default-jdk instead of gcj-jdk (Closes: #892540)
+
+  [ Emilio Pozuelo Monfort ]
+  * Set libidn11 priority to optional rather than standard.
+  * Mark libidn11-dev as Multi-Arch same. (Closes: #856159)
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Tue, 10 Apr 2018 18:03:08 +0200
+
+libidn (1.33-2.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Do not use help2man when cross-building (Closes: #875684)
+  * Update list of active maintainers
+    - Remove Anibal Monsalve Salazar
+
+  [ Helmut Grohne ]
+  * Move java dependencies to Build-Depends-Indep (Closes: #870669)
+
+ -- Manuel A. Fernandez Montecelo <mafm@debian.org>  Sun, 17 Dec 2017 00:04:41 +0100
+
+libidn (1.33-2) unstable; urgency=high
+
+  * CVE-2017-14062: Fix integer overflow in decode_digit (Closes: #873903)
+  * Add myself to Uploaders
+  * Pull upstream patches of gcc-7 compatibility (Closes: #853493)
+  * Add help2man to Build-Depends to fix FTBFS
+  * Update Makefile.gdoc to use $(GDOC_BIN) instead of hardcoded path
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 12 Sep 2017 11:18:33 +0200
 
 libidn (1.33-1) unstable; urgency=low
 
