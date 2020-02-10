@@ -1,3 +1,11 @@
+From: =?utf-8?q?Ond=C5=99ej_Sur=C3=BD?= <ondrej@debian.org>
+Date: Tue, 12 Sep 2017 11:18:11 +0200
+Subject: Update Makefile.gdoc to use $(GDOC_BIN) instead of hardcoded path
+
+---
+ doc/Makefile.gdoc | 216 +++++++++++++++++++++++++++---------------------------
+ 1 file changed, 108 insertions(+), 108 deletions(-)
+
 diff --git a/doc/Makefile.gdoc b/doc/Makefile.gdoc
 index e4e269b..61f7b9f 100644
 --- a/doc/Makefile.gdoc

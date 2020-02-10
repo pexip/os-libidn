@@ -1,3 +1,21 @@
+libidn (1.33-1+deb9u1pexip1) pexip; urgency=low
+
+  * New upstream release
+
+ -- John-Mark Bell <jmb@pexip.com>  Mon, 10 Feb 2020 10:23:45 +0000
+
+libidn (1.33-1+deb9u1) stretch; urgency=medium
+
+  * Non-maintainer upload.
+  * Fix CVE-2017-14062: An integer overflow vulnerability in libidn's Punycode
+    handling (an encoding used to convert Unicode characters to ASCII) which
+    would have allowed remote attackers to cause a denial of service.
+  * Import 0004-Update-Makefile.gdoc-to-use-GDOC_BIN-instead-of-hard.patch
+    from unstable to avoid a FTBFS.
+    - Add textinfo to Build-Deps.
+
+ -- Santiago R.R. <santiagorr@riseup.net>  Tue, 14 Jan 2020 15:42:19 +0100
+
 libidn (1.33-1pexip3) pexip; urgency=low
 
   * Backport fix for CVE-2017-14062
