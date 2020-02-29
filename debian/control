@@ -3,9 +3,10 @@ Section: libs
 Priority: optional
 Maintainer: Pexip AS <packaging@pexip.com>
 XSBC-Pexip-Original-Maintainer: Debian Libidn Team <help-libidn@gnu.org>
-XSBC-Pexip-Original-Uploaders: Anibal Monsalve Salazar <anibal@debian.org>, Simon Josefsson <simon@josefsson.org>
+XSBC-Pexip-Original-Uploaders: Simon Josefsson <simon@josefsson.org>, Ondřej Surý <ondrej@debian.org>
 Standards-Version: 3.9.8
-Build-Depends: debhelper (>= 9), gcj-jdk [!arm !hppa !hurd-i386 !mips64el], fastjar [!arm !hppa !hurd-i386 !mips64el], dh-autoreconf, autopoint (>= 0.19.3), texinfo
+Build-Depends: debhelper (>= 9), dh-autoreconf, autopoint (>= 0.19.3), help2man, texinfo
+Build-Depends-Indep: default-jdk
 Homepage: https://www.gnu.org/software/libidn/
 Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/libidn.git
 Vcs-Git: https://anonscm.debian.org/git/collab-maint/libidn.git
@@ -29,6 +30,7 @@ Section: libdevel
 Architecture: any
 Depends: libidn11 (= ${binary:Version}), pkg-config, ${misc:Depends}
 Conflicts: libidn9-dev
+Multi-Arch: same
 Description: Development files for GNU Libidn, an IDN library
  GNU Libidn is a fully documented implementation of the Stringprep,
  Punycode and IDNA specifications.  Libidn's purpose is to encode and
@@ -39,7 +41,6 @@ Description: Development files for GNU Libidn, an IDN library
  information, API man pages, and the Libidn manual.
 
 Package: libidn11
-Priority: standard
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Conflicts: libidn9-dev

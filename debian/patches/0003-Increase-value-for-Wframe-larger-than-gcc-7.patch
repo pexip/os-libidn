@@ -1,0 +1,21 @@
+From: =?utf-8?q?Tim_R=C3=BChsen?= <tim.ruehsen@gmx.de>
+Date: Wed, 1 Feb 2017 10:45:29 +0100
+Subject: Increase value for -Wframe-larger-than (gcc-7)
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 649ddcd..c802c5d 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -128,7 +128,7 @@ AC_ARG_ENABLE([gcc-warnings],
+ 
+ if test "$gl_gcc_warnings" = yes; then
+   gl_WARN_ADD([-Werror], [WERROR_CFLAGS])
+-  gl_WARN_ADD([-Wframe-larger-than=112], [WSTACK_CFLAGS])
++  gl_WARN_ADD([-Wframe-larger-than=160], [WSTACK_CFLAGS])
+ 
+   nw="$nw -Wsystem-headers"         # Don't let system headers trigger warnings
+   nw="$nw -Wpadded"                 # Struct in src/idn_cmd.h is not padded
