@@ -2,3 +2,4 @@
 0002-Update-intprops.h-for-gcc-7-compatibility.patch
 0003-Increase-value-for-Wframe-larger-than-gcc-7.patch
 0004-Update-Makefile.gdoc-to-use-GDOC_BIN-instead-of-hard.patch
+disable-thread-test.patch

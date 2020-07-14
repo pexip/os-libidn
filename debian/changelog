@@ -1,6 +1,7 @@
 libidn (1.33-2.2pexip1) pexip; urgency=medium
 
   * Migrate to Buster
+  * disable thread test as it cannot succed inside pexip build environment
 
  -- Vincent Sanders <vince@pexip.com>  Sat, 29 Feb 2020 09:17:31 +0000
 
