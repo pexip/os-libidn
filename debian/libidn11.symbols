@@ -1,4 +1,5 @@
 libidn.so.11 libidn11 #MINVER#
+* Build-Depends-Package: libidn11-dev
  LIBIDN_1.0@LIBIDN_1.0 1.13
  idn_free@LIBIDN_1.0 1.13
  idna_strerror@LIBIDN_1.0 1.13

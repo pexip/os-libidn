@@ -1,0 +1,35 @@
+#!/bin/sh
+
+set -e
+
+WORKDIR=$(mktemp -d)
+trap "rm -rf $WORKDIR" 0 INT QUIT ABRT PIPE TERM
+
+gcc -o $WORKDIR/foo -DWITH_TLD=1 tests/tst_symbols.c `pkg-config --cflags --libs libidn`
+$WORKDIR/foo
+
+for f in $(ls tests/tst_*.c | grep -v tst_symbols); do
+    gcc -o $WORKDIR/foo $f tests/utils.c `pkg-config --cflags --libs libidn`
+    $WORKDIR/foo
+done
+
+cd $WORKDIR
+cat <<EOF > libidntest.c
+#include <stringprep.h>
+
+int main(void)
+{
+  if (!stringprep_check_version (STRINGPREP_VERSION))
+    return 1;
+
+  return 0;
+}
+EOF
+
+gcc -o libidntest libidntest.c `pkg-config --cflags --libs libidn`
+echo "PASS: gcc"
+[ -x libidntest ]
+./libidntest
+echo "PASS: run"
+man -P cat stringprep_check_version
+echo "PASS: man"
