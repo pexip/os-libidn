@@ -3,19 +3,21 @@ Section: libs
 Priority: optional
 Maintainer: Pexip AS <packaging@pexip.com>
 XSBC-Pexip-Original-Maintainer: Debian Libidn Team <help-libidn@gnu.org>
-XSBC-Pexip-Original-Uploaders: Simon Josefsson <simon@josefsson.org>, Ondřej Surý <ondrej@debian.org>
-Standards-Version: 3.9.8
-Build-Depends: debhelper (>= 9), dh-autoreconf, autopoint (>= 0.19.3), help2man, texinfo
+XSBC-Pexip-Original-Uploaders: Simon Josefsson <simon@josefsson.org>,
+           Ondřej Surý <ondrej@debian.org>
+Standards-Version: 4.5.1
+Build-Depends: debhelper-compat (= 13), help2man, texinfo
 Build-Depends-Indep: default-jdk
 Homepage: https://www.gnu.org/software/libidn/
-Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/libidn.git
-Vcs-Git: https://anonscm.debian.org/git/collab-maint/libidn.git
+Vcs-Browser: https://salsa.debian.org/debian/libidn
+Vcs-Git: https://salsa.debian.org/debian/libidn.git
+Rules-Requires-Root: no
 XS-Pexip-Upstream: http://deb.debian.org/debian/ bullseye
 
 Package: idn
 Section: misc
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Command line and Emacs interface to GNU Libidn
  GNU Libidn is a fully documented implementation of the Stringprep,
  Punycode and IDNA specifications.  Libidn's purpose is to encode and
@@ -42,7 +44,7 @@ Description: Development files for GNU Libidn, an IDN library
 
 Package: libidn11
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
 Conflicts: libidn9-dev
 Replaces: libidn11-dev
 Pre-Depends: ${misc:Pre-Depends}
@@ -58,6 +60,7 @@ Description: GNU Libidn library, implementation of IETF IDN specifications
 Package: libidn11-java
 Section: java
 Architecture: all
+Multi-Arch: foreign
 Depends: ${misc:Depends}
 Description: Java port of the GNU Libidn library, an IDN implementation
  GNU Libidn is an implementation of the Stringprep, Punycode and IDNA

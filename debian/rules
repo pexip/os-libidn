@@ -1,5 +1,7 @@
 #!/usr/bin/make -f
 
+include /usr/share/dpkg/pkg-info.mk
+
 export DH_VERBOSE=1
 
 export DEB_BUILD_MAINT_OPTIONS=hardening=+all
@@ -17,13 +19,14 @@ export HELP2MAN=true
 endif
 
 %:
-	dh $@ --parallel --builddirectory=build --with autoreconf
+	dh $@ --builddirectory=build
 
-CFG_VERS = `dpkg-parsechangelog | grep ^Version: | cut -d\  -f2`
+override_dh_autoreconf:
+	GTKDOCIZE=true dh_autoreconf
 
 override_dh_auto_configure:
 	dh_auto_configure -- --with-packager=Debian \
-		--with-packager-version=$(CFG_VERS) \
+		--with-packager-version=$(DEB_VERSION) \
 		--with-packager-bug-reports=https://bugs.debian.org/ \
 		--disable-silent-rules \
 		$(CONFIGURE_FLAGS)

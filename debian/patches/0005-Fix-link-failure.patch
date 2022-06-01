@@ -1,0 +1,19 @@
+Description: Fix link failure with gnulib's upstream patch
+Author: Gianfranco Costamagna <locutusofborg@debian.org>
+Last-Update: 2019-03-20
+Bug-Debian: https://bugs.debian.org/925746
+Origin: https://git.savannah.gnu.org/gitweb/?p=gnulib.git;a=commitdiff;h=cca32830b57e91f837c01d15b8732f23ff97fc36
+
+Index: libidn-1.33/lib/gltests/glthread/thread.h
+===================================================================
+--- libidn-1.33.orig/lib/gltests/glthread/thread.h
++++ libidn-1.33/lib/gltests/glthread/thread.h
+@@ -122,8 +122,6 @@
+    call to foo(...) in the same function.  To avoid this, we test the
+    address of a function in libpthread that we don't use.  */
+
+-#  pragma weak pthread_create
+-
+ #  ifdef __clang__
+   /* Without this, clang complains that pthread_sigmask is never declared.  */
+ #   include <signal.h>

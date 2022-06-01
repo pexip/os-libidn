@@ -1,4 +1,4 @@
-Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: Libidn
 Upstream-Contact: Simon Josefsson <simon@josefsson.org>
 Source: https://www.gnu.org/software/libidn/
@@ -305,7 +305,7 @@ License: LGPL-3+ or GPL-2+
   *
   * This library is distributed in the hope that it will be useful,
   * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
   * Lesser General Public License for more details.
  .
  /* Code from GLIB gunicode.h starts here. */
@@ -339,7 +339,7 @@ License: LGPL-3+ or GPL-2+
   *
   * This library is distributed in the hope that it will be useful,
   * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	 See the GNU
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
   * Lesser General Public License for more details.
  .
  /* Code from GLIB gunidecomp.c starts here. */

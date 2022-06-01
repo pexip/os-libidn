@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+WORKDIR=$(mktemp -d)
+trap "rm -rf $WORKDIR" 0 INT QUIT ABRT PIPE TERM
+cd $WORKDIR
+
+idn --version
+idn --help
+
+idn --version|(! grep '()')
+echo "PASS: idn libidn version"
+
+man -P cat idn
+echo "PASS: man"
