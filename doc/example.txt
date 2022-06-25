@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>		/* setlocale() */
+#include <stringprep.h>
+
+/*
+ * Compiling using libtool and pkg-config is recommended:
+ *
+ * $ libtool cc -o example example.c `pkg-config --cflags --libs libidn`
+ * $ ./example
+ * Input string encoded as `ISO-8859-1': ª
+ * Before locale2utf8 (length 2): aa 0a
+ * Before stringprep (length 3): c2 aa 0a
+ * After stringprep (length 2): 61 0a
+ * $
+ *
+ */
+
+int
+main (void)
+{
+  char buf[BUFSIZ];
+  char *p;
+  int rc;
+  size_t i;
+
+  setlocale (LC_ALL, "");
+
+  printf ("Input string encoded as `%s': ", stringprep_locale_charset ());
+  fflush (stdout);
+  if (!fgets (buf, BUFSIZ, stdin))
+    perror ("fgets");
+  buf[strlen (buf) - 1] = '\0';
+
+  printf ("Before locale2utf8 (length %ld): ", (long int) strlen (buf));
+  for (i = 0; i < strlen (buf); i++)
+    printf ("%02x ", (unsigned) buf[i] & 0xFF);
+  printf ("\n");
+
+  p = stringprep_locale_to_utf8 (buf);
+  if (p)
+    {
+      strcpy (buf, p);
+      free (p);
+    }
+  else
+    printf ("Could not convert string to UTF-8, continuing anyway...\n");
+
+  printf ("Before stringprep (length %ld): ", (long int) strlen (buf));
+  for (i = 0; i < strlen (buf); i++)
+    printf ("%02x ", (unsigned) buf[i] & 0xFF);
+  printf ("\n");
+
+  rc = stringprep (buf, BUFSIZ, 0, stringprep_nameprep);
+  if (rc != STRINGPREP_OK)
+    printf ("Stringprep failed (%d): %s\n", rc, stringprep_strerror (rc));
+  else
+    {
+      printf ("After stringprep (length %ld): ", (long int) strlen (buf));
+      for (i = 0; i < strlen (buf); i++)
+	printf ("%02x ", (unsigned) buf[i] & 0xFF);
+      printf ("\n");
+    }
+
+  return 0;
+}

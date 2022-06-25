@@ -1,0 +1,351 @@
+# Spanish translation for libidn 1.36a
+# Copyright (C) 2018, 2019, 2020 Free Software Foundation, Inc.
+# This file is distributed under the same license as the libidn package.
+# Francisco Javier Serrador <fserrador@gmail.com>, 2018.
+# Cristian Othón Martínez Vera <cfuga@cfuga.mx>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: libidn 1.36a\n"
+"Report-Msgid-Bugs-To: bug-libidn@gnu.org\n"
+"POT-Creation-Date: 2022-06-25 21:03+0200\n"
+"PO-Revision-Date: 2022-03-10 09:21-0600\n"
+"Last-Translator: Cristian Othón Martínez Vera <cfuga@cfuga.mx>\n"
+"Language-Team: Spanish <es@tp.org.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/strerror-idna.c:82 lib/strerror-pr29.c:66 lib/strerror-punycode.c:66
+#: lib/strerror-stringprep.c:87 lib/strerror-tld.c:68
+msgid "Success"
+msgstr "Éxito"
+
+#: lib/strerror-idna.c:86 lib/strerror-pr29.c:74
+msgid "String preparation failed"
+msgstr "Falló la preparación de cadena"
+
+#: lib/strerror-idna.c:90
+msgid "Punycode failed"
+msgstr "Falló código puny"
+
+#: lib/strerror-idna.c:94
+msgid "Non-digit/letter/hyphen in input"
+msgstr "No hay un dígito/letra/guión en la entrada"
+
+#: lib/strerror-idna.c:98
+msgid "Forbidden leading or trailing minus sign ('-')"
+msgstr "Se prohibe un signo menos al inicio o al final ('-')"
+
+#: lib/strerror-idna.c:102
+msgid "Output would be too large or too small"
+msgstr "La salida sería muy grande o muy pequeña"
+
+#: lib/strerror-idna.c:106
+msgid "Input does not start with ACE prefix ('xn--')"
+msgstr "La entrada no inicia con el prefijo ACE ('xn--')"
+
+#: lib/strerror-idna.c:110
+msgid "String not idempotent under ToASCII"
+msgstr "La cadena no es idempotente bajo ToASCII"
+
+#: lib/strerror-idna.c:114
+msgid "Input already contain ACE prefix ('xn--')"
+msgstr "La entrada ya contiene el prefijo ACE ('xn--')"
+
+#: lib/strerror-idna.c:118 lib/strerror-stringprep.c:127 lib/strerror-tld.c:84
+msgid "Character encoding conversion error"
+msgstr "Error en la conversión de codificación de caracteres"
+
+#: lib/strerror-idna.c:122 lib/strerror-stringprep.c:135 lib/strerror-tld.c:80
+msgid "Cannot allocate memory"
+msgstr "No se puede asignar memoria"
+
+#: lib/strerror-idna.c:126
+msgid "System dlopen failed"
+msgstr "Falló el dlopen del sistema"
+
+#: lib/strerror-idna.c:130 lib/strerror-pr29.c:78 lib/strerror-punycode.c:82
+#: lib/strerror-stringprep.c:139 lib/strerror-tld.c:92
+msgid "Unknown error"
+msgstr "Error desconocido"
+
+#: lib/strerror-pr29.c:70
+msgid "String not idempotent under Unicode NFKC normalization"
+msgstr "La cadena no es idempotente bajo la normalización NFKC de Unicode"
+
+#: lib/strerror-punycode.c:70
+msgid "Invalid input"
+msgstr "Entrada inválida"
+
+#: lib/strerror-punycode.c:74 lib/strerror-stringprep.c:111
+msgid "Output would exceed the buffer space provided"
+msgstr "La salida excedería el espacio de almacenamiento previsto"
+
+#: lib/strerror-punycode.c:78
+msgid "String size limit exceeded"
+msgstr "Se excede el límite de tamaño de la cadena"
+
+#: lib/strerror-stringprep.c:91
+msgid "Forbidden unassigned code points in input"
+msgstr "Puntos de código sin asignar prohibidos en la entrada"
+
+#: lib/strerror-stringprep.c:95
+msgid "Prohibited code points in input"
+msgstr "Puntos de código prohibidos en la entrada"
+
+#: lib/strerror-stringprep.c:99
+msgid "Conflicting bidirectional properties in input"
+msgstr "Propiedades bidireccionales en conflicto en la entrada"
+
+#: lib/strerror-stringprep.c:103
+msgid "Malformed bidirectional string"
+msgstr "Cadena bidireccional malformada"
+
+#: lib/strerror-stringprep.c:107
+msgid "Prohibited bidirectional code points in input"
+msgstr "Puntos de código bidireccionales prohibidos en la entrada"
+
+#: lib/strerror-stringprep.c:115
+msgid "Error in stringprep profile definition"
+msgstr "Error en la definición de perfil de stringprep"
+
+#: lib/strerror-stringprep.c:119
+msgid "Flag conflict with profile"
+msgstr "Conflicto opción con perfil"
+
+#: lib/strerror-stringprep.c:123
+msgid "Unknown profile"
+msgstr "Perfil desconocido"
+
+#: lib/strerror-stringprep.c:131
+msgid "Unicode normalization failed (internal error)"
+msgstr "Falló la normalización Unicode (error interno)"
+
+#: lib/strerror-tld.c:72
+msgid "Code points prohibited by top-level domain"
+msgstr "Puntos de código prohibidos por el dominio de nivel principal"
+
+#: lib/strerror-tld.c:76
+msgid "Missing input"
+msgstr "Falta la entrada"
+
+#: lib/strerror-tld.c:88
+msgid "No top-level domain found in input"
+msgstr "No se encontró un dominio de nivel principal en la entrada"
+
+#: src/idn.c:65
+#, c-format
+msgid "Try '%s --help' for more information.\n"
+msgstr "Pruebe '%s --help' para más información.\n"
+
+#: src/idn.c:69
+#, c-format
+msgid "Usage: %s [OPTION]... [STRINGS]...\n"
+msgstr "Uso: %s [OPCIÓN]... [CADENAS]...\n"
+
+#: src/idn.c:72
+msgid ""
+"Internationalized Domain Name (IDN) convert STRINGS, or standard input.\n"
+"\n"
+msgstr ""
+"Nombres de Dominio Internacionalizados (IDN) convierte CADENAS, o la entrada "
+"estándard.\n"
+"\n"
+
+#: src/idn.c:76
+msgid ""
+"Command line interface to the internationalized domain name library.\n"
+"\n"
+"All strings are expected to be encoded in the preferred charset used\n"
+"by your locale.  Use --debug to find out what this charset is.  You\n"
+"can override the charset used by setting environment variable CHARSET.\n"
+"\n"
+"To process a string that starts with '-', for example '-foo', use '--'\n"
+"to signal the end of parameters, as in: idn --quiet -a -- -foo\n"
+"\n"
+"Mandatory arguments to long options are mandatory for short options too.\n"
+msgstr ""
+"Interfaz de línea de órdenes para la biblioteca de nombres de dominio "
+"internacionalizados.\n"
+"\n"
+"Se espera que todas las cadenas estén codificadas en el conjunto de\n"
+"caracteres usado por su local.  Use --debug para encontrar cuál es\n"
+"ese conjunto de caracteres. Puede sobreescribir el conjunto de caracteres\n"
+"utilizado definiendo la variable de ambiente CHARSET.\n"
+"\n"
+"Para procesar una cadena que inicia con '-', por ejemplo '-foo', use '--'\n"
+"para indicar el final de los parámetros, como: idn --quiet -a -- -foo\n"
+"\n"
+"Los argumentos obligatorios para las opciones largas son también "
+"obligatorias\n"
+"para las opciones cortas.\n"
+
+#: src/idn.c:88
+msgid ""
+"  -h, --help               Print help and exit\n"
+"  -V, --version            Print version and exit\n"
+msgstr ""
+"  -h, --help               Muestra la ayuda y termina\n"
+"  -V, --version            Muestra la versión y termina\n"
+
+#: src/idn.c:92
+msgid ""
+"  -s, --stringprep         Prepare string according to nameprep profile\n"
+"  -d, --punycode-decode    Decode Punycode\n"
+"  -e, --punycode-encode    Encode Punycode\n"
+"  -a, --idna-to-ascii      Convert to ACE according to IDNA (default mode)\n"
+"  -u, --idna-to-unicode    Convert from ACE according to IDNA\n"
+msgstr ""
+"  -s, --stringprep         Prepara la cadena de acuerdo al perfil nameprep\n"
+"  -d, --punycode-decode    Decodifica código puny\n"
+"  -e, --punycode-encode    Codifica código puny\n"
+"  -a, --idna-to-ascii      Convierte a ACE de acuerdo a IDNA (modo por "
+"defecto)\n"
+"  -u, --idna-to-unicode    Convierde de ACE de acuerdo a IDNA\n"
+
+#: src/idn.c:99
+msgid ""
+"      --allow-unassigned   Toggle IDNA AllowUnassigned flag (default off)\n"
+"      --usestd3asciirules  Toggle IDNA UseSTD3ASCIIRules flag (default off)\n"
+msgstr ""
+"      --allow-unassigned   Activa/desactiva la opción IDNA AllowUnassigned "
+"(desctivado por defecto)\n"
+"      --usestd3asciirules  Activa/desactiva la opción IDNA UseSTD3ASCIIRules "
+"(desactivado por defecto)\n"
+
+#: src/idn.c:103
+msgid ""
+"      --no-tld             Don't check string for TLD specific rules\n"
+"                             Only for --idna-to-ascii and --idna-to-unicode\n"
+msgstr ""
+"      --no-tld             No verifica la cadena por reglas específicas para "
+"el TLD\n"
+"                             Solamente para --idna-to-ascii y --idna-to-"
+"unicode\n"
+
+#: src/idn.c:107
+msgid ""
+"  -n, --nfkc               Normalize string according to Unicode v3.2 NFKC\n"
+msgstr ""
+"  -n, --nfkc               Normaliza la cadena de acuerdo a NFKC de Unicode "
+"v3.2\n"
+
+#: src/idn.c:110
+msgid ""
+"  -p, --profile=STRING     Use specified stringprep profile instead\n"
+"                             Valid stringprep profiles: Nameprep\n"
+"                             iSCSI Nodeprep Resourceprep trace SASLprep\n"
+msgstr ""
+"  -p, --profile=CADENA     Usa el perfil stringprep especificado\n"
+"                             Perfiles stringprep válidos: Nameprep\n"
+"                             iSCSI Nodeprep Resourceprep trace SASLprep\n"
+
+#: src/idn.c:115
+msgid ""
+"      --debug              Print debugging information\n"
+"      --quiet              Silent operation\n"
+msgstr ""
+"      --debug              Muestra información de depuración\n"
+"      --quiet              Operación silenciosa\n"
+
+#: src/idn.c:173
+#, c-format
+msgid "only one of -s, -e, -d, -a, -u or -n can be specified"
+msgstr "solamente se puede especificar uno de -s, -e, -d, -a, -u o -n"
+
+#: src/idn.c:182
+#, c-format
+msgid "Charset: %s\n"
+msgstr "Conjunto de caracteres: %s\n"
+
+#: src/idn.c:186
+#, c-format
+msgid ""
+"Type each input string on a line by itself, terminated by a newline "
+"character.\n"
+msgstr ""
+"Escriba cada cadena de entrada en una línea para cada uno, terminando con "
+"carácter de línea nueva.\n"
+
+#: src/idn.c:198
+#, c-format
+msgid "input error"
+msgstr "error de entrada"
+
+#: src/idn.c:209 src/idn.c:272 src/idn.c:355 src/idn.c:432 src/idn.c:513
+#, c-format
+msgid "could not convert from %s to UTF-8"
+msgstr "no se puede de %s a UTF-8"
+
+#: src/idn.c:217 src/idn.c:242 src/idn.c:279 src/idn.c:496 src/idn.c:525
+#: src/idn.c:549
+#, c-format
+msgid "could not convert from UTF-8 to UCS-4"
+msgstr "no se puede convertir de UTF-8 a UCS-4"
+
+#: src/idn.c:234
+#, c-format
+msgid "stringprep_profile: %s"
+msgstr "stringprep_profile: %s"
+
+#: src/idn.c:257 src/idn.c:300 src/idn.c:343 src/idn.c:501 src/idn.c:562
+#, c-format
+msgid "could not convert from UTF-8 to %s"
+msgstr "no se puede convertir de UTF-8 a %s"
+
+#: src/idn.c:293
+#, c-format
+msgid "punycode_encode: %s"
+msgstr "punycode_encode: %s"
+
+#: src/idn.c:315
+#, c-format
+msgid "malloc"
+msgstr "malloc"
+
+#: src/idn.c:321
+#, c-format
+msgid "punycode_decode: %s"
+msgstr "punycode_decode: %s"
+
+#: src/idn.c:338 src/idn.c:362 src/idn.c:440
+#, c-format
+msgid "could not convert from UCS-4 to UTF-8"
+msgstr "no se puede convertir de UCS-4 a UTF-8"
+
+#: src/idn.c:379
+#, c-format
+msgid "idna_to_ascii_4z: %s"
+msgstr "idna_to_ascii_4z: %s"
+
+#: src/idn.c:393
+#, c-format
+msgid "idna_to_unicode_8z4z (TLD): %s"
+msgstr "idna_to_unicode_8z4z (TLD): %s"
+
+#: src/idn.c:407 src/idn.c:480
+#, c-format
+msgid "tld_check_4z (position %lu): %s"
+msgstr "tld_check_4z (posición %lu): %s"
+
+#: src/idn.c:410 src/idn.c:486
+#, c-format
+msgid "tld_check_4z: %s"
+msgstr "tld_check_4z: %s"
+
+#: src/idn.c:459
+#, c-format
+msgid "idna_to_unicode_8z4z: %s"
+msgstr "idna_to_unicode_8z4z: %s"
+
+#: src/idn.c:538
+#, c-format
+msgid "could not do NFKC normalization"
+msgstr "no se puede hacer la normalización NFKC"
+
+#~ msgid "System iconv failed"
+#~ msgstr "Falló el iconv del sistema"

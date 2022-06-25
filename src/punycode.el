@@ -1,6 +1,6 @@
 ;;; punycode.el --- An ASCII compatible Unicode encoding format.
 
-;; Copyright (C) 2003-2016 Simon Josefsson
+;; Copyright (C) 2003-2022 Simon Josefsson
 ;; Keywords: punycode, idna, idn, unicode, encoding
 
 ;; This file is part of GNU Libidn.
@@ -16,7 +16,7 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
 
@@ -25,14 +25,14 @@
 
 ;; Example:
 ;;
-;; (punycode-encode "räksmörgås")
+;; (punycode-encode "rÃ¤ksmÃ¶rgÃ¥s")
 ;; => "rksmrgs-5wao1o"
 ;;
 ;; (punycode-encode "foo")
 ;; => "foo-"
 ;;
 ;; (punycode-decode "rksmrgs-5wao1o")
-;; => "räksmörgås"
+;; => "rÃ¤ksmÃ¶rgÃ¥s"
 ;;
 ;; (punycode-decode "foo-")
 ;; => "foo"

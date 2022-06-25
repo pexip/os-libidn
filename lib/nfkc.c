@@ -1,5 +1,5 @@
 /* nfkc.c --- Unicode normalization utilities.
-   Copyright (C) 2002-2016 Simon Josefsson
+   Copyright (C) 2002-2022 Simon Josefsson
 
    This file is part of GNU Libidn.
 
@@ -25,10 +25,10 @@
 
    You should have received copies of the GNU General Public License and
    the GNU Lesser General Public License along with this program.  If
-   not, see <http://www.gnu.org/licenses/>. */
+   not, see <https://www.gnu.org/licenses/>. */
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+# include "config.h"
 #endif
 
 #include <stdlib.h>
@@ -78,11 +78,11 @@
  */
 
 #ifndef	FALSE
-#define	FALSE	(0)
+# define	FALSE	(0)
 #endif
 
 #ifndef	TRUE
-#define	TRUE	(!FALSE)
+# define	TRUE	(!FALSE)
 #endif
 
 #define G_N_ELEMENTS(arr)		(sizeof (arr) / sizeof ((arr)[0]))
@@ -239,38 +239,16 @@ static const gchar *const g_utf8_skip = utf8_skip_data;
  * Return value: the length of the string in characters
  **/
 static glong
-g_utf8_strlen (const gchar * p, gssize max)
+g_utf8_strlen (const gchar * p)
 {
   glong len = 0;
-  const gchar *start = p;
-  g_return_val_if_fail (p != NULL || max == 0, 0);
 
-  if (max < 0)
-    {
-      while (*p)
-	{
-	  p = g_utf8_next_char (p);
-	  ++len;
-	}
-    }
-  else
-    {
-      if (max == 0 || !*p)
-	return 0;
+  g_return_val_if_fail (p != NULL, 0);
 
+  while (*p)
+    {
       p = g_utf8_next_char (p);
-
-      while (p - start < max && *p)
-	{
-	  ++len;
-	  p = g_utf8_next_char (p);
-	}
-
-      /* only do the last len increment if we got a complete
-       * char (don't count partial chars)
-       */
-      if (p - start <= max)
-	++len;
+      ++len;
     }
 
   return len;
@@ -484,8 +462,7 @@ g_utf8_to_ucs4_fast (const gchar * str, glong len, glong * items_written)
  **/
 static gchar *
 g_ucs4_to_utf8 (const gunichar * str,
-		glong len,
-		glong * items_read, glong * items_written)
+		glong len, glong * items_read, glong * items_written)
 {
   gint result_length;
   gchar *result = NULL;
@@ -699,22 +676,26 @@ find_decomposition (gunichar ch, gboolean compat)
 static gboolean
 combine_hangul (gunichar a, gunichar b, gunichar * result)
 {
-  gint LIndex = a - LBase;
-  gint SIndex = a - SBase;
-
-  gint VIndex = b - VBase;
-  gint TIndex = b - TBase;
-
-  if (0 <= LIndex && LIndex < LCount && 0 <= VIndex && VIndex < VCount)
+  if (a >= LBase && a < LCount + LBase && b >= VBase && b < VCount + VBase)
     {
+      gint LIndex = a - LBase;
+      gint VIndex = b - VBase;
+
       *result = SBase + (LIndex * VCount + VIndex) * TCount;
       return TRUE;
     }
-  else if (0 <= SIndex && SIndex < SCount && (SIndex % TCount) == 0
-	   && 0 < TIndex && TIndex < TCount)
+
+  if (a >= SBase && a < SCount + SBase && b > TBase && b < TCount + TBase)
     {
-      *result = a + TIndex;
-      return TRUE;
+      gint SIndex = a - SBase;
+
+      if ((SIndex % TCount) == 0)
+	{
+	  gint TIndex = b - TBase;
+
+	  *result = a + TIndex;
+	  return TRUE;
+	}
     }
 
   return FALSE;
@@ -811,7 +792,7 @@ _g_utf8_normalize_wc (const gchar * str, gssize max_len, GNormalizeMode mode)
 	  decomp = find_decomposition (wc, do_compat);
 
 	  if (decomp)
-	    n_wc += g_utf8_strlen (decomp, -1);
+	    n_wc += g_utf8_strlen (decomp);
 	  else
 	    n_wc++;
 	}
@@ -872,7 +853,7 @@ _g_utf8_normalize_wc (const gchar * str, gssize max_len, GNormalizeMode mode)
     {
       g_unicode_canonical_ordering (wc_buffer + last_start,
 				    n_wc - last_start);
-      // dead assignment: last_start = n_wc;
+      /* dead assignment: last_start = n_wc; */
     }
 
   wc_buffer[n_wc] = 0;
@@ -959,9 +940,11 @@ static gchar *
 g_utf8_normalize (const gchar * str, gssize len, GNormalizeMode mode)
 {
   gunichar *result_wc = _g_utf8_normalize_wc (str, len, mode);
-  gchar *result;
+  gchar *result = NULL;
 
-  result = g_ucs4_to_utf8 (result_wc, -1, NULL, NULL);
+  if (result_wc)
+    result = g_ucs4_to_utf8 (result_wc, -1, NULL, NULL);
+
   g_free (result_wc);
 
   return result;
@@ -1021,7 +1004,7 @@ stringprep_unichar_to_utf8 (uint32_t c, char *outbuf)
  *               This value must be deallocated by the caller.
  **/
 uint32_t *
-stringprep_utf8_to_ucs4 (const char *str, ssize_t len, size_t * items_written)
+stringprep_utf8_to_ucs4 (const char *str, ssize_t len, size_t *items_written)
 {
   size_t n;
 
@@ -1055,7 +1038,7 @@ stringprep_utf8_to_ucs4 (const char *str, ssize_t len, size_t * items_written)
  **/
 char *
 stringprep_ucs4_to_utf8 (const uint32_t * str, ssize_t len,
-			 size_t * items_read, size_t * items_written)
+			 size_t *items_read, size_t *items_written)
 {
   return g_ucs4_to_utf8 (str, len, (glong *) items_read,
 			 (glong *) items_written);
@@ -1099,6 +1082,7 @@ stringprep_utf8_nfkc_normalize (const char *str, ssize_t len)
   return g_utf8_normalize (str, len, G_NORMALIZE_NFKC);
 }
 
+#include <stdio.h>
 /**
  * stringprep_ucs4_nfkc_normalize:
  * @str: a Unicode string.
@@ -1117,6 +1101,9 @@ stringprep_ucs4_nfkc_normalize (const uint32_t * str, ssize_t len)
   uint32_t *result_wc;
 
   p = stringprep_ucs4_to_utf8 (str, len, 0, 0);
+  if (!p)
+    return NULL;
+
   result_wc = _g_utf8_normalize_wc (p, -1, G_NORMALIZE_NFKC);
   free (p);
 

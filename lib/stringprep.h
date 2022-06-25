@@ -1,5 +1,5 @@
 /* stringprep.h --- Header file for stringprep functions.
-   Copyright (C) 2002-2016 Simon Josefsson
+   Copyright (C) 2002-2022 Simon Josefsson
 
    This file is part of GNU Libidn.
 
@@ -25,10 +25,18 @@
 
    You should have received copies of the GNU General Public License and
    the GNU Lesser General Public License along with this program.  If
-   not, see <http://www.gnu.org/licenses/>. */
+   not, see <https://www.gnu.org/licenses/>. */
 
 #ifndef STRINGPREP_H
 # define STRINGPREP_H
+
+/**
+ * SECTION:stringprep
+ * @title: stringprep.h
+ * @short_description: Stringprep-related functions
+ *
+ * Stringprep-related functions.
+ */
 
 # ifndef IDNAPI
 #  if defined LIBIDN_BUILDING && defined HAVE_VISIBILITY && HAVE_VISIBILITY
@@ -51,7 +59,7 @@ extern "C"
 {
 # endif
 
-# define STRINGPREP_VERSION "1.33"
+# define STRINGPREP_VERSION "1.41"
 
 /* Error codes. */
   typedef enum
@@ -97,28 +105,74 @@ extern "C"
 
 # define STRINGPREP_MAX_MAP_CHARS 4
 
+  /* *INDENT-OFF* */
+
+  /* Why INDENT-OFF?  GTK-DOC has a bug
+   * <https://gitlab.gnome.org/GNOME/gtk-doc/-/issues/37> which causes
+   * parsing of structs to fail unless the terminating } is at the
+   * beginning of the line.  We hard-code the header file to be like
+   * that, and add the INDENT-OFF markers so that indent won't restore
+   * them.  When that bug is fixed, remove the INDENT-* marker, run
+   * 'make indent', and make sure that
+   * doc/reference/libidn-decl-list.txt stay the same.
+   *
+   * Of course, exposing these struct's in the public header file in
+   * the first place was a mistake.
+   */
+
+  /**
+   * Stringprep_table_element:
+   * @start: starting codepoint.
+   * @end: ending codepoint, 0 if only one character.
+   * @map: codepoints to map @start into, NULL if end is not 0.
+   *
+   * Stringprep profile table element.
+   */
   struct Stringprep_table_element
   {
     uint32_t start;
-    uint32_t end;		/* 0 if only one character */
-    uint32_t map[STRINGPREP_MAX_MAP_CHARS];	/* NULL if end is not 0 */
-  };
+    uint32_t end;
+    uint32_t map[STRINGPREP_MAX_MAP_CHARS];
+};
   typedef struct Stringprep_table_element Stringprep_table_element;
 
+  /**
+   * Stringprep_table:
+   * @operation: a #Stringprep_profile_steps value
+   * @flags: a #Stringprep_profile_flags value
+   * @table: zero-terminated array of %Stringprep_table_element elements.
+   * @table_size: size of @table, to speed up searching.
+   *
+   * Stringprep profile table.
+   */
   struct Stringprep_table
   {
     Stringprep_profile_steps operation;
     Stringprep_profile_flags flags;
     const Stringprep_table_element *table;
-  };
+    size_t table_size;
+};
+  /**
+   * Stringprep_profile:
+   *
+   * Stringprep profile table.
+   */
   typedef struct Stringprep_table Stringprep_profile;
 
+  /**
+   * Stringprep_profiles:
+   * @name: name of stringprep profile.
+   * @tables: zero-terminated array of %Stringprep_profile elements.
+   *
+   * Element structure
+   */
   struct Stringprep_profiles
   {
     const char *name;
     const Stringprep_profile *tables;
-  };
+};
   typedef struct Stringprep_profiles Stringprep_profiles;
+  /* *INDENT-ON* */
 
   extern IDNAPI const Stringprep_profiles stringprep_profiles[];
 
@@ -154,7 +208,8 @@ extern "C"
   /* SASL */
 
   extern IDNAPI const Stringprep_profile stringprep_saslprep[];
-  extern IDNAPI const Stringprep_table_element stringprep_saslprep_space_map[];
+  extern IDNAPI const Stringprep_table_element
+    stringprep_saslprep_space_map[];
   extern IDNAPI const Stringprep_profile stringprep_plain[];
   extern IDNAPI const Stringprep_profile stringprep_trace[];
 
@@ -172,7 +227,8 @@ extern "C"
 
   extern IDNAPI const Stringprep_profile stringprep_xmpp_nodeprep[];
   extern IDNAPI const Stringprep_profile stringprep_xmpp_resourceprep[];
-  extern IDNAPI const Stringprep_table_element stringprep_xmpp_nodeprep_prohibit[];
+  extern IDNAPI const Stringprep_table_element
+    stringprep_xmpp_nodeprep_prohibit[];
 
 # define stringprep_xmpp_nodeprep(in, maxlen)		\
   stringprep(in, maxlen, 0, stringprep_xmpp_nodeprep)
@@ -189,7 +245,7 @@ extern "C"
 
   /* API */
 
-  extern IDNAPI int stringprep_4i (uint32_t * ucs4, size_t * len,
+  extern IDNAPI int stringprep_4i (uint32_t * ucs4, size_t *len,
 				   size_t maxucs4len,
 				   Stringprep_profile_flags flags,
 				   const Stringprep_profile * profile);
@@ -217,16 +273,16 @@ extern "C"
 
   extern IDNAPI uint32_t *stringprep_utf8_to_ucs4 (const char *str,
 						   ssize_t len,
-						   size_t * items_written);
+						   size_t *items_written);
   extern IDNAPI char *stringprep_ucs4_to_utf8 (const uint32_t * str,
 					       ssize_t len,
-					       size_t * items_read,
-					       size_t * items_written);
+					       size_t *items_read,
+					       size_t *items_written);
 
   extern IDNAPI char *stringprep_utf8_nfkc_normalize (const char *str,
 						      ssize_t len);
-  extern IDNAPI uint32_t *stringprep_ucs4_nfkc_normalize (const uint32_t * str,
-							  ssize_t len);
+  extern IDNAPI uint32_t *stringprep_ucs4_nfkc_normalize (const uint32_t *
+							  str, ssize_t len);
 
   extern IDNAPI const char *stringprep_locale_charset (void);
   extern IDNAPI char *stringprep_convert (const char *str,

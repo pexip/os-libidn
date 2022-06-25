@@ -2,15 +2,33 @@
 
 set -e
 
-WORKDIR=$(mktemp -d)
-trap "rm -rf $WORKDIR" 0 INT QUIT ABRT PIPE TERM
-cd $WORKDIR
+idn --version
+echo "PASS: idn --version"
+
+idn --help
+echo "PASS: idn --help"
 
 idn --version
-idn --help
-
 idn --version|(! grep '()')
-echo "PASS: idn libidn version"
+echo "PASS: idn --version"
 
 man -P cat idn
 echo "PASS: man"
+
+CMD="env CHARSET=UTF-8 idn --idna-to-unicode xn--rksmrgs-5wao1o"
+STR=`$CMD`
+if test "$STR" != "räksmörgås"; then
+    echo "FAIL: $CMD: $STR"
+    exit 1
+fi
+echo "PASS: $CMD: $STR"
+
+CMD="env CHARSET=UTF-8 idn --idna-to-ascii räksmörgås"
+STR=`$CMD`
+if test "$STR" != "xn--rksmrgs-5wao1o"; then
+    echo "FAIL: $CMD: $STR"
+    exit 1
+fi
+echo "PASS: $CMD: $STR"
+
+exit 0

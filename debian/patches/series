@@ -1,5 +1,0 @@
-0001-lib-puny_decode-Fix-integer-overflow-found-by-fuzzin.patch
-0002-Update-intprops.h-for-gcc-7-compatibility.patch
-0003-Increase-value-for-Wframe-larger-than-gcc-7.patch
-0004-Update-Makefile.gdoc-to-use-GDOC_BIN-instead-of-hard.patch
-0005-Fix-link-failure.patch

@@ -1,5 +1,5 @@
 /* tst_idna3.c --- Self tests for upper-case XN-- regression.
- * Copyright (C) 2011-2016 Simon Josefsson
+ * Copyright (C) 2011-2022 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
@@ -40,18 +40,18 @@ struct idna
 
 static const struct idna idna[] = {
   /* Test vectors from http://bugs.debian.org/610617 */
-  { "XN----7SBAABF4DLDYSIEHP4NTB.XN--P1AI",
-    "\xd1\x81\xd0\xb0\xd0\xbc\xd0\xb0\xd1\x80\xd1\x81\xd0\xba\xd0\xb0\xd1"
-    "\x8f\x2d\xd0\xbe\xd0\xb1\xd0\xbb\xd0\xb0\xd1\x81\xd1\x82\xd1\x8c\x2e"
-    "\xd1\x80\xd1\x84"},
-  { "xn----7SBAABF4DLDYSIEHP4NTB.XN--P1AI",
-    "\xd1\x81\xd0\xb0\xd0\xbc\xd0\xb0\xd1\x80\xd1\x81\xd0\xba\xd0\xb0\xd1"
-    "\x8f\x2d\xd0\xbe\xd0\xb1\xd0\xbb\xd0\xb0\xd1\x81\xd1\x82\xd1\x8c\x2e"
-    "\xd1\x80\xd1\x84"},
-  { "xn----7SBAABF4DLDYSIEHP4NTB.xn--P1AI",
-    "\xd1\x81\xd0\xb0\xd0\xbc\xd0\xb0\xd1\x80\xd1\x81\xd0\xba\xd0\xb0\xd1"
-    "\x8f\x2d\xd0\xbe\xd0\xb1\xd0\xbb\xd0\xb0\xd1\x81\xd1\x82\xd1\x8c\x2e"
-    "\xd1\x80\xd1\x84"}
+  {"XN----7SBAABF4DLDYSIEHP4NTB.XN--P1AI",
+   "\xd1\x81\xd0\xb0\xd0\xbc\xd0\xb0\xd1\x80\xd1\x81\xd0\xba\xd0\xb0\xd1"
+   "\x8f\x2d\xd0\xbe\xd0\xb1\xd0\xbb\xd0\xb0\xd1\x81\xd1\x82\xd1\x8c\x2e"
+   "\xd1\x80\xd1\x84"},
+  {"xn----7SBAABF4DLDYSIEHP4NTB.XN--P1AI",
+   "\xd1\x81\xd0\xb0\xd0\xbc\xd0\xb0\xd1\x80\xd1\x81\xd0\xba\xd0\xb0\xd1"
+   "\x8f\x2d\xd0\xbe\xd0\xb1\xd0\xbb\xd0\xb0\xd1\x81\xd1\x82\xd1\x8c\x2e"
+   "\xd1\x80\xd1\x84"},
+  {"xn----7SBAABF4DLDYSIEHP4NTB.xn--P1AI",
+   "\xd1\x81\xd0\xb0\xd0\xbc\xd0\xb0\xd1\x80\xd1\x81\xd0\xba\xd0\xb0\xd1"
+   "\x8f\x2d\xd0\xbe\xd0\xb1\xd0\xbb\xd0\xb0\xd1\x81\xd1\x82\xd1\x8c\x2e"
+   "\xd1\x80\xd1\x84"}
 };
 
 void
@@ -59,13 +59,13 @@ doit (void)
 {
   int rc;
   char *out = NULL;
-  size_t i;
+  unsigned i;
 
   for (i = 0; i < sizeof (idna) / sizeof (idna[0]); i++)
     {
       rc = idna_to_unicode_8z8z (idna[i].in, &out, 0);
       if (rc != IDNA_SUCCESS)
-	fail ("IDNA3[%ld] failed %d\n", i, rc);
+	fail ("IDNA3[%u] failed %d\n", i, rc);
 
       if (debug && rc == IDNA_SUCCESS)
 	{
@@ -75,9 +75,9 @@ doit (void)
 	}
 
       if (strcmp (out, idna[i].out) != 0)
-	fail ("IDNA3[%ld] failed\n", i);
+	fail ("IDNA3[%u] failed\n", i);
       else if (debug)
-	printf ("IDNA3[%ld] success\n", i);
+	printf ("IDNA3[%u] success\n", i);
 
       if (out)
 	idn_free (out);

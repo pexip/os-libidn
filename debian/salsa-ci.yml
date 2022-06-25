@@ -1,3 +1,8 @@
 include:
  - https://salsa.debian.org/salsa-ci-team/pipeline/raw/master/salsa-ci.yml
  - https://salsa.debian.org/salsa-ci-team/pipeline/raw/master/pipeline-jobs.yml
+ - https://jas.pages.debian.net/reverse-dependency-ci/libidn.yml
+
+# Enable reverse dependency builds with manual pipeline invoked from
+# https://salsa.debian.org/debian/libidn/-/pipelines/new with variable
+# SALSA_CI_ENABLE_REVERSE_DEPENDENCY_BUILD set to 1.

@@ -1,4 +1,4 @@
-# Copyright (C) 2004-2016 Simon Josefsson
+# Copyright (C) 2004-2022 Simon Josefsson
 # Copyright (C) 2003 Stephane Bortzmeyer <bortzmeyer@nic.fr> / AFNIC
 # Copying and distribution of this file, with or without modification,
 # are permitted in any medium without royalty provided the copyright
@@ -6,7 +6,7 @@
 
 version "1.0"
 tld fr
- 
+
 # Variant table for the French language
 # See Internet-Draft draft-hoffman-idn-reg-00
 #
@@ -41,7 +41,7 @@ U+006D
 # <URL:http://www.ouest-france.fr/dossiershtm/cours-de-breton/lecture.htm>
 # or in basque.
 U+006E
-# o and its variants : ô. ö <U+00F6> exists in French? No word uses 
+# o and its variants : ô. ö <U+00F6> exists in French? No word uses
 # it.
 # ò <U+00F2> does not exist in french but in occitan
 # <URL:http://occitanet.free.fr/fr/index.html>

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libidn 1.21\n"
 "Report-Msgid-Bugs-To: bug-libidn@gnu.org\n"
-"POT-Creation-Date: 2016-07-20 19:22+0200\n"
+"POT-Creation-Date: 2022-06-25 21:03+0200\n"
 "PO-Revision-Date: 2011-04-30 15:25+0200\n"
 "Last-Translator: Jorma Karvonen <karvonen.jorma@gmail.com>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: KBabel 1.11.4\n"
 
@@ -39,7 +40,8 @@ msgid "Non-digit/letter/hyphen in input"
 msgstr "Syötteessä on merkki, joka ei ole numero/kirjain/tavuviiva"
 
 #: lib/strerror-idna.c:98
-msgid "Forbidden leading or trailing minus sign (`-')"
+#, fuzzy
+msgid "Forbidden leading or trailing minus sign ('-')"
 msgstr "Ei saa alkaa tai loppua miinusmerkillä (”-”)"
 
 #: lib/strerror-idna.c:102
@@ -47,7 +49,8 @@ msgid "Output would be too large or too small"
 msgstr "Tuloste olisi liian suuri tai liian pieni"
 
 #: lib/strerror-idna.c:106
-msgid "Input does not start with ACE prefix (`xn--')"
+#, fuzzy
+msgid "Input does not start with ACE prefix ('xn--')"
 msgstr "Syöte ei ala ACE-prefiksillä (”xn--”)"
 
 #  Yksinkertaisesti selitettynä idempotentti on matemaattinen termi, joka tarkoittaa, että jonkun toiminnon tulos on aina sama kun toiminto toistetaan kahdesti (tai useammin).
@@ -56,14 +59,15 @@ msgid "String not idempotent under ToASCII"
 msgstr "Merkkijono ei ole idempotentti ToASCII-toiminnon aikana"
 
 #: lib/strerror-idna.c:114
-msgid "Input already contain ACE prefix (`xn--')"
+#, fuzzy
+msgid "Input already contain ACE prefix ('xn--')"
 msgstr "Syöte jo sisältää ACE-prefiksin (”xn--”)"
 
-#: lib/strerror-idna.c:118
-msgid "Could not convert string in locale encoding"
+#: lib/strerror-idna.c:118 lib/strerror-stringprep.c:127 lib/strerror-tld.c:84
+msgid "Character encoding conversion error"
 msgstr ""
 
-#: lib/strerror-idna.c:122 lib/strerror-stringprep.c:134 lib/strerror-tld.c:80
+#: lib/strerror-idna.c:122 lib/strerror-stringprep.c:135 lib/strerror-tld.c:80
 msgid "Cannot allocate memory"
 msgstr "Ei voida varata muistia"
 
@@ -72,7 +76,7 @@ msgid "System dlopen failed"
 msgstr "Järjestelmän dlopen-käsky ei onnistunut"
 
 #: lib/strerror-idna.c:130 lib/strerror-pr29.c:78 lib/strerror-punycode.c:82
-#: lib/strerror-stringprep.c:138 lib/strerror-tld.c:92
+#: lib/strerror-stringprep.c:139 lib/strerror-tld.c:92
 msgid "Unknown error"
 msgstr "Tuntematon virhe"
 
@@ -125,11 +129,7 @@ msgstr "Lippu ristiriidassa profiilin kanssa"
 msgid "Unknown profile"
 msgstr "Tuntematon profiili"
 
-#: lib/strerror-stringprep.c:126
-msgid "Could not convert string in locale encoding."
-msgstr ""
-
-#: lib/strerror-stringprep.c:130
+#: lib/strerror-stringprep.c:131
 msgid "Unicode normalization failed (internal error)"
 msgstr "Unicode-normeeraus ei onnistunut (sisäinen virhe)"
 
@@ -141,17 +141,13 @@ msgstr "Code points-skalaariarvot kiellettyjä ylätason toimialueessa"
 msgid "Missing input"
 msgstr "Syöte puuttuu"
 
-#: lib/strerror-tld.c:84
-msgid "System iconv failed"
-msgstr "Järjestelmän iconv-käsky ei onnistunut"
-
 #: lib/strerror-tld.c:88
 msgid "No top-level domain found in input"
 msgstr "Syötteestä ei löytynyt ylätason toimialuetta"
 
 #: src/idn.c:65
-#, c-format
-msgid "Try `%s --help' for more information.\n"
+#, fuzzy, c-format
+msgid "Try '%s --help' for more information.\n"
 msgstr "Lisätietoja käskyllä ”%s --help”.\n"
 
 #: src/idn.c:69
@@ -169,15 +165,16 @@ msgstr ""
 "\n"
 
 #: src/idn.c:76
+#, fuzzy
 msgid ""
 "Command line interface to the internationalized domain name library.\n"
 "\n"
 "All strings are expected to be encoded in the preferred charset used\n"
-"by your locale.  Use `--debug' to find out what this charset is.  You\n"
+"by your locale.  Use --debug to find out what this charset is.  You\n"
 "can override the charset used by setting environment variable CHARSET.\n"
 "\n"
-"To process a string that starts with `-', for example `-foo', use `--'\n"
-"to signal the end of parameters, as in `idn --quiet -a -- -foo'.\n"
+"To process a string that starts with '-', for example '-foo', use '--'\n"
+"to signal the end of parameters, as in: idn --quiet -a -- -foo\n"
 "\n"
 "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr ""
@@ -246,11 +243,11 @@ msgstr ""
 "koodauksen mukaisesti\n"
 
 #: src/idn.c:110
+#, fuzzy
 msgid ""
 "  -p, --profile=STRING     Use specified stringprep profile instead\n"
-"                             Valid stringprep profiles: `Nameprep',\n"
-"                             `iSCSI', `Nodeprep', `Resourceprep', \n"
-"                             `trace', `SASLprep'\n"
+"                             Valid stringprep profiles: Nameprep\n"
+"                             iSCSI Nodeprep Resourceprep trace SASLprep\n"
 msgstr ""
 "  -p, --profile=MERKKIJONO Käytä määritellyn ”stringprep”-profiilin sijasta\n"
 "                             Voimassa olevat ”stringprep”-profiilit: "
@@ -258,7 +255,7 @@ msgstr ""
 "                             ”iSCSI”, ”Nodeprep”, ”Resourceprep”, \n"
 "                             ”trace”, ”SASLprep”\n"
 
-#: src/idn.c:116
+#: src/idn.c:115
 msgid ""
 "      --debug              Print debugging information\n"
 "      --quiet              Silent operation\n"
@@ -271,12 +268,12 @@ msgstr ""
 msgid "only one of -s, -e, -d, -a, -u or -n can be specified"
 msgstr "vain yksi valitsimista -s, -e, -d, -a, -u tai -n voidaan määritellä"
 
-#: src/idn.c:183
-#, c-format
-msgid "Charset `%s'.\n"
+#: src/idn.c:182
+#, fuzzy, c-format
+msgid "Charset: %s\n"
 msgstr "Merkistö ”%s”\n"
 
-#: src/idn.c:188
+#: src/idn.c:186
 #, c-format
 msgid ""
 "Type each input string on a line by itself, terminated by a newline "
@@ -285,81 +282,84 @@ msgstr ""
 "Kirjoita jokainen merkkijono omalle rivilleen ja lopeta rivi "
 "rivinvaihdolla.\n"
 
-#: src/idn.c:200
+#: src/idn.c:198
 #, c-format
 msgid "input error"
 msgstr "syötevirhe"
 
-#: src/idn.c:211 src/idn.c:274 src/idn.c:357 src/idn.c:434 src/idn.c:515
+#: src/idn.c:209 src/idn.c:272 src/idn.c:355 src/idn.c:432 src/idn.c:513
 #, c-format
 msgid "could not convert from %s to UTF-8"
 msgstr "ei voitu muuntaa %s-merkistöstä UTF-8-merkistöön"
 
-#: src/idn.c:219 src/idn.c:244 src/idn.c:281 src/idn.c:498 src/idn.c:527
-#: src/idn.c:551
+#: src/idn.c:217 src/idn.c:242 src/idn.c:279 src/idn.c:496 src/idn.c:525
+#: src/idn.c:549
 #, c-format
 msgid "could not convert from UTF-8 to UCS-4"
 msgstr "ei voitu muuntaa UTF-8-merkistöstä UCS-4-merkistöön"
 
-#: src/idn.c:236
+#: src/idn.c:234
 #, c-format
 msgid "stringprep_profile: %s"
 msgstr "stringprep_profile: %s"
 
-#: src/idn.c:259 src/idn.c:302 src/idn.c:345 src/idn.c:503 src/idn.c:564
+#: src/idn.c:257 src/idn.c:300 src/idn.c:343 src/idn.c:501 src/idn.c:562
 #, c-format
 msgid "could not convert from UTF-8 to %s"
 msgstr "ei voitu muuntaa UTF-8-merkistöstä %s-merkistöön."
 
-#: src/idn.c:295
+#: src/idn.c:293
 #, c-format
 msgid "punycode_encode: %s"
 msgstr "punycode_encode: %s"
 
-#: src/idn.c:317
+#: src/idn.c:315
 #, c-format
 msgid "malloc"
 msgstr "malloc-käsky"
 
-#: src/idn.c:323
+#: src/idn.c:321
 #, c-format
 msgid "punycode_decode: %s"
 msgstr "punycode_decode: %s"
 
-#: src/idn.c:340 src/idn.c:364 src/idn.c:442
+#: src/idn.c:338 src/idn.c:362 src/idn.c:440
 #, c-format
 msgid "could not convert from UCS-4 to UTF-8"
 msgstr "ei voitu muuntaa UCS-4-merkistöstä UTF-8-merkistöön."
 
-#: src/idn.c:381
+#: src/idn.c:379
 #, c-format
 msgid "idna_to_ascii_4z: %s"
 msgstr "idna_to_ascii_4z: %s"
 
-#: src/idn.c:395
+#: src/idn.c:393
 #, c-format
 msgid "idna_to_unicode_8z4z (TLD): %s"
 msgstr "idna_to_unicode_8z4z (TLD): %s"
 
-#: src/idn.c:409 src/idn.c:482
+#: src/idn.c:407 src/idn.c:480
 #, c-format
 msgid "tld_check_4z (position %lu): %s"
 msgstr "tld_check_4z (sijainti %lu): %s"
 
-#: src/idn.c:412 src/idn.c:488
+#: src/idn.c:410 src/idn.c:486
 #, c-format
 msgid "tld_check_4z: %s"
 msgstr "tld_check_4z: %s"
 
-#: src/idn.c:461
+#: src/idn.c:459
 #, c-format
 msgid "idna_to_unicode_8z4z: %s"
 msgstr "idna_to_unicode_8z4z: %s"
 
-#: src/idn.c:540
+#: src/idn.c:538
 #, c-format
 msgid "could not do NFKC normalization"
 msgstr "ei voitu tehdä NFKC-normeerausta."
+
+#~ msgid "System iconv failed"
+#~ msgstr "Järjestelmän iconv-käsky ei onnistunut"
 
 #~ msgid ""
 #~ "\n"

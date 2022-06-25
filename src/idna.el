@@ -1,6 +1,6 @@
 ;;; idna.el --- Internationalizing Domain Names in Applications.
 
-;; Copyright (C) 2003-2016 Simon Josefsson
+;; Copyright (C) 2003-2022 Simon Josefsson
 ;; Keywords: idna, idn, domain name, internationalization
 
 ;; This file is part of GNU Libidn.
@@ -16,7 +16,7 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
 
@@ -26,14 +26,14 @@
 
 ;; Example:
 ;;
-;; (idna-to-ascii "räksmörgås.gnu.org")
+;; (idna-to-ascii "rÃ¤ksmÃ¶rgÃ¥s.gnu.org")
 ;; => "xn--rksmrgs-5wao1o.gnu.org"
 ;;
 ;; (idna-to-ascii "www.gnu.org")
 ;; => "www.gnu.org"
 ;;
 ;; (idna-to-unicode "xn--rksmrgs-5wao1o.gnu.org")
-;; => "räksmörgås.gnu.org"
+;; => "rÃ¤ksmÃ¶rgÃ¥s.gnu.org"
 ;;
 ;; (idna-to-unicode "www.gnu.org")
 ;; => "www.gnu.org"

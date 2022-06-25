@@ -22,14 +22,14 @@
     <maven.compiler.showDeprecation>true</maven.compiler.showDeprecation>
   </properties>
 
-  <url>http://www.gnu.org/software/libidn/</url>
+  <url>https://www.gnu.org/software/libidn/</url>
 
   <inceptionYear>2002</inceptionYear>
 
   <licenses>
     <license>
       <name>GNU Lesser General Public License version 3.0 or later</name>
-      <url>http://www.gnu.org/licenses/licenses.html</url>
+      <url>https://www.gnu.org/licenses/licenses.html</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -41,7 +41,7 @@
 
   <organization>
     <name>GNU</name>
-    <url>http://www.gnu.org/</url>
+    <url>https://www.gnu.org/</url>
   </organization>
 
   <dependencies>

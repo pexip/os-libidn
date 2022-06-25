@@ -1,5 +1,5 @@
 /* tst_badutf8nfkc.c --- Self tests for malformed UTF-8 NFKC input.
- * Copyright (C) 2016 Simon Josefsson
+ * Copyright (C) 2016-2022 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 

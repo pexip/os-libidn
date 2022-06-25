@@ -29,7 +29,7 @@ header("Content-Type: text/html; charset=$charset");
 
     <p>This page allows you to try the string preparation, punycode
     encode/decode and ToASCII/ToUnicode operations of <a
-    href="http://www.gnu.org/software/libidn/">GNU Libidn</a>.  If you
+    href="https://www.gnu.org/software/libidn/">GNU Libidn</a>.  If you
     encounter a problem with this page, write a (detailed!) report to
     <A HREF="mailto:bug-libidn@gnu.org">bug-libidn@gnu.org</A>.
 

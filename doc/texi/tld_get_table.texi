@@ -11,5 +11,10 @@ TLD table array.
 
 Return value: Return structure corresponding to TLD  @code{tld} by going
 thru  @code{tables} , or return @code{NULL}  if no such structure is found.
+Get the TLD table for a named TLD by searching through the given
+TLD table array.
+
+Return value: Return structure corresponding to TLD  @code{tld} by going
+thru  @code{tables} , or return @code{NULL}  if no such structure is found.
 @end deftypefun
 

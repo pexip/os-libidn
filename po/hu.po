@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libidn 1.29\n"
 "Report-Msgid-Bugs-To: bug-libidn@gnu.org\n"
-"POT-Creation-Date: 2016-07-20 19:22+0200\n"
+"POT-Creation-Date: 2022-06-25 21:03+0200\n"
 "PO-Revision-Date: 2014-08-31 15:46+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
@@ -15,6 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.5\n"
 
@@ -36,7 +37,8 @@ msgid "Non-digit/letter/hyphen in input"
 msgstr "Nem szám/betű/kötőjel a bemeneten"
 
 #: lib/strerror-idna.c:98
-msgid "Forbidden leading or trailing minus sign (`-')"
+#, fuzzy
+msgid "Forbidden leading or trailing minus sign ('-')"
 msgstr "Tiltott kezdő vagy befejező mínusz jel („-”)"
 
 #: lib/strerror-idna.c:102
@@ -44,7 +46,8 @@ msgid "Output would be too large or too small"
 msgstr "A kimenet túl nagy vagy túl kicsi lenne"
 
 #: lib/strerror-idna.c:106
-msgid "Input does not start with ACE prefix (`xn--')"
+#, fuzzy
+msgid "Input does not start with ACE prefix ('xn--')"
 msgstr "A bemenet nem ACE előtaggal („xn--”) kezdődik"
 
 #: lib/strerror-idna.c:110
@@ -52,14 +55,15 @@ msgid "String not idempotent under ToASCII"
 msgstr "A szöveg nem idempotens a ToASCII alatt"
 
 #: lib/strerror-idna.c:114
-msgid "Input already contain ACE prefix (`xn--')"
+#, fuzzy
+msgid "Input already contain ACE prefix ('xn--')"
 msgstr "A bemenet már tartalmaz ACE előtagot („xn--”)"
 
-#: lib/strerror-idna.c:118
-msgid "Could not convert string in locale encoding"
+#: lib/strerror-idna.c:118 lib/strerror-stringprep.c:127 lib/strerror-tld.c:84
+msgid "Character encoding conversion error"
 msgstr ""
 
-#: lib/strerror-idna.c:122 lib/strerror-stringprep.c:134 lib/strerror-tld.c:80
+#: lib/strerror-idna.c:122 lib/strerror-stringprep.c:135 lib/strerror-tld.c:80
 msgid "Cannot allocate memory"
 msgstr "Nem lehet memóriát lefoglalni"
 
@@ -68,7 +72,7 @@ msgid "System dlopen failed"
 msgstr "Rendszer dlopen sikertelen"
 
 #: lib/strerror-idna.c:130 lib/strerror-pr29.c:78 lib/strerror-punycode.c:82
-#: lib/strerror-stringprep.c:138 lib/strerror-tld.c:92
+#: lib/strerror-stringprep.c:139 lib/strerror-tld.c:92
 msgid "Unknown error"
 msgstr "Ismeretlen hiba"
 
@@ -120,11 +124,7 @@ msgstr "Jelzőütközés a profillal"
 msgid "Unknown profile"
 msgstr "Ismeretlen profil"
 
-#: lib/strerror-stringprep.c:126
-msgid "Could not convert string in locale encoding."
-msgstr ""
-
-#: lib/strerror-stringprep.c:130
+#: lib/strerror-stringprep.c:131
 msgid "Unicode normalization failed (internal error)"
 msgstr "Unicode normalizálás sikertelen (belső hiba)"
 
@@ -136,17 +136,13 @@ msgstr "A felsőszintű tartomány tiltja a kódpontokat"
 msgid "Missing input"
 msgstr "Hiányzó bemenet"
 
-#: lib/strerror-tld.c:84
-msgid "System iconv failed"
-msgstr "Rendszer iconv sikertelen"
-
 #: lib/strerror-tld.c:88
 msgid "No top-level domain found in input"
 msgstr "Nem található felsőszintű tartomány a bemeneten"
 
 #: src/idn.c:65
-#, c-format
-msgid "Try `%s --help' for more information.\n"
+#, fuzzy, c-format
+msgid "Try '%s --help' for more information.\n"
 msgstr "További információkért próbálja a(z) „%s --help” parancsot.\n"
 
 #: src/idn.c:69
@@ -164,15 +160,16 @@ msgstr ""
 "\n"
 
 #: src/idn.c:76
+#, fuzzy
 msgid ""
 "Command line interface to the internationalized domain name library.\n"
 "\n"
 "All strings are expected to be encoded in the preferred charset used\n"
-"by your locale.  Use `--debug' to find out what this charset is.  You\n"
+"by your locale.  Use --debug to find out what this charset is.  You\n"
 "can override the charset used by setting environment variable CHARSET.\n"
 "\n"
-"To process a string that starts with `-', for example `-foo', use `--'\n"
-"to signal the end of parameters, as in `idn --quiet -a -- -foo'.\n"
+"To process a string that starts with '-', for example '-foo', use '--'\n"
+"to signal the end of parameters, as in: idn --quiet -a -- -foo\n"
 "\n"
 "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr ""
@@ -237,18 +234,18 @@ msgstr ""
 "  -n, --nfkc               Szöveg normalizálása a Unicode v3.2 NFKC szerint\n"
 
 #: src/idn.c:110
+#, fuzzy
 msgid ""
 "  -p, --profile=STRING     Use specified stringprep profile instead\n"
-"                             Valid stringprep profiles: `Nameprep',\n"
-"                             `iSCSI', `Nodeprep', `Resourceprep', \n"
-"                             `trace', `SASLprep'\n"
+"                             Valid stringprep profiles: Nameprep\n"
+"                             iSCSI Nodeprep Resourceprep trace SASLprep\n"
 msgstr ""
 "  -p, --profile=SZÖVEG     Inkább a megadott stringprep profil használata\n"
 "                             Érvényes stringprep profilok: „Nameprep”,\n"
 "                             „iSCSI”, „Nodeprep”, „Resourceprep”, \n"
 "                             „trace”, „SASLprep”\n"
 
-#: src/idn.c:116
+#: src/idn.c:115
 msgid ""
 "      --debug              Print debugging information\n"
 "      --quiet              Silent operation\n"
@@ -261,12 +258,12 @@ msgstr ""
 msgid "only one of -s, -e, -d, -a, -u or -n can be specified"
 msgstr "csak a következők egyike adható meg: -s, -e, -d, -a, -u vagy -n"
 
-#: src/idn.c:183
-#, c-format
-msgid "Charset `%s'.\n"
+#: src/idn.c:182
+#, fuzzy, c-format
+msgid "Charset: %s\n"
 msgstr "Karakterkészlet: „%s”.\n"
 
-#: src/idn.c:188
+#: src/idn.c:186
 #, c-format
 msgid ""
 "Type each input string on a line by itself, terminated by a newline "
@@ -275,78 +272,81 @@ msgstr ""
 "Minden bemeneti szöveget önmagával egy sorba gépeljen be, egy új sor "
 "karakterrel lezárva.\n"
 
-#: src/idn.c:200
+#: src/idn.c:198
 #, c-format
 msgid "input error"
 msgstr "bemeneti hiba"
 
-#: src/idn.c:211 src/idn.c:274 src/idn.c:357 src/idn.c:434 src/idn.c:515
+#: src/idn.c:209 src/idn.c:272 src/idn.c:355 src/idn.c:432 src/idn.c:513
 #, c-format
 msgid "could not convert from %s to UTF-8"
 msgstr "nem lehet átalakítani: %s -> UTF-8"
 
-#: src/idn.c:219 src/idn.c:244 src/idn.c:281 src/idn.c:498 src/idn.c:527
-#: src/idn.c:551
+#: src/idn.c:217 src/idn.c:242 src/idn.c:279 src/idn.c:496 src/idn.c:525
+#: src/idn.c:549
 #, c-format
 msgid "could not convert from UTF-8 to UCS-4"
 msgstr "nem lehet átalakítani: UTF-8 -> UCS-4"
 
-#: src/idn.c:236
+#: src/idn.c:234
 #, c-format
 msgid "stringprep_profile: %s"
 msgstr "stringprep_profile: %s"
 
-#: src/idn.c:259 src/idn.c:302 src/idn.c:345 src/idn.c:503 src/idn.c:564
+#: src/idn.c:257 src/idn.c:300 src/idn.c:343 src/idn.c:501 src/idn.c:562
 #, c-format
 msgid "could not convert from UTF-8 to %s"
 msgstr "nem lehet átalakítani: UTF-8 -> %s"
 
-#: src/idn.c:295
+#: src/idn.c:293
 #, c-format
 msgid "punycode_encode: %s"
 msgstr "punycode_encode: %s"
 
-#: src/idn.c:317
+#: src/idn.c:315
 #, c-format
 msgid "malloc"
 msgstr "malloc"
 
-#: src/idn.c:323
+#: src/idn.c:321
 #, c-format
 msgid "punycode_decode: %s"
 msgstr "punycode_decode: %s"
 
-#: src/idn.c:340 src/idn.c:364 src/idn.c:442
+#: src/idn.c:338 src/idn.c:362 src/idn.c:440
 #, c-format
 msgid "could not convert from UCS-4 to UTF-8"
 msgstr "nem lehet átalakítani: UCS-4 -> UTF-8"
 
-#: src/idn.c:381
+#: src/idn.c:379
 #, c-format
 msgid "idna_to_ascii_4z: %s"
 msgstr "idna_to_ascii_4z: %s"
 
-#: src/idn.c:395
+#: src/idn.c:393
 #, c-format
 msgid "idna_to_unicode_8z4z (TLD): %s"
 msgstr "idna_to_unicode_8z4z (TLD): %s"
 
-#: src/idn.c:409 src/idn.c:482
+#: src/idn.c:407 src/idn.c:480
 #, c-format
 msgid "tld_check_4z (position %lu): %s"
 msgstr "tld_check_4z (%lu. pozíció): %s"
 
-#: src/idn.c:412 src/idn.c:488
+#: src/idn.c:410 src/idn.c:486
 #, c-format
 msgid "tld_check_4z: %s"
 msgstr "tld_check_4z: %s"
 
-#: src/idn.c:461
+#: src/idn.c:459
 #, c-format
 msgid "idna_to_unicode_8z4z: %s"
 msgstr "idna_to_unicode_8z4z: %s"
 
-#: src/idn.c:540
+#: src/idn.c:538
 #, c-format
 msgid "could not do NFKC normalization"
 msgstr "nem lehet NFKC normalizálást végrehajtani"
+
+#~ msgid "System iconv failed"
+#~ msgstr "Rendszer iconv sikertelen"

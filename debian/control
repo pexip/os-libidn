@@ -4,9 +4,8 @@ Priority: optional
 Maintainer: Debian Libidn Team <help-libidn@gnu.org>
 Uploaders: Simon Josefsson <simon@josefsson.org>,
            Ondřej Surý <ondrej@debian.org>
-Standards-Version: 4.5.1
+Standards-Version: 4.6.1
 Build-Depends: debhelper-compat (= 13), help2man, texinfo
-Build-Depends-Indep: default-jdk
 Homepage: https://www.gnu.org/software/libidn/
 Vcs-Browser: https://salsa.debian.org/debian/libidn
 Vcs-Git: https://salsa.debian.org/debian/libidn.git
@@ -16,20 +15,22 @@ Package: idn
 Section: misc
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: Command line and Emacs interface to GNU Libidn
+Description: Command line interface to GNU Libidn
  GNU Libidn is a fully documented implementation of the Stringprep,
  Punycode and IDNA specifications.  Libidn's purpose is to encode and
  decode internationalized domain names.  The Nameprep, XMPP, SASLprep,
  and iSCSI profiles are supported.
  .
- This package contains the idn command-line tool and its Emacs lisp
- interface.
+ This package contains the idn command-line tool, and the Libidn
+ manual.
 
-Package: libidn11-dev
+Package: libidn-dev
 Section: libdevel
 Architecture: any
-Depends: libidn11 (= ${binary:Version}), pkg-config, ${misc:Depends}
-Conflicts: libidn9-dev
+Depends: libidn12 (= ${binary:Version}), pkg-config, ${misc:Depends}
+Breaks: libidn11-dev (<< 1.38-1~)
+Replaces: libidn11-dev (<< 1.38-1~)
+Suggests: idn
 Multi-Arch: same
 Description: Development files for GNU Libidn, an IDN library
  GNU Libidn is a fully documented implementation of the Stringprep,
@@ -38,13 +39,11 @@ Description: Development files for GNU Libidn, an IDN library
  and iSCSI profiles are supported.
  .
  This package contains the header files, static library, pkg-config
- information, API man pages, and the Libidn manual.
+ information, and API man pages.
 
-Package: libidn11
+Package: libidn12
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Conflicts: libidn9-dev
-Replaces: libidn11-dev
 Pre-Depends: ${misc:Pre-Depends}
 Multi-Arch: same
 Description: GNU Libidn library, implementation of IETF IDN specifications
@@ -55,16 +54,10 @@ Description: GNU Libidn library, implementation of IETF IDN specifications
  .
  This package contains the shared library.
 
-Package: libidn11-java
-Section: java
-Architecture: all
-Multi-Arch: foreign
-Depends: ${misc:Depends}
-Description: Java port of the GNU Libidn library, an IDN implementation
- GNU Libidn is an implementation of the Stringprep, Punycode and IDNA
- specifications defined by the IETF Internationalized Domain Names
- (IDN) working group, used for internationalized domain names.
- Currently the Nameprep, Kerberos 5 and XMPP Stringprep profiles are
- supported.
- .
- This package contains the native Java port of the library.
+Package: libidn11-dev
+Section: oldlibs
+Architecture: any
+Depends: libidn-dev (>= 1.38-1~), ${misc:Depends}
+Multi-Arch: same
+Description: Transitional development package for GNU Libidn
+ This is a transitional package.  It can safely be removed.

@@ -1,5 +1,5 @@
 /* example3.c --- Example ToASCII() code showing how to use Libidn.
- * Copyright (C) 2002-2016 Simon Josefsson
+ * Copyright (C) 2002-2022 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
@@ -56,7 +56,7 @@ main (void)
 
   printf ("Read string (length %ld): ", (long int) strlen (buf));
   for (i = 0; i < strlen (buf); i++)
-    printf ("%02x ", buf[i] & 0xFF);
+    printf ("%02x ", (unsigned) buf[i] & 0xFF);
   printf ("\n");
 
   rc = idna_to_ascii_lz (buf, &p, 0);
@@ -68,7 +68,7 @@ main (void)
 
   printf ("ACE label (length %ld): '%s'\n", (long int) strlen (p), p);
   for (i = 0; i < strlen (p); i++)
-    printf ("%02x ", p[i] & 0xFF);
+    printf ("%02x ", (unsigned) p[i] & 0xFF);
   printf ("\n");
 
   free (p);

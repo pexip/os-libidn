@@ -6,14 +6,6 @@ export DH_VERBOSE=1
 
 export DEB_BUILD_MAINT_OPTIONS=hardening=+all
 
-DOPACKAGES = $(shell dh_listpackages)
-CONFIGURE_FLAGS :=
-ifneq ($(filter libidn11-java,$(DOPACKAGES)),)
-CONFIGURE_FLAGS += --enable-java
-else
-CONFIGURE_FLAGS += --disable-java
-endif
-
 ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 export HELP2MAN=true
 endif
@@ -29,20 +21,10 @@ override_dh_auto_configure:
 		--with-packager-version=$(DEB_VERSION) \
 		--with-packager-bug-reports=https://bugs.debian.org/ \
 		--disable-silent-rules \
-		$(CONFIGURE_FLAGS)
-
-override_dh_auto_install:
-	dh_auto_install
-# Move the library from /usr/lib to /lib
-# This library is used by /bin/ping and is planned to be used for systemd-resolved
-	mkdir -p debian/tmp/lib/$(DEB_HOST_MULTIARCH)/
-	mv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libidn.so.* debian/tmp/lib/$(DEB_HOST_MULTIARCH)/
-	rm -f debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libidn.so
-	ln -s /lib/$(DEB_HOST_MULTIARCH)/libidn.so.11 debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libidn.so
+		--disable-java
 
 override_dh_install:
 	dh_install
-	rm -f debian/libidn11-java/usr/share/doc/libidn11-java/api/package-list
 ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_HOST_GNU_TYPE))
 	mkdir -p debian/tmp/usr/share/man/man1/
 	cp -fv doc/idn.1 debian/tmp/usr/share/man/man1/idn.1

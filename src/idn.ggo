@@ -1,4 +1,4 @@
-# Copyright (C) 2003-2016 Simon Josefsson.
+# Copyright (C) 2003-2022 Simon Josefsson.
 #
 # This file is part of GNU Libidn.
 #
@@ -13,7 +13,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 option "stringprep" s "Prepare string according to nameprep profile" no
 option "punycode-decode" d "Decode Punycode" no
@@ -26,6 +26,6 @@ option "tld" t "Check string for TLD specific rules\nOnly for --idna-to-ascii an
 option "no-tld" - "Don't check string for TLD specific rules\nOnly for --idna-to-ascii and --idna-to-unicode" flag off
 option "nfkc" n "Normalize string according to Unicode v3.2 NFKC" no
 option "hidden-nfkc" k "Hidden parameter for backwards compatibility" no hidden
-option "profile" p "Use specified stringprep profile instead\nValid stringprep profiles are `Nameprep', `iSCSI', `Nodeprep', `Resourceprep', `trace', and `SASLprep'." string no
+option "profile" p "Use specified stringprep profile instead\nValid stringprep profiles are: Nameprep iSCSI Nodeprep Resourceprep trace SASLprep" string no
 option "debug" - "Print debugging information" flag off
 option "quiet" - "Silent operation" flag off

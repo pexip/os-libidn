@@ -1,6 +1,5 @@
 Tests: libidn
-Depends: build-essential, libidn11-dev, man, pkg-config
+Depends: build-essential, libidn-dev, man, pkg-config
 
 Tests: idn
 Depends: build-essential, idn, man
-Restrictions: superficial

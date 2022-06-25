@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002-2016 Simon Josefsson
+# Copyright (C) 2002-2022 Simon Josefsson
 #
 # This file is part of GNU Libidn.
 #
@@ -14,9 +14,9 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-AM_CFLAGS = $(WERROR_CFLAGS) $(WARN_CFLAGS)
+AM_CFLAGS = $(WARN_CFLAGS)
 AM_CPPFLAGS = -I$(top_srcdir)/lib -I../lib -I$(top_srcdir)/gl -I../gl
 AM_CPPFLAGS += -DLOCALEDIR=\"$(localedir)\"
 
@@ -35,8 +35,10 @@ libidn_cmd_la_SOURCES =  idn.ggo idn_cmd.c idn_cmd.h
 libidn_cmd_la_LIBADD = ../gl/libgnu.la
 libidn_cmd_la_CFLAGS =
 
-idn_cmd.c idn_cmd.h: idn.ggo Makefile.am
-	gengetopt --unamed-opts --no-handle-version --no-handle-help \
+# pattern rule (%) needed for parallel make (-j)
+idn_cmd%c idn_cmd%h: idn.ggo Makefile.am
+	gengetopt --unamed-opts \
+		--no-handle-version --no-handle-error --no-handle-help \
 		--set-package="idn" \
 		--input $^ --file-name idn_cmd
 	perl -pi -e 's/\[OPTIONS\]/\[OPTION\]/g' idn_cmd.c

@@ -1,5 +1,5 @@
 /* tst_utf8crash.c --- Self tests for malformed UTF-8 regressions.
- * Copyright (C) 2015-2016 Simon Josefsson
+ * Copyright (C) 2015-2022 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
@@ -42,7 +42,7 @@ doit (void)
   char *output;
   int rc;
 
-  rc = idna_to_unicode_8z8z(input, &output, 0);
+  rc = idna_to_unicode_8z8z (input, &output, 0);
   if (rc != IDNA_ICONV_ERROR)
     fail ("rc %d\n", rc);
 }
