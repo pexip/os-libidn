@@ -12,7 +12,7 @@ Homepage: https://www.gnu.org/software/libidn/
 Vcs-Browser: https://salsa.debian.org/debian/libidn
 Vcs-Git: https://salsa.debian.org/debian/libidn.git
 Rules-Requires-Root: no
-XS-Pexip-Upstream: http://deb.debian.org/debian/ bullseye
+XS-Pexip-Upstream: http://deb.debian.org/debian/ bookworm
 
 Package: idn
 Section: misc
