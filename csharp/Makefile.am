@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2005-2016 Simon Josefsson.
+# Copyright (C) 2005-2022 Simon Josefsson.
 #
 # This file is part of GNU Libidn.
 #
@@ -14,7 +14,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 CSHARPEXEC = $(SHELL) $(top_builddir)/csharpexec.sh
 CSHARPCOMP = $(SHELL) $(top_builddir)/csharpcomp.sh
@@ -49,7 +49,7 @@ INSTALL_DATA_LOCAL_TARGETS += install-dll
 UNINSTALL_LOCAL_TARGETS += uninstall-dll
 
 Libidn.dll: $(SOURCES)
-	$(CSHARPCOMP) $(CSHARPCOMPFLAGS) -o $@ \
+	$(AM_V_GEN)$(CSHARPCOMP) $(CSHARPCOMPFLAGS) -o $@ \
 		`for src in $(SOURCES); do echo $(srcdir)/$$src; done`
 
 SPEC = $(top_srcdir)/doc/specifications
@@ -59,15 +59,15 @@ GenerateTables.exe: $(SOURCES_GENERATE)
 		`for src in $(SOURCES_GENERATE); do echo $(srcdir)/$$src; done`
 	if ! test -f rfc3454.txt; then \
 		ln -s $(SPEC)/rfc3454.txt . \
-		|| cp $(SPEC)/rfc3454.txt .; \
+		|| cp $(SPEC)/rfc3454.txt . || true; \
 	fi
 	if ! test -f UnicodeData.txt; then \
 		ln -s $(SPEC)/UnicodeData-3.2.0.txt UnicodeData.txt \
-		|| cp $(SPEC)/UnicodeData-3.2.0.txt UnicodeData.txt; \
+		|| cp $(SPEC)/UnicodeData-3.2.0.txt UnicodeData.txt || true; \
 	fi
 	if ! test -f CompositionExclusions.txt; then \
 		ln -s $(SPEC)/CompositionExclusions-3.2.0.txt CompositionExclusions.txt \
-		|| cp $(SPEC)/CompositionExclusions-3.2.0.txt CompositionExclusions.txt; \
+		|| cp $(SPEC)/CompositionExclusions-3.2.0.txt CompositionExclusions.txt || true; \
 	fi
 
 RFC3454.cs CombiningClass.cs DecompositionKeys.cs DecompositionMappings.cs Composition.cs: $(GEN_SOURCES)

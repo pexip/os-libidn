@@ -33,6 +33,7 @@ static const Tld_table_element _tld_no_valid[] =
 {
   { 0xe0,  0xe1 },
   { 0xe4,  0xea },
+  { 0xef,  0xef },
   { 0xf1,  0xf4 },
   { 0xf6,  0xf6 },
   { 0xf8,  0xf8 },
@@ -49,8 +50,8 @@ static const Tld_table_element _tld_no_valid[] =
 static const Tld_table _tld_no =
 {
   "no",
-  "1.0",
-  13,
+  "2.0",
+  14,
   &_tld_no_valid[0]
 };
 

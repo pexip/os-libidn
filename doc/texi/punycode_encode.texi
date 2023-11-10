@@ -38,5 +38,12 @@ Return value: The return value can be any of the @code{Punycode_status}
 values defined above except @code{PUNYCODE_BAD_INPUT} .  If not
 @code{PUNYCODE_SUCCESS} , then  @code{output_size} and  @code{output} might contain
 garbage.
+Converts a sequence of code points (presumed to be Unicode code
+points) to Punycode.
+
+Return value: The return value can be any of the @code{Punycode_status} 
+values defined above except @code{PUNYCODE_BAD_INPUT} .  If not
+@code{PUNYCODE_SUCCESS} , then  @code{output_size} and  @code{output} might contain
+garbage.
 @end deftypefun
 

@@ -1,0 +1,14 @@
+  -h, --help               Print help and exit
+  -V, --version            Print version and exit
+  -s, --stringprep         Prepare string according to nameprep profile
+  -d, --punycode-decode    Decode Punycode
+  -e, --punycode-encode    Encode Punycode
+  -a, --idna-to-ascii      Convert to ACE according to IDNA (default mode)
+  -u, --idna-to-unicode    Convert from ACE according to IDNA
+      --allow-unassigned   Toggle IDNA AllowUnassigned flag (default off)
+      --usestd3asciirules  Toggle IDNA UseSTD3ASCIIRules flag (default off)
+      --no-tld             Don't check string for TLD specific rules
+  -n, --nfkc               Normalize string according to Unicode v3.2 NFKC
+  -p, --profile=STRING     Use specified stringprep profile instead
+      --debug              Print debugging information
+      --quiet              Silent operation

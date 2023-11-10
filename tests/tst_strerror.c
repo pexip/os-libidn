@@ -1,5 +1,5 @@
 /* tst_strerror.c --- Self tests for *_strerror().
- * Copyright (C) 2004-2016 Simon Josefsson
+ * Copyright (C) 2004-2022 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
@@ -31,7 +31,9 @@
 #include <pr29.h>
 #include <punycode.h>
 #include <stringprep.h>
-#include <tld.h>
+#ifdef WITH_TLD
+# include <tld.h>
+#endif
 
 #include "utils.h"
 
@@ -69,11 +71,13 @@ doit (void)
   if (debug)
     printf ("stringprep_strerror (0) OK\n");
 
+#ifdef WITH_TLD
   p = tld_strerror (0);
   if (strcmp (p, SUCCESS) != 0)
     fail ("tld_strerror (0) failed: %s\n", p);
   if (debug)
     printf ("tld_strerror (0) OK\n");
+#endif
 
   /* Test unknown error. */
 
@@ -101,16 +105,18 @@ doit (void)
   if (debug)
     printf ("stringprep_strerror (42) OK\n");
 
+#ifdef WITH_TLD
   p = tld_strerror (42);
   if (strcmp (p, UNKNOWN) != 0)
     fail ("tld_strerror (42) failed: %s\n", p);
   if (debug)
     printf ("tld_strerror (42) OK\n");
+#endif
 
   /* Iterate through all error codes. */
 
   {
-    size_t i;
+    unsigned i;
     const char *last_p = NULL;
 
     for (i = 0;; i++)
@@ -126,13 +132,13 @@ doit (void)
 	    break;
 	  }
 	if (debug)
-	  printf ("idna %ld: %s\n", i, p);
+	  printf ("idna %u: %s\n", i, p);
 	last_p = p;
       }
   }
 
   {
-    size_t i;
+    unsigned i;
     const char *last_p = NULL;
 
     for (i = 0;; i++)
@@ -141,13 +147,13 @@ doit (void)
 	if (p == last_p)
 	  break;
 	if (debug)
-	  printf ("pr29 %ld: %s\n", i, p);
+	  printf ("pr29 %u: %s\n", i, p);
 	last_p = p;
       }
   }
 
   {
-    size_t i;
+    unsigned i;
     const char *last_p = NULL;
 
     for (i = 0;; i++)
@@ -156,13 +162,13 @@ doit (void)
 	if (p == last_p)
 	  break;
 	if (debug)
-	  printf ("punycode %ld: %s\n", i, p);
+	  printf ("punycode %u: %s\n", i, p);
 	last_p = p;
       }
   }
 
   {
-    size_t i;
+    unsigned i;
     const char *last_p = NULL;
 
     for (i = 0;; i++)
@@ -183,13 +189,14 @@ doit (void)
 	    break;
 	  }
 	if (debug)
-	  printf ("stringprep %ld: %s\n", i, p);
+	  printf ("stringprep %u: %s\n", i, p);
 	last_p = p;
       }
   }
 
+#ifdef WITH_TLD
   {
-    size_t i;
+    unsigned i;
     const char *last_p = NULL;
 
     for (i = 0;; i++)
@@ -198,8 +205,9 @@ doit (void)
 	if (p == last_p)
 	  break;
 	if (debug)
-	  printf ("tld %ld: %s\n", i, p);
+	  printf ("tld %u: %s\n", i, p);
 	last_p = p;
       }
   }
+#endif
 }

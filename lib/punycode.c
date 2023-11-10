@@ -1,5 +1,5 @@
 /* punycode.c --- Implementation of punycode used to ASCII encode IDN's.
-   Copyright (C) 2002-2016 Simon Josefsson
+   Copyright (C) 2002-2022 Simon Josefsson
 
    This file is part of GNU Libidn.
 
@@ -25,7 +25,7 @@
 
    You should have received copies of the GNU General Public License and
    the GNU Lesser General Public License along with this program.  If
-   not, see <http://www.gnu.org/licenses/>. */
+   not, see <https://www.gnu.org/licenses/>. */
 
 /*
  * This file is derived from RFC 3492bis written by Adam M. Costello,
@@ -88,11 +88,11 @@ enum
 /* point (for use in representing integers) in the range 0 to */
 /* base-1, or base if cp does not represent a value.          */
 
-static punycode_uint
-decode_digit (punycode_uint cp)
+static unsigned
+decode_digit (int cp)
 {
-  return cp - 48 < 10 ? cp - 22 : cp - 65 < 26 ? cp - 65 :
-    cp - 97 < 26 ? cp - 97 : base;
+  return (unsigned) (cp - 48 < 10 ? cp - 22 : cp - 65 < 26 ? cp - 65 :
+		     cp - 97 < 26 ? cp - 97 : base);
 }
 
 /* encode_digit(d,flag) returns the basic code point whose value      */
@@ -196,7 +196,7 @@ int
 punycode_encode (size_t input_length,
 		 const punycode_uint input[],
 		 const unsigned char case_flags[],
-		 size_t * output_length, char output[])
+		 size_t *output_length, char output[])
 {
   punycode_uint input_len, n, delta, h, b, bias, j, m, q, k, t;
   size_t out, max_out;
@@ -228,6 +228,9 @@ punycode_encode (size_t input_length,
 	  output[out++] = case_flags ?
 	    encode_basic (input[j], case_flags[j]) : (char) input[j];
 	}
+      else if (input[j] > 0x10FFFF
+	       || (input[j] >= 0xD800 && input[j] <= 0xDBFF))
+	return punycode_bad_input;
       /* else if (input[j] < n) return punycode_bad_input; */
       /* (not needed for Punycode with unsigned code points) */
     }
@@ -344,7 +347,7 @@ punycode_encode (size_t input_length,
 int
 punycode_decode (size_t input_length,
 		 const char input[],
-		 size_t * output_length,
+		 size_t *output_length,
 		 punycode_uint output[], unsigned char case_flags[])
 {
   punycode_uint n, out, i, max_out, bias, oldi, w, k, digit, t;
@@ -376,6 +379,9 @@ punycode_decode (size_t input_length,
 	return punycode_bad_input;
       output[out++] = input[j];
     }
+  for (j = b + (b > 0); j < input_length; ++j)
+    if (!basic (input[j]))
+      return punycode_bad_input;
 
   /* Main decoding loop:  Start just after the last delimiter if any  */
   /* basic code points were copied; start at the beginning otherwise. */
@@ -418,6 +424,8 @@ punycode_decode (size_t input_length,
       if (i / (out + 1) > maxint - n)
 	return punycode_overflow;
       n += i / (out + 1);
+      if (n > 0x10FFFF || (n >= 0xD800 && n <= 0xDBFF))
+	return punycode_bad_input;
       i %= (out + 1);
 
       /* Insert n at position i of the output: */

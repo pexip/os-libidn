@@ -1,5 +1,5 @@
 /* idna.h --- Prototypes for Internationalized Domain Name library.
-   Copyright (C) 2002-2016 Simon Josefsson
+   Copyright (C) 2002-2022 Simon Josefsson
 
    This file is part of GNU Libidn.
 
@@ -25,11 +25,29 @@
 
    You should have received copies of the GNU General Public License and
    the GNU Lesser General Public License along with this program.  If
-   not, see <http://www.gnu.org/licenses/>. */
+   not, see <https://www.gnu.org/licenses/>. */
 
 #ifndef IDNA_H
 # define IDNA_H
 
+/**
+ * SECTION:idna
+ * @title: idna.h
+ * @short_description: IDNA-related functions
+ *
+ * IDNA-related functions.
+ */
+
+/**
+ * IDNAPI:
+ *
+ * Symbol holding shared library API visibility decorator.
+ *
+ * This is used internally by the library header file and should never
+ * be used or modified by the application.
+ *
+ * https://www.gnu.org/software/gnulib/manual/html_node/Exported-Symbols-of-Shared-Libraries.html
+ */
 # ifndef IDNAPI
 #  if defined LIBIDN_BUILDING && defined HAVE_VISIBILITY && HAVE_VISIBILITY
 #   define IDNAPI __attribute__((__visibility__("default")))
@@ -87,7 +105,7 @@ extern "C"
   extern IDNAPI int idna_to_ascii_4i (const uint32_t * in, size_t inlen,
 				      char *out, int flags);
   extern IDNAPI int idna_to_unicode_44i (const uint32_t * in, size_t inlen,
-					 uint32_t * out, size_t * outlen,
+					 uint32_t * out, size_t *outlen,
 					 int flags);
 
   /* Wrappers that handle several labels */

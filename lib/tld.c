@@ -1,6 +1,6 @@
 /* tld.c --- Declarations for TLD restriction checking.
-   Copyright (C) 2004-2016 Simon Josefsson.
-   Copyright (C) 2003-2014, 2016 Free Software Foundation, Inc.
+   Copyright (C) 2004-2022 Simon Josefsson.
+   Copyright (C) 2003-2022 Free Software Foundation, Inc.
 
    Author: Thomas Jacob, Internet24.de
 
@@ -28,7 +28,7 @@
 
    You should have received copies of the GNU General Public License and
    the GNU Lesser General Public License along with this program.  If
-   not, see <http://www.gnu.org/licenses/>. */
+   not, see <https://www.gnu.org/licenses/>. */
 
 #include <config.h>
 
@@ -75,11 +75,11 @@ tld_get_table (const char *tld, const Tld_table ** tables)
  * tld_default_table:
  * @tld: TLD name (e.g. "com") as zero terminated ASCII byte string.
  * @overrides: Additional zero terminated array of #Tld_table
- *   info-structures for TLDs, or %NULL to only use library deault
+ *   info-structures for TLDs, or %NULL to only use library default
  *   tables.
  *
  * Get the TLD table for a named TLD, using the internal defaults,
- * possibly overrided by the (optional) supplied tables.
+ * possibly overridden by the (optional) supplied tables.
  *
  * Return value: Return structure corresponding to TLD @tld_str, first
  *   looking through @overrides then thru built-in list, or %NULL if
@@ -277,7 +277,7 @@ _tld_checkchar (uint32_t ch, const Tld_table * tld)
  *   failure conditions.
  */
 int
-tld_check_4t (const uint32_t * in, size_t inlen, size_t * errpos,
+tld_check_4t (const uint32_t * in, size_t inlen, size_t *errpos,
 	      const Tld_table * tld)
 {
   const uint32_t *ipos;
@@ -319,7 +319,7 @@ tld_check_4t (const uint32_t * in, size_t inlen, size_t * errpos,
  *   failure conditions.
  */
 int
-tld_check_4tz (const uint32_t * in, size_t * errpos, const Tld_table * tld)
+tld_check_4tz (const uint32_t * in, size_t *errpos, const Tld_table * tld)
 {
   const uint32_t *ipos = in;
 
@@ -356,7 +356,7 @@ tld_check_4tz (const uint32_t * in, size_t * errpos, const Tld_table * tld)
  *   failure conditions.
  */
 int
-tld_check_4 (const uint32_t * in, size_t inlen, size_t * errpos,
+tld_check_4 (const uint32_t * in, size_t inlen, size_t *errpos,
 	     const Tld_table ** overrides)
 {
   const Tld_table *tld;
@@ -406,7 +406,7 @@ tld_check_4 (const uint32_t * in, size_t inlen, size_t * errpos,
  *   failure conditions.
  */
 int
-tld_check_4z (const uint32_t * in, size_t * errpos,
+tld_check_4z (const uint32_t * in, size_t *errpos,
 	      const Tld_table ** overrides)
 {
   const uint32_t *ipos = in;
@@ -444,7 +444,7 @@ tld_check_4z (const uint32_t * in, size_t * errpos,
  *   failure conditions.
  */
 int
-tld_check_8z (const char *in, size_t * errpos, const Tld_table ** overrides)
+tld_check_8z (const char *in, size_t *errpos, const Tld_table ** overrides)
 {
   uint32_t *iucs;
   size_t ilen;
@@ -489,7 +489,7 @@ tld_check_8z (const char *in, size_t * errpos, const Tld_table ** overrides)
  *   failure conditions.
  */
 int
-tld_check_lz (const char *in, size_t * errpos, const Tld_table ** overrides)
+tld_check_lz (const char *in, size_t *errpos, const Tld_table ** overrides)
 {
   char *utf8;
   int rc;
@@ -517,7 +517,7 @@ tld_check_lz (const char *in, size_t * errpos, const Tld_table ** overrides)
  * @TLD_INVALID: Invalid character found.
  * @TLD_NODATA: No input data was provided.
  * @TLD_MALLOC_ERROR: Error during memory allocation.
- * @TLD_ICONV_ERROR: Error during iconv string conversion.
+ * @TLD_ICONV_ERROR: Character encoding conversion error.
  * @TLD_NO_TLD: No top-level domain found in domain string.
  * @TLD_NOTLD: Same as @TLD_NO_TLD, for compatibility
  *   with typo in earlier versions.

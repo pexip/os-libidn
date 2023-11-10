@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2016 Simon Josefsson
+# Copyright (C) 2011-2022 Simon Josefsson
 #
 # This file is part of GNU Libidn.
 #
@@ -13,7 +13,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 PACKAGE = libidn
 distdir = $(PACKAGE)-$(VERSION)
@@ -28,23 +28,23 @@ all:
 libidn4win: libidn4win32 libidn4win64
 
 libidn4win32:
-	$(MAKE) -f libidn4win.mk doit ARCH=32 HOST=i686-w64-mingw32 CHECK=check
+	$(MAKE) -f libidn4win.mk doit ARCH=32 HOST=i686-w64-mingw32
 
 libidn4win64:
 	$(MAKE) -f libidn4win.mk doit ARCH=64 HOST=x86_64-w64-mingw32
 
 doit:
 	rm -rf tmp$(ARCH) && mkdir tmp$(ARCH) && cd tmp$(ARCH) && \
-	cp ../../libiconv-1.14.tar.gz . || wget ftp://ftp.gnu.org/gnu/libiconv/libiconv-1.14.tar.gz && \
-	tar xfa libiconv-1.14.tar.gz && \
-	cd libiconv-1.14 && \
-	./configure --host=$(HOST) --build=x86_64-unknown-linux-gnu --prefix=$(PWD)/tmp$(ARCH)/root && \
+	cp ../../libiconv-1.15.tar.gz . || wget ftp://ftp.gnu.org/gnu/libiconv/libiconv-1.15.tar.gz && \
+	tar xfa libiconv-1.15.tar.gz && \
+	cd libiconv-1.15 && \
+	./configure --host=$(HOST) --prefix=$(PWD)/tmp$(ARCH)/root && \
 	make install && \
 	cd .. && \
 	cp ../../$(TGZ) . || wget $(URL) && \
 	tar xfa $(TGZ) && \
 	cd $(distdir) && \
-	./configure --host=$(HOST) --build=x86_64-unknown-linux-gnu --prefix=$(PWD)/tmp$(ARCH)/root CPPFLAGS=-I$(PWD)/tmp$(ARCH)/root/include --disable-csharp && \
+	./configure --host=$(HOST) --prefix=$(PWD)/tmp$(ARCH)/root CPPFLAGS=-I$(PWD)/tmp$(ARCH)/root/include --disable-csharp && \
 	make install && \
 	make -C tests $(CHECK) && \
 	cd .. && \

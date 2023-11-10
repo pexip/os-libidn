@@ -1,5 +1,5 @@
 /* strerror-stringprep.c --- Convert stringprep errors into text.
-   Copyright (C) 2004-2016 Simon Josefsson
+   Copyright (C) 2004-2022 Simon Josefsson
 
    This file is part of GNU Libidn.
 
@@ -25,7 +25,7 @@
 
    You should have received copies of the GNU General Public License and
    the GNU Lesser General Public License along with this program.  If
-   not, see <http://www.gnu.org/licenses/>. */
+   not, see <https://www.gnu.org/licenses/>. */
 
 #ifdef HAVE_CONFIG_H
 # include "config.h"
@@ -65,7 +65,7 @@
  *   This usually indicate a problem in the calling application.
  * STRINGPREP_UNKNOWN_PROFILE: The supplied profile name was not
  *   known to the library.
- * STRINGPREP_ICONV_ERROR: Could not convert string in locale encoding.
+ * STRINGPREP_ICONV_ERROR: Character encoding conversion error.
  * STRINGPREP_NFKC_FAILED: The Unicode NFKC operation failed.  This
  *   usually indicate an internal error in the library.
  * STRINGPREP_MALLOC_ERROR: The malloc() was out of memory.  This is
@@ -122,8 +122,9 @@ stringprep_strerror (Stringprep_rc rc)
     case STRINGPREP_UNKNOWN_PROFILE:
       p = _("Unknown profile");
       break;
+
     case STRINGPREP_ICONV_ERROR:
-      p = _("Could not convert string in locale encoding.");
+      p = _("Character encoding conversion error");
       break;
 
     case STRINGPREP_NFKC_FAILED:

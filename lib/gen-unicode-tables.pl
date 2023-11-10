@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 
-#    Copyright (C) 2004-2016 Simon Josefsson
+#    Copyright (C) 2004-2022 Simon Josefsson
 #    Copyright (C) 1998, 1999 Tom Tromey
 #    Copyright (C) 2001 Red Hat Software
 
@@ -15,7 +15,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 # I consider the output of this program to be unrestricted.  Use it as
 # you will.

@@ -1,5 +1,5 @@
 /* tst_idna4.c --- Self tests for memory leak regression.
- * Copyright (C) 2011-2016 Simon Josefsson
+ * Copyright (C) 2011-2022 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
@@ -38,17 +38,17 @@ doit (void)
   int rc;
   char *out = NULL;
 
-  rc = idna_to_ascii_8z("search...", &out, 0);
+  rc = idna_to_ascii_8z ("search...", &out, 0);
   if (rc != IDNA_INVALID_LENGTH)
     fail ("unexpected rc %d\n", rc);
 
-  rc = idna_to_ascii_8z("google.com................point", &out, 0);
+  rc = idna_to_ascii_8z ("google.com................point", &out, 0);
   if (rc != IDNA_INVALID_LENGTH)
     fail ("unexpected rc %d\n", rc);
 
-  rc = idna_to_ascii_8z("Loading...\xC2\xB0\xC2\xB0\xC2\xB0\xC2\xB0\xC2\xB0"
-			"\xC2\xB0\xC2\xB0\xC2\xB0\xC2\xB0\xC2\xB0\xC2\xB0"
-			"\xC2\xB0\xC2\xB0\xC2\xB0]", &out, 0);
+  rc = idna_to_ascii_8z ("Loading...\xC2\xB0\xC2\xB0\xC2\xB0\xC2\xB0\xC2\xB0"
+			 "\xC2\xB0\xC2\xB0\xC2\xB0\xC2\xB0\xC2\xB0\xC2\xB0"
+			 "\xC2\xB0\xC2\xB0\xC2\xB0]", &out, 0);
   if (rc != IDNA_INVALID_LENGTH)
     fail ("unexpected rc %d\n", rc);
 }

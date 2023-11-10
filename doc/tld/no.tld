@@ -1,4 +1,4 @@
-# Copyright (C) 2003-2016 Free Software Foundation, Inc.
+# Copyright (C) 2003-2022 Free Software Foundation, Inc.
 # Author: Thomas Jacob, Internet24.de.
 
 # Copying and distribution of this file, with or without modification,
@@ -8,6 +8,7 @@
 # See http://www.norid.no/domeneregistrering/idn/idn_nyetegn.html
 # http://www.norid.no/regelverk/forslag/idn-2003/index.en.html
 # http://www.norid.no/regelverk/forslag/idn-2003/2003-02-18.en.html
+# https://www.norid.no/en/om-domenenavn/regelverk-for-no/#link3
 
 # --- snip ---
 #
@@ -31,7 +32,7 @@
 #
 # --- snap ---
 
-version "1.0"
+version "2.0"
 tld no
 
 U+00E1 # a med akutt aksent / á 00E1
@@ -43,6 +44,7 @@ U+0111 # d med strek
 U+00E9 # e med akutt aksent / é
 U+00E8 # e med gravis-aksent / è
 U+00EA # e med circumflex-aksent / ê
+U+00EF # i with umlaut / ï
 U+014B # eng
 U+0144 # n med akutt aksent
 U+00F1 # n med tilde / ñ

@@ -1,16 +1,15 @@
 # Brazilian Portuguese translation for libidn.
-# Copyright (C) 2014 Free Software Foundation, Inc.
-# Copyright (C) 2014 Simon Josefsson
+# Copyright (C) 2020 Free Software Foundation, Inc.
+# Copyright (C) 2020 Simon Josefsson
 # This file is distributed under the same license as the libidn package.
-# Rafael Ferreira <rafael.f.f1@gmail.com>, 2014.
-#
+# Rafael Fontenelle <rafaelff@gnome.org>, 2020.
 msgid ""
 msgstr ""
-"Project-Id-Version: libidn 1.27\n"
+"Project-Id-Version: libidn 1.36a\n"
 "Report-Msgid-Bugs-To: bug-libidn@gnu.org\n"
-"POT-Creation-Date: 2016-07-20 19:22+0200\n"
-"PO-Revision-Date: 2014-02-04 23:46-0300\n"
-"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"POT-Creation-Date: 2022-06-25 21:03+0200\n"
+"PO-Revision-Date: 2020-07-27 05:03-0300\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldpbr-translation@lists.sourceforge."
 "net>\n"
 "Language: pt_BR\n"
@@ -18,7 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Virtaal 1.0.0-beta1\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 
 #: lib/strerror-idna.c:82 lib/strerror-pr29.c:66 lib/strerror-punycode.c:66
 #: lib/strerror-stringprep.c:87 lib/strerror-tld.c:68
@@ -38,15 +38,15 @@ msgid "Non-digit/letter/hyphen in input"
 msgstr "Não-dígito/letra/hífen na entrada"
 
 #: lib/strerror-idna.c:98
-msgid "Forbidden leading or trailing minus sign (`-')"
-msgstr "Sinal de menus proibido no início ou ao final (\"-\")"
+msgid "Forbidden leading or trailing minus sign ('-')"
+msgstr "Sinal de menus proibido no início ou final (\"-\")"
 
 #: lib/strerror-idna.c:102
 msgid "Output would be too large or too small"
 msgstr "Saída seria grande demais ou pequena demais"
 
 #: lib/strerror-idna.c:106
-msgid "Input does not start with ACE prefix (`xn--')"
+msgid "Input does not start with ACE prefix ('xn--')"
 msgstr "Entrada não inicia com prefixo ACE (\"xn--\")"
 
 #: lib/strerror-idna.c:110
@@ -54,14 +54,14 @@ msgid "String not idempotent under ToASCII"
 msgstr "String não idempotente sob ToASCII"
 
 #: lib/strerror-idna.c:114
-msgid "Input already contain ACE prefix (`xn--')"
+msgid "Input already contain ACE prefix ('xn--')"
 msgstr "Entrada já contém prefixo ACE (\"xn--\")"
 
-#: lib/strerror-idna.c:118
-msgid "Could not convert string in locale encoding"
-msgstr ""
+#: lib/strerror-idna.c:118 lib/strerror-stringprep.c:127 lib/strerror-tld.c:84
+msgid "Character encoding conversion error"
+msgstr "Erro de conversão de codificação de caracteres"
 
-#: lib/strerror-idna.c:122 lib/strerror-stringprep.c:134 lib/strerror-tld.c:80
+#: lib/strerror-idna.c:122 lib/strerror-stringprep.c:135 lib/strerror-tld.c:80
 msgid "Cannot allocate memory"
 msgstr "Não foi possível alocar memória"
 
@@ -70,7 +70,7 @@ msgid "System dlopen failed"
 msgstr "dlopen de sistema falhou"
 
 #: lib/strerror-idna.c:130 lib/strerror-pr29.c:78 lib/strerror-punycode.c:82
-#: lib/strerror-stringprep.c:138 lib/strerror-tld.c:92
+#: lib/strerror-stringprep.c:139 lib/strerror-tld.c:92
 msgid "Unknown error"
 msgstr "Erro desconhecido"
 
@@ -122,11 +122,7 @@ msgstr "Opção conflita com o perfil"
 msgid "Unknown profile"
 msgstr "Perfil desconhecido"
 
-#: lib/strerror-stringprep.c:126
-msgid "Could not convert string in locale encoding."
-msgstr ""
-
-#: lib/strerror-stringprep.c:130
+#: lib/strerror-stringprep.c:131
 msgid "Unicode normalization failed (internal error)"
 msgstr "Normalização de unicode falhou (erro interno)"
 
@@ -138,17 +134,13 @@ msgstr "Pontos de código proibidos pelo domínio de topo"
 msgid "Missing input"
 msgstr "Entrada faltando"
 
-#: lib/strerror-tld.c:84
-msgid "System iconv failed"
-msgstr "iconv do sistema falhou"
-
 #: lib/strerror-tld.c:88
 msgid "No top-level domain found in input"
 msgstr "Nenhum domínio de topo encontrado na entrada"
 
 #: src/idn.c:65
 #, c-format
-msgid "Try `%s --help' for more information.\n"
+msgid "Try '%s --help' for more information.\n"
 msgstr "Tente \"%s --help\" para mais informações.\n"
 
 #: src/idn.c:69
@@ -170,11 +162,11 @@ msgid ""
 "Command line interface to the internationalized domain name library.\n"
 "\n"
 "All strings are expected to be encoded in the preferred charset used\n"
-"by your locale.  Use `--debug' to find out what this charset is.  You\n"
+"by your locale.  Use --debug to find out what this charset is.  You\n"
 "can override the charset used by setting environment variable CHARSET.\n"
 "\n"
-"To process a string that starts with `-', for example `-foo', use `--'\n"
-"to signal the end of parameters, as in `idn --quiet -a -- -foo'.\n"
+"To process a string that starts with '-', for example '-foo', use '--'\n"
+"to signal the end of parameters, as in: idn --quiet -a -- -foo\n"
 "\n"
 "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr ""
@@ -191,7 +183,7 @@ msgstr ""
 "\n"
 "Para processar string que inicie com \"-\", por exemplo \"-foo\", use \"--"
 "\"\n"
-"para sinal no fim de parâmetros, como em \"idn --quiet -a -- -foo\".\n"
+"para sinal no fim de parâmetros, como em: idn --quiet -a -- -foo\n"
 "\n"
 "Argumentos obrigatórios para opções longas são também são para as curtas.\n"
 
@@ -244,16 +236,14 @@ msgstr ""
 #: src/idn.c:110
 msgid ""
 "  -p, --profile=STRING     Use specified stringprep profile instead\n"
-"                             Valid stringprep profiles: `Nameprep',\n"
-"                             `iSCSI', `Nodeprep', `Resourceprep', \n"
-"                             `trace', `SASLprep'\n"
+"                             Valid stringprep profiles: Nameprep\n"
+"                             iSCSI Nodeprep Resourceprep trace SASLprep\n"
 msgstr ""
 "  -p, --profile=STRING     Usa o perfil de stringprep especificado\n"
-"                             Perfis stringprep válidos: \"Nameprep\",\n"
-"                             \"iSCSI\", \"Nodeprep\", \"Resourceprep\", \n"
-"                             \"trace\", \"SASLprep\"\n"
+"                             Perfis stringprep válidos: Nameprep\n"
+"                             iSCSI Nodeprep Resourceprep trace SASLprep\n"
 
-#: src/idn.c:116
+#: src/idn.c:115
 msgid ""
 "      --debug              Print debugging information\n"
 "      --quiet              Silent operation\n"
@@ -266,12 +256,12 @@ msgstr ""
 msgid "only one of -s, -e, -d, -a, -u or -n can be specified"
 msgstr "apenas um entre -s, -e, -d, -a, -u ou -n pode ser especificado"
 
-#: src/idn.c:183
+#: src/idn.c:182
 #, c-format
-msgid "Charset `%s'.\n"
-msgstr "Codificação de caracteres \"%s\".\n"
+msgid "Charset: %s\n"
+msgstr "Codificação de caracteres: %s\n"
 
-#: src/idn.c:188
+#: src/idn.c:186
 #, c-format
 msgid ""
 "Type each input string on a line by itself, terminated by a newline "
@@ -280,78 +270,81 @@ msgstr ""
 "Digite cada string de entrada em uma linha, terminada por um caractere de "
 "linha nova.\n"
 
-#: src/idn.c:200
+#: src/idn.c:198
 #, c-format
 msgid "input error"
 msgstr "erro na entrada"
 
-#: src/idn.c:211 src/idn.c:274 src/idn.c:357 src/idn.c:434 src/idn.c:515
+#: src/idn.c:209 src/idn.c:272 src/idn.c:355 src/idn.c:432 src/idn.c:513
 #, c-format
 msgid "could not convert from %s to UTF-8"
 msgstr "não foi possível converter de %s para UTF-8"
 
-#: src/idn.c:219 src/idn.c:244 src/idn.c:281 src/idn.c:498 src/idn.c:527
-#: src/idn.c:551
+#: src/idn.c:217 src/idn.c:242 src/idn.c:279 src/idn.c:496 src/idn.c:525
+#: src/idn.c:549
 #, c-format
 msgid "could not convert from UTF-8 to UCS-4"
 msgstr "não foi possível converter de UTF-8 para UCS-4"
 
-#: src/idn.c:236
+#: src/idn.c:234
 #, c-format
 msgid "stringprep_profile: %s"
 msgstr "stringprep_profile: %s"
 
-#: src/idn.c:259 src/idn.c:302 src/idn.c:345 src/idn.c:503 src/idn.c:564
+#: src/idn.c:257 src/idn.c:300 src/idn.c:343 src/idn.c:501 src/idn.c:562
 #, c-format
 msgid "could not convert from UTF-8 to %s"
 msgstr "não foi possível converter de UTF-8 para %s"
 
-#: src/idn.c:295
+#: src/idn.c:293
 #, c-format
 msgid "punycode_encode: %s"
 msgstr "punycode_encode: %s"
 
-#: src/idn.c:317
+#: src/idn.c:315
 #, c-format
 msgid "malloc"
 msgstr "malloc"
 
-#: src/idn.c:323
+#: src/idn.c:321
 #, c-format
 msgid "punycode_decode: %s"
 msgstr "punycode_decode: %s"
 
-#: src/idn.c:340 src/idn.c:364 src/idn.c:442
+#: src/idn.c:338 src/idn.c:362 src/idn.c:440
 #, c-format
 msgid "could not convert from UCS-4 to UTF-8"
 msgstr "não foi possível converter de UCS-4 para UTF-8"
 
-#: src/idn.c:381
+#: src/idn.c:379
 #, c-format
 msgid "idna_to_ascii_4z: %s"
 msgstr "idna_to_ascii_4z: %s"
 
-#: src/idn.c:395
+#: src/idn.c:393
 #, c-format
 msgid "idna_to_unicode_8z4z (TLD): %s"
 msgstr "idna_to_unicode_8z4z (TLD): %s"
 
-#: src/idn.c:409 src/idn.c:482
+#: src/idn.c:407 src/idn.c:480
 #, c-format
 msgid "tld_check_4z (position %lu): %s"
 msgstr "tld_check_4z (posição %lu): %s"
 
-#: src/idn.c:412 src/idn.c:488
+#: src/idn.c:410 src/idn.c:486
 #, c-format
 msgid "tld_check_4z: %s"
 msgstr "tld_check_4z: %s"
 
-#: src/idn.c:461
+#: src/idn.c:459
 #, c-format
 msgid "idna_to_unicode_8z4z: %s"
 msgstr "idna_to_unicode_8z4z: %s"
 
-#: src/idn.c:540
+#: src/idn.c:538
 #, c-format
 msgid "could not do NFKC normalization"
 msgstr "não foi possível fazer normalização NFKC"
+
+#~ msgid "System iconv failed"
+#~ msgstr "iconv do sistema falhou"

@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2008-2016 Simon Josefsson.
+# Copyright (C) 2008-2022 Simon Josefsson.
 #
 # This file is part of GNU Libidn.
 #
@@ -14,20 +14,18 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-EXTRA_DIST = cyclo-$(PACKAGE).html
+vcurl = "https://git.savannah.gnu.org/gitweb/?p=$(PACKAGE).git;a=blob;f=lib/%FILENAME%;hb=HEAD"
 
-vcurl = "http://git.savannah.gnu.org/gitweb/?p=$(PACKAGE).git;a=blob;f=lib/%FILENAME%;hb=HEAD"
-
-cyclo-$(PACKAGE).html:
-	(cd ${top_srcdir}/lib && \
+cyclo-$(PACKAGE).html: $(top_srcdir)/.version
+	$(AM_V_GEN)(cd ${top_srcdir}/lib && \
 		$(PMCCABE) *.[ch] \
 		| sort -nr \
 		| LANG=C $(AWK) -f ${abs_top_srcdir}/build-aux/pmccabe2html \
 			-v lang=html -v name="$(PACKAGE_STRING)" \
 			-v vcurl=$(vcurl) \
-			-v url="http://www.gnu.org/software/$(PACKAGE)/" \
+			-v url="https://www.gnu.org/software/$(PACKAGE)/" \
 			-v css=${abs_top_srcdir}/build-aux/pmccabe.css) \
-			> tmp
+		> tmp && \
 	mv tmp $@

@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002-2016 Simon Josefsson
+# Copyright (C) 2002-2022 Simon Josefsson
 #
 # This file is part of GNU Libidn.
 #
@@ -14,16 +14,25 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-SUBDIRS = gl lib/gl lib po src doc gltests lib/gltests tests examples	\
-	java csharp
+SUBDIRS = gl lib/gl lib po src
+if ENABLE_DOC
+SUBDIRS += doc
+endif
+SUBDIRS += tests fuzz examples
+if JAVA
+SUBDIRS += java
+endif
+if CSHARP
+SUBDIRS += csharp
+endif
 
-EXTRA_DIST = cfg.mk maint.mk .clcopying
+EXTRA_DIST = cfg.mk maint.mk
 EXTRA_DIST += COPYING.LESSERv2 COPYING.LESSERv3 COPYINGv2 COPYINGv3
 
-ACLOCAL_AMFLAGS = -I m4 -I gl/m4 -I lib/gl/m4
-DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
+ACLOCAL_AMFLAGS = -I lib/m4 -I gl/m4 -I lib/gl/m4 -I m4
+DISTCHECK_CONFIGURE_FLAGS = --enable-doc --enable-gtk-doc --disable-valgrind-tests
 
 EXTRA_DIST += FAQ libc/README libc/getaddrinfo-idn.txt libc/example.c	\
 	contrib/README contrib/idn-python/README			\
@@ -43,5 +52,19 @@ EXTRA_DIST += windows/libidn.sln windows/libidn.vcproj			\
 
 EXTRA_DIST += HACKING
 
-pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = libidn.pc
+# git-version-gen
+EXTRA_DIST += $(top_srcdir)/.version
+BUILT_SOURCES = $(top_srcdir)/.version
+$(top_srcdir)/.version:
+	echo $(VERSION) > $@-t && mv $@-t $@
+dist-hook: gen-ChangeLog
+	echo $(VERSION) > $(distdir)/.tarball-version
+
+.PHONY: gen-ChangeLog
+gen-ChangeLog:
+	$(AM_V_GEN)if test -d .git; then				\
+		$(top_srcdir)/build-aux/gitlog-to-changelog >		\
+			$(distdir)/cl-t &&				\
+		{ rm -f $(distdir)/ChangeLog &&				\
+		  mv $(distdir)/cl-t $(distdir)/ChangeLog; }		\
+	fi

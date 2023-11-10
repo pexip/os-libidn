@@ -1,9 +1,8 @@
-This is libidn.info, produced by makeinfo version 5.2 from libidn.texi.
+This is libidn.info, produced by makeinfo version 6.7 from libidn.texi.
 
-This manual is last updated 14 January 2016 for version 1.33 of GNU
-Libidn.
+This manual is last updated 25 June 2022 for version 1.41 of GNU Libidn.
 
-   Copyright © 2002-2016 Simon Josefsson.
+   Copyright © 2002–2022 Simon Josefsson.
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -32,10 +31,9 @@ File: libidn.info,  Node: Top,  Next: Introduction,  Up: (dir)
 GNU Libidn
 **********
 
-This manual is last updated 14 January 2016 for version 1.33 of GNU
-Libidn.
+This manual is last updated 25 June 2022 for version 1.41 of GNU Libidn.
 
-   Copyright © 2002-2016 Simon Josefsson.
+   Copyright © 2002–2022 Simon Josefsson.
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -66,7 +64,10 @@ Appendices
 
 * PR29 discussion::             Implementation aspects of the PR29 flaw.
 * On Label Separators::         Discussions of a flaw in the IDNA spec.
-* Copying Information::		License texts.
+
+Copying This Manual
+
+* GNU Free Documentation License::     Copying and sharing this manual
 
 Indices
 
@@ -405,8 +406,8 @@ The package can be downloaded from several places, including:
 
    <ftp://alpha.gnu.org/pub/gnu/libidn/>
 
-   The latest version is stored in a file, e.g., ‘libidn-1.33.tar.gz’
-where the ‘1.33’ value is the highest version number in the directory.
+   The latest version is stored in a file, e.g., ‘libidn-1.41.tar.gz’
+where the ‘1.41’ value is the highest version number in the directory.
 
    The package is then extracted, configured and built like many other
 packages that use Autoconf.  For detailed information on configuring and
@@ -417,9 +418,9 @@ distribution archive.
 and install the package.  You will need a few basic tools, such as ‘sh’,
 ‘make’ and ‘cc’.
 
-     $ wget -q ftp://alpha.gnu.org/pub/gnu/libidn/libidn-1.33.tar.gz
-     $ tar xfz libidn-1.33.tar.gz
-     $ cd libidn-1.33/
+     $ wget -q ftp://alpha.gnu.org/pub/gnu/libidn/libidn-1.41.tar.gz
+     $ tar xfz libidn-1.41.tar.gz
+     $ cd libidn-1.41/
      $ ./configure
      ...
      $ make
@@ -791,7 +792,7 @@ behaviour of your package be that Libidn is not used (even if it is
 installed on the system), change ‘libidn=yes’ to ‘libidn=no’ on the
 third line.
 
-     AC_ARG_WITH(libidn, AC_HELP_STRING([--with-libidn=[DIR]],
+     AC_ARG_WITH(libidn, AS_HELP_STRING([--with-libidn=[DIR]],
                                      [Support IDN (needs GNU Libidn)]),
        libidn=$withval, libidn=yes)
      if test "$libidn" != "no"; then
@@ -816,7 +817,7 @@ third line.
 cannot recommend generally), the above can be done more easily as
 follows.
 
-     AC_ARG_WITH(libidn, AC_HELP_STRING([--with-libidn=[DIR]],
+     AC_ARG_WITH(libidn, AS_HELP_STRING([--with-libidn=[DIR]],
                                      [Support IDN (needs GNU Libidn)]),
        libidn=$withval, libidn=yes)
      if test "$libidn" != "no" ; then
@@ -919,6 +920,10 @@ stringprep_utf8_to_unichar
      character.  If ‘p’ does not point to a valid UTF-8 encoded
      character, results are undefined.
 
+     Return value: the resulting character.  Converts a sequence of
+     bytes encoded as UTF-8 to a Unicode character.  If ‘p’ does not
+     point to a valid UTF-8 encoded character, results are undefined.
+
      Return value: the resulting character.
 
 stringprep_ucs4_to_utf8
@@ -1016,14 +1021,17 @@ stringprep_locale_charset
 -------------------------
 
  -- Function: const char * stringprep_locale_charset ( VOID)
+     Enumerated return codes of the TLD checking functions.  The value 0
+     is guaranteed to always correspond to success.
 
-     Find out current locale charset.  The function respect the CHARSET
-     environment variable, but typically uses nl_langinfo(CODESET) when
-     it is supported.  It fall back on "ASCII" if CHARSET isn’t set and
-     nl_langinfo isn’t supported or return anything.
+     *:* Find out current locale charset.  The function respect the
+     CHARSET environment variable, but typically uses
+     nl_langinfo(CODESET) when it is supported.  It fall back on "ASCII"
+     if CHARSET isn’t set and nl_langinfo isn’t supported or return
+     anything.
 
      Note that this function return the application’s locale’s preferred
-     charset (or thread’s locale’s preffered charset, if your system
+     charset (or thread’s locale’s preferred charset, if your system
      support thread-specific locales).  It does not return what the
      system may be using.  Thus, if you receive data from external
      sources you cannot in general use this function to guess what
@@ -1145,6 +1153,27 @@ stringprep_4i
 
      Prepare the input UCS-4 string according to the stringprep profile,
      and write back the result to the input string.
+
+     The input is not required to be zero terminated ( ‘ucs4’ [ ‘len’ ]
+     = 0).  The output will not be zero terminated unless ‘ucs4’ [ ‘len’
+     ] = 0.  Instead, see ‘stringprep_4zi()’ if your input is zero
+     terminated or if you want the output to be.
+
+     Since the stringprep operation can expand the string, ‘maxucs4len’
+     indicate how large the buffer holding the string is.  This function
+     will not read or write to code points outside that size.
+
+     The ‘flags’ are one of ‘Stringprep_profile_flags’ values, or 0.
+
+     The ‘profile’ contain the ‘Stringprep_profile’ instructions to
+     perform.  Your application can define new profiles, possibly
+     re-using the generic stringprep tables that always will be part of
+     the library, or use one of the currently supported profiles.
+
+     Return value: Returns ‘STRINGPREP_OK’ iff successful, or an
+     ‘Stringprep_rc’ error code.  Prepare the input UCS-4 string
+     according to the stringprep profile, and write back the result to
+     the input string.
 
      The input is not required to be zero terminated ( ‘ucs4’ [ ‘len’ ]
      = 0).  The output will not be zero terminated unless ‘ucs4’ [ ‘len’
@@ -1306,8 +1335,7 @@ stringprep_strerror
      *STRINGPREP_UNKNOWN_PROFILE:* The supplied profile name was not
      known to the library.
 
-     *STRINGPREP_ICONV_ERROR:* Could not convert string in locale
-     encoding.
+     *STRINGPREP_ICONV_ERROR:* Character encoding conversion error.
 
      *STRINGPREP_NFKC_FAILED:* The Unicode NFKC operation failed.  This
      usually indicate an internal error in the library.
@@ -1324,7 +1352,7 @@ stringprep_strerror
  -- Function: int stringprep_nameprep_no_unassigned (char * IN, int
           MAXLEN)
 
-     IN: input/ouput array with string to prepare.
+     IN: input/output array with string to prepare.
 
      MAXLEN: maximum length of input/output array.
 
@@ -1334,7 +1362,7 @@ stringprep_strerror
 
  -- Function: int stringprep_iscsi (char * IN, int MAXLEN)
 
-     IN: input/ouput array with string to prepare.
+     IN: input/output array with string to prepare.
 
      MAXLEN: maximum length of input/output array.
 
@@ -1343,7 +1371,7 @@ stringprep_strerror
 
  -- Function: int stringprep_plain (char * IN, int MAXLEN)
 
-     IN: input/ouput array with string to prepare.
+     IN: input/output array with string to prepare.
 
      MAXLEN: maximum length of input/output array.
 
@@ -1352,7 +1380,7 @@ stringprep_strerror
 
  -- Function: int stringprep_xmpp_nodeprep (char * IN, int MAXLEN)
 
-     IN: input/ouput array with string to prepare.
+     IN: input/output array with string to prepare.
 
      MAXLEN: maximum length of input/output array.
 
@@ -1361,7 +1389,7 @@ stringprep_strerror
 
  -- Function: int stringprep_xmpp_resourceprep (char * IN, int MAXLEN)
 
-     IN: input/ouput array with string to prepare.
+     IN: input/output array with string to prepare.
 
      MAXLEN: maximum length of input/output array.
 
@@ -1451,6 +1479,12 @@ punycode_encode
 
      Converts a sequence of code points (presumed to be Unicode code
      points) to Punycode.
+
+     Return value: The return value can be any of the ‘Punycode_status’
+     values defined above except ‘PUNYCODE_BAD_INPUT’ .  If not
+     ‘PUNYCODE_SUCCESS’ , then ‘output_size’ and ‘output’ might contain
+     garbage.  Converts a sequence of code points (presumed to be
+     Unicode code points) to Punycode.
 
      Return value: The return value can be any of the ‘Punycode_status’
      values defined above except ‘PUNYCODE_BAD_INPUT’ .  If not
@@ -1866,7 +1900,7 @@ idna_strerror
      *IDNA_CONTAINS_ACE_PREFIX:* The input contains the ACE prefix (for
      ToASCII).
 
-     *IDNA_ICONV_ERROR:* Could not convert string in locale encoding.
+     *IDNA_ICONV_ERROR:* Character encoding conversion error.
 
      *IDNA_MALLOC_ERROR:* Could not allocate buffer (this is typically a
      fatal error).
@@ -2026,6 +2060,11 @@ tld_get_table
 
      Return value: Return structure corresponding to TLD ‘tld’ by going
      thru ‘tables’ , or return ‘NULL’ if no such structure is found.
+     Get the TLD table for a named TLD by searching through the given
+     TLD table array.
+
+     Return value: Return structure corresponding to TLD ‘tld’ by going
+     thru ‘tables’ , or return ‘NULL’ if no such structure is found.
 
 tld_default_table
 -----------------
@@ -2035,11 +2074,11 @@ tld_default_table
      TLD: TLD name (e.g.  "com") as zero terminated ASCII byte string.
 
      OVERRIDES: Additional zero terminated array of ‘Tld_table’
-     info-structures for TLDs, or ‘NULL’ to only use library deault
+     info-structures for TLDs, or ‘NULL’ to only use library default
      tables.
 
      Get the TLD table for a named TLD, using the internal defaults,
-     possibly overrided by the (optional) supplied tables.
+     possibly overridden by the (optional) supplied tables.
 
      Return value: Return structure corresponding to TLD ‘tld_str’ ,
      first looking through ‘overrides’ then thru built-in list, or
@@ -2182,7 +2221,7 @@ tld_strerror
 
      *TLD_MALLOC_ERROR:* Error during memory allocation.
 
-     *TLD_ICONV_ERROR:* Error during iconv string conversion.
+     *TLD_ICONV_ERROR:* Character encoding conversion error.
 
      *TLD_NO_TLD:* No top-level domain found in domain string.
 
@@ -2340,26 +2379,6 @@ File: libidn.info,  Node: Example 1,  Next: Example 2,  Up: Examples
 
 This example demonstrates how the stringprep functions are used.
 
-/* example.c --- Example code showing how to use stringprep().
- * Copyright (C) 2002-2016 Simon Josefsson
- *
- * This file is part of GNU Libidn.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -2397,7 +2416,7 @@ main (void)
 
   printf ("Before locale2utf8 (length %ld): ", (long int) strlen (buf));
   for (i = 0; i < strlen (buf); i++)
-    printf ("%02x ", buf[i] & 0xFF);
+    printf ("%02x ", (unsigned) buf[i] & 0xFF);
   printf ("\n");
 
   p = stringprep_locale_to_utf8 (buf);
@@ -2411,7 +2430,7 @@ main (void)
 
   printf ("Before stringprep (length %ld): ", (long int) strlen (buf));
   for (i = 0; i < strlen (buf); i++)
-    printf ("%02x ", buf[i] & 0xFF);
+    printf ("%02x ", (unsigned) buf[i] & 0xFF);
   printf ("\n");
 
   rc = stringprep (buf, BUFSIZ, 0, stringprep_nameprep);
@@ -2421,7 +2440,7 @@ main (void)
     {
       printf ("After stringprep (length %ld): ", (long int) strlen (buf));
       for (i = 0; i < strlen (buf); i++)
-	printf ("%02x ", buf[i] & 0xFF);
+	printf ("%02x ", (unsigned) buf[i] & 0xFF);
       printf ("\n");
     }
 
@@ -2435,27 +2454,6 @@ File: libidn.info,  Node: Example 2,  Next: Example 3,  Prev: Example 1,  Up: Ex
 =============
 
 This example demonstrates how the punycode functions are used.
-
-/* example2.c --- Example code showing how to use punycode.
- * Copyright (C) 2002-2016 Simon Josefsson
- * Copyright (C) 2002  Adam M. Costello
- *
- * This file is part of GNU Libidn.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
 
 #include <locale.h>		/* setlocale() */
 
@@ -2680,26 +2678,6 @@ File: libidn.info,  Node: Example 3,  Next: Example 4,  Prev: Example 2,  Up: Ex
 This example demonstrates how the library is used to convert
 internationalized domain names into ASCII compatible names.
 
-/* example3.c --- Example ToASCII() code showing how to use Libidn.
- * Copyright (C) 2002-2016 Simon Josefsson
- *
- * This file is part of GNU Libidn.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -2738,7 +2716,7 @@ main (void)
 
   printf ("Read string (length %ld): ", (long int) strlen (buf));
   for (i = 0; i < strlen (buf); i++)
-    printf ("%02x ", buf[i] & 0xFF);
+    printf ("%02x ", (unsigned) buf[i] & 0xFF);
   printf ("\n");
 
   rc = idna_to_ascii_lz (buf, &p, 0);
@@ -2750,7 +2728,7 @@ main (void)
 
   printf ("ACE label (length %ld): '%s'\n", (long int) strlen (p), p);
   for (i = 0; i < strlen (p); i++)
-    printf ("%02x ", p[i] & 0xFF);
+    printf ("%02x ", (unsigned) p[i] & 0xFF);
   printf ("\n");
 
   free (p);
@@ -2766,26 +2744,6 @@ File: libidn.info,  Node: Example 4,  Next: Example 5,  Prev: Example 3,  Up: Ex
 
 This example demonstrates how the library is used to convert ASCII
 compatible names to internationalized domain names.
-
-/* example4.c --- Example ToUnicode() code showing how to use Libidn.
- * Copyright (C) 2002-2016 Simon Josefsson
- *
- * This file is part of GNU Libidn.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -2825,7 +2783,7 @@ main (void)
 
   printf ("Read string (length %ld): ", (long int) strlen (buf));
   for (i = 0; i < strlen (buf); i++)
-    printf ("%02x ", buf[i] & 0xFF);
+    printf ("%02x ", (unsigned) buf[i] & 0xFF);
   printf ("\n");
 
   rc = idna_to_unicode_lzlz (buf, &p, 0);
@@ -2837,7 +2795,7 @@ main (void)
 
   printf ("ACE label (length %ld): '%s'\n", (long int) strlen (p), p);
   for (i = 0; i < strlen (p); i++)
-    printf ("%02x ", p[i] & 0xFF);
+    printf ("%02x ", (unsigned) p[i] & 0xFF);
   printf ("\n");
 
   free (p);
@@ -2853,26 +2811,6 @@ File: libidn.info,  Node: Example 5,  Prev: Example 4,  Up: Examples
 
 This example demonstrates how the library is used to check a string for
 invalid characters within a specific TLD.
-
-/* example5.c --- Example TLD checking.
- * Copyright (C) 2004-2016 Simon Josefsson
- *
- * This file is part of GNU Libidn.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -2924,7 +2862,7 @@ main (void)
 
   printf ("Read string (length %ld): ", (long int) strlen (buf));
   for (i = 0; i < strlen (buf); i++)
-    printf ("%02x ", buf[i] & 0xFF);
+    printf ("%02x ", (unsigned) buf[i] & 0xFF);
   printf ("\n");
 
   p = stringprep_locale_to_utf8 (buf);
@@ -2963,7 +2901,8 @@ main (void)
   free (r);
   if (rc == TLD_INVALID)
     {
-      printf ("Domain rejected by TLD check, Unicode position %ld\n", (long int) errpos);
+      printf ("Domain rejected by TLD check, Unicode position %ld\n",
+	      (long int) errpos);
       return 1;
     }
   else if (rc != TLD_SUCCESS)
@@ -3016,35 +2955,18 @@ can override the charset used by setting environment variable ‘CHARSET’.
 ‘idn’ recognizes these commands:
 
   -h, --help               Print help and exit
-
   -V, --version            Print version and exit
-
   -s, --stringprep         Prepare string according to nameprep profile
-
   -d, --punycode-decode    Decode Punycode
-
   -e, --punycode-encode    Encode Punycode
-
   -a, --idna-to-ascii      Convert to ACE according to IDNA (default mode)
-
   -u, --idna-to-unicode    Convert from ACE according to IDNA
-
       --allow-unassigned   Toggle IDNA AllowUnassigned flag (default off)
-
       --usestd3asciirules  Toggle IDNA UseSTD3ASCIIRules flag (default off)
-
       --no-tld             Don't check string for TLD specific rules
-                             Only for --idna-to-ascii and --idna-to-unicode
-
   -n, --nfkc               Normalize string according to Unicode v3.2 NFKC
-
   -p, --profile=STRING     Use specified stringprep profile instead
-                             Valid stringprep profiles: `Nameprep',
-                             `iSCSI', `Nodeprep', `Resourceprep',
-                             `trace', `SASLprep'
-
       --debug              Print debugging information
-
       --quiet              Silent operation
 
 10.4 Environment Variables
@@ -3062,22 +2984,15 @@ will guess which character set is used automatically.  Example usage:
 10.5 Examples
 =============
 
-Standard usage, reading input from standard input:
+Standard usage, reading input from standard input.  The parameter
+‘--quiet’ disable printing copyright, license and usage instructions.
 
-     jas@latte:~$ idn
-     libidn 0.3.5
-     Copyright 2002, 2003 Simon Josefsson.
-     GNU Libidn comes with NO WARRANTY, to the extent permitted by law.
-     You may redistribute copies of GNU Libidn under the terms of
-     the GNU Lesser General Public License.  For more information
-     about these matters, see the file named COPYING.LIB.
-     Type each input string on a line by itself, terminated by a newline character.
+     jas@latte:~$ idn --quiet
      räksmörgås.se
      xn--rksmrgs-5wao1o.se
      jas@latte:~$
 
-   Reading input from command line, and disable printing copyright and
-license information:
+   Reading input from command line:
 
      jas@latte:~$ idn --quiet räksmörgås.se blåbærgrød.no
      xn--rksmrgs-5wao1o.se
@@ -3126,7 +3041,7 @@ like the following:
 
    The simplest explanation is that you haven’t installed the ‘iconv’
 conversion tools.  You can find it as a standalone library in GNU
-Libiconv (<http://www.gnu.org/software/libiconv/>).  On many GNU/Linux
+Libiconv (<https://www.gnu.org/software/libiconv/>).  On many GNU/Linux
 systems, this library is part of the system, but you may have to install
 additional packages (e.g., ‘glibc-locale’ for Debian) to be able to use
 it.
@@ -3264,7 +3179,7 @@ This section contain notes on this support, complete documentation is
 pending.
 
    The Java library, if Libidn has been built with Java support (*note
-Downloading and Installing::), will be placed in ‘java/libidn-1.33.jar’.
+Downloading and Installing::), will be placed in ‘java/libidn-1.41.jar’.
 The source code is below ‘java/’ in Maven directory layout, and there is
 a Maven ‘pom.xml’ build script as well.  Source code files are in
 ‘java/src/main/java/gnu/inet/encoding/’.
@@ -3330,7 +3245,7 @@ The TestIDNA program allows to test the IDNA implementation manually or
 against Simon Josefsson’s test vectors.
 
    The test vectors can be found at the Libidn homepage,
-<http://www.gnu.org/software/libidn/>.
+<https://www.gnu.org/software/libidn/>.
 
    To test the transformation manually, use:
 
@@ -3600,7 +3515,7 @@ Regards,
 Simon
 
 
-File: libidn.info,  Node: On Label Separators,  Next: Copying Information,  Prev: PR29 discussion,  Up: Top
+File: libidn.info,  Node: On Label Separators,  Next: GNU Free Documentation License,  Prev: PR29 discussion,  Up: Top
 
 Appendix B On Label Separators
 ******************************
@@ -3660,25 +3575,15 @@ recommended way to work around this problem.
 not Apple’s Safari.
 
 
-File: libidn.info,  Node: Copying Information,  Next: Function and Variable Index,  Prev: On Label Separators,  Up: Top
+File: libidn.info,  Node: GNU Free Documentation License,  Next: Function and Variable Index,  Prev: On Label Separators,  Up: Top
 
-Appendix C Copying Information
-******************************
-
-* Menu:
-
-* GNU Free Documentation License::   License for copying this manual.
-
-
-File: libidn.info,  Node: GNU Free Documentation License,  Up: Copying Information
-
-C.1 GNU Free Documentation License
-==================================
+Appendix C GNU Free Documentation License
+*****************************************
 
                      Version 1.3, 3 November 2008
 
      Copyright © 2000, 2001, 2002, 2007, 2008 Free Software Foundation, Inc.
-     <http://fsf.org/>
+     <https://fsf.org/>
 
      Everyone is permitted to copy and distribute verbatim copies
      of this license document, but changing it is not allowed.
@@ -3686,7 +3591,7 @@ C.1 GNU Free Documentation License
   0. PREAMBLE
 
      The purpose of this License is to make a manual, textbook, or other
-     functional and useful document "free" in the sense of freedom: to
+     functional and useful document “free” in the sense of freedom: to
      assure everyone the effective freedom to copy and redistribute it,
      with or without modifying it, either commercially or
      noncommercially.  Secondarily, this License preserves for the
@@ -4075,7 +3980,7 @@ C.1 GNU Free Documentation License
      the GNU Free Documentation License from time to time.  Such new
      versions will be similar in spirit to the present version, but may
      differ in detail to address new problems or concerns.  See
-     <http://www.gnu.org/copyleft/>.
+     <https://www.gnu.org/licenses/>.
 
      Each version of the License is given a distinguishing version
      number.  If the Document specifies that a particular numbered
@@ -4136,7 +4041,7 @@ notices just after the title page:
        Free Documentation License''.
 
    If you have Invariant Sections, Front-Cover Texts and Back-Cover
-Texts, replace the “with…Texts.” line with this:
+Texts, replace the “with...Texts.” line with this:
 
          with the Invariant Sections being LIST THEIR TITLES, with
          the Front-Cover Texts being LIST, and with the Back-Cover Texts
@@ -4152,7 +4057,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: libidn.info,  Node: Function and Variable Index,  Next: Concept Index,  Prev: Copying Information,  Up: Top
+File: libidn.info,  Node: Function and Variable Index,  Next: Concept Index,  Prev: GNU Free Documentation License,  Up: Top
 
 Function and Variable Index
 ***************************
@@ -4181,52 +4086,52 @@ Function and Variable Index
 * pr29_strerror:                         PR29 Functions.      (line 108)
 * punycode-decode:                       Emacs API.           (line  38)
 * punycode-encode:                       Emacs API.           (line  34)
-* punycode_decode:                       Punycode Functions.  (line  92)
+* punycode_decode:                       Punycode Functions.  (line  98)
 * punycode_encode:                       Punycode Functions.  (line  48)
-* punycode_strerror:                     Punycode Functions.  (line 138)
+* punycode_strerror:                     Punycode Functions.  (line 144)
 * stringprep:                            Stringprep Functions.
-                                                              (line 124)
+                                                              (line 145)
 * stringprep_4i:                         Stringprep Functions.
                                                               (line  54)
 * stringprep_4zi:                        Stringprep Functions.
-                                                              (line  93)
+                                                              (line 114)
 * stringprep_check_version:              Version Check.       (line  15)
-* stringprep_convert:                    Utility Functions.   (line 163)
+* stringprep_convert:                    Utility Functions.   (line 170)
 * stringprep_iscsi:                      Stringprep Functions.
-                                                              (line 257)
-* stringprep_locale_charset:             Utility Functions.   (line 141)
-* stringprep_locale_to_utf8:             Utility Functions.   (line 180)
+                                                              (line 277)
+* stringprep_locale_charset:             Utility Functions.   (line 145)
+* stringprep_locale_to_utf8:             Utility Functions.   (line 187)
 * stringprep_nameprep_no_unassigned:     Stringprep Functions.
-                                                              (line 246)
-* stringprep_plain:                      Stringprep Functions.
                                                               (line 266)
+* stringprep_plain:                      Stringprep Functions.
+                                                              (line 286)
 * stringprep_profile:                    Stringprep Functions.
-                                                              (line 159)
+                                                              (line 180)
 * stringprep_strerror:                   Stringprep Functions.
-                                                              (line 193)
-* stringprep_ucs4_nfkc_normalize:        Utility Functions.   (line  97)
-* stringprep_ucs4_to_utf8:               Utility Functions.   (line  50)
+                                                              (line 214)
+* stringprep_ucs4_nfkc_normalize:        Utility Functions.   (line 101)
+* stringprep_ucs4_to_utf8:               Utility Functions.   (line  54)
 * stringprep_unichar_to_utf8:            Utility Functions.   (line  24)
-* stringprep_utf8_nfkc_normalize:        Utility Functions.   (line 112)
-* stringprep_utf8_to_locale:             Utility Functions.   (line 192)
-* stringprep_utf8_to_ucs4:               Utility Functions.   (line  73)
+* stringprep_utf8_nfkc_normalize:        Utility Functions.   (line 116)
+* stringprep_utf8_to_locale:             Utility Functions.   (line 199)
+* stringprep_utf8_to_ucs4:               Utility Functions.   (line  77)
 * stringprep_utf8_to_unichar:            Utility Functions.   (line  38)
 * stringprep_xmpp_nodeprep:              Stringprep Functions.
-                                                              (line 275)
+                                                              (line 295)
 * stringprep_xmpp_resourceprep:          Stringprep Functions.
-                                                              (line 284)
-* tld_check_4:                           TLD Functions.       (line 174)
+                                                              (line 304)
+* tld_check_4:                           TLD Functions.       (line 179)
 * tld_check_4t:                          TLD Functions.       (line  42)
 * tld_check_4tz:                         TLD Functions.       (line  66)
-* tld_check_4z:                          TLD Functions.       (line 203)
-* tld_check_8z:                          TLD Functions.       (line 229)
-* tld_check_lz:                          TLD Functions.       (line 257)
-* tld_default_table:                     TLD Functions.       (line 153)
+* tld_check_4z:                          TLD Functions.       (line 208)
+* tld_check_8z:                          TLD Functions.       (line 234)
+* tld_check_lz:                          TLD Functions.       (line 262)
+* tld_default_table:                     TLD Functions.       (line 158)
 * tld_get_4:                             TLD Functions.       (line  90)
 * tld_get_4z:                            TLD Functions.       (line 108)
 * tld_get_table:                         TLD Functions.       (line 137)
 * tld_get_z:                             TLD Functions.       (line 122)
-* tld_strerror:                          TLD Functions.       (line 289)
+* tld_strerror:                          TLD Functions.       (line 294)
 
 
 File: libidn.info,  Node: Concept Index,  Prev: Function and Variable Index,  Up: Top
@@ -4251,8 +4156,6 @@ Concept Index
 * Download:                              Downloading and Installing.
                                                               (line   6)
 * Examples:                              Examples.            (line   6)
-* FDL, GNU Free Documentation License:   GNU Free Documentation License.
-                                                              (line   6)
 * free:                                  Memory handling under Windows.
                                                               (line   6)
 * FreeBSD:                               Supported Platforms. (line 110)
@@ -4265,7 +4168,7 @@ Concept Index
 * IDNA Functions:                        IDNA Functions.      (line   6)
 * Installation:                          Downloading and Installing.
                                                               (line   6)
-* invoking ‘idn’:                        Invoking idn.        (line   6)
+* invoking idn:                          Invoking idn.        (line   6)
 * IRIX:                                  Supported Platforms. (line  70)
 * MacOS X:                               Supported Platforms. (line 116)
 * MacOS X <1>:                           Supported Platforms. (line 120)
@@ -4306,97 +4209,96 @@ Concept Index
 
 
 Tag Table:
-Node: Top1021
-Node: Introduction2727
-Node: Getting Started5039
-Node: Features6150
-Node: Library Overview7504
-Node: Supported Platforms8302
-Node: Getting help12094
-Node: Commercial Support12557
-Node: Downloading and Installing13498
-Node: Installing under Windows15863
-Node: Bug Reports17267
-Node: Contributing18673
-Node: Preparation20676
-Node: Header21398
-Node: Initialization24509
-Node: Version Check24706
-Ref: stringprep_check_version25245
-Node: Building the source26220
-Node: Autoconf tests28142
-Node: Memory handling under Windows30543
-Ref: idn_free31503
-Node: Utility Functions32061
-Ref: stringprep_unichar_to_utf832733
-Ref: stringprep_utf8_to_unichar33165
-Ref: stringprep_ucs4_to_utf833555
-Ref: stringprep_utf8_to_ucs434440
-Ref: stringprep_ucs4_nfkc_normalize35265
-Ref: stringprep_utf8_nfkc_normalize35762
-Ref: stringprep_locale_charset36933
-Ref: stringprep_convert37976
-Ref: stringprep_locale_to_utf838545
-Ref: stringprep_utf8_to_locale38934
-Node: Stringprep Functions39293
-Ref: stringprep_4i41220
-Ref: stringprep_4zi42869
-Ref: stringprep44115
-Ref: stringprep_profile45475
-Ref: stringprep_strerror46609
-Node: Punycode Functions50310
-Ref: punycode_encode52079
-Ref: punycode_decode54314
-Ref: punycode_strerror56483
-Node: IDNA Functions57252
-Ref: idna_to_ascii_4i59874
-Ref: idna_to_unicode_44i61523
-Ref: idna_to_ascii_4z63506
-Ref: idna_to_ascii_8z64112
-Ref: idna_to_ascii_lz64712
-Ref: idna_to_unicode_4z4z65459
-Ref: idna_to_unicode_8z4z66123
-Ref: idna_to_unicode_8z8z66781
-Ref: idna_to_unicode_8zlz67433
-Ref: idna_to_unicode_lzlz68174
-Ref: idna_strerror69002
-Node: TLD Functions70626
-Ref: tld_check_4t72287
-Ref: tld_check_4tz73220
-Ref: tld_get_474106
-Ref: tld_get_4z74628
-Ref: tld_get_z75054
-Ref: tld_get_table75571
-Ref: tld_default_table76115
-Ref: tld_check_476860
-Ref: tld_check_4z78161
-Ref: tld_check_8z79378
-Ref: tld_check_lz80696
-Ref: tld_strerror82085
-Node: PR29 Functions82911
-Ref: pr29_485207
-Ref: pr29_4z85848
-Ref: pr29_8z86382
-Ref: pr29_strerror87055
-Node: Examples87778
-Node: Example 188231
-Node: Example 290810
-Node: Example 397429
-Node: Example 499971
-Node: Example 5102522
-Node: Invoking idn106007
-Node: Emacs API113480
-Node: Java API116298
-Node: C# API121470
-Node: Acknowledgements121939
-Node: History123041
-Node: PR29 discussion124704
-Node: On Label Separators128574
-Ref: On Label Separators-Footnote-1131094
-Node: Copying Information131193
-Node: GNU Free Documentation License131459
-Node: Function and Variable Index156772
-Node: Concept Index161758
+Node: Top1020
+Node: Introduction2778
+Node: Getting Started5090
+Node: Features6201
+Node: Library Overview7555
+Node: Supported Platforms8353
+Node: Getting help12145
+Node: Commercial Support12608
+Node: Downloading and Installing13549
+Node: Installing under Windows15914
+Node: Bug Reports17318
+Node: Contributing18724
+Node: Preparation20727
+Node: Header21449
+Node: Initialization24560
+Node: Version Check24757
+Ref: stringprep_check_version25296
+Node: Building the source26271
+Node: Autoconf tests28193
+Node: Memory handling under Windows30594
+Ref: idn_free31554
+Node: Utility Functions32112
+Ref: stringprep_unichar_to_utf832784
+Ref: stringprep_utf8_to_unichar33216
+Ref: stringprep_ucs4_to_utf833818
+Ref: stringprep_utf8_to_ucs434703
+Ref: stringprep_ucs4_nfkc_normalize35528
+Ref: stringprep_utf8_nfkc_normalize36025
+Ref: stringprep_locale_charset37196
+Ref: stringprep_convert38373
+Ref: stringprep_locale_to_utf838942
+Ref: stringprep_utf8_to_locale39331
+Node: Stringprep Functions39690
+Ref: stringprep_4i41617
+Ref: stringprep_4zi44352
+Ref: stringprep45598
+Ref: stringprep_profile46958
+Ref: stringprep_strerror48092
+Node: Punycode Functions51785
+Ref: punycode_encode53554
+Ref: punycode_decode56123
+Ref: punycode_strerror58292
+Node: IDNA Functions59061
+Ref: idna_to_ascii_4i61683
+Ref: idna_to_unicode_44i63332
+Ref: idna_to_ascii_4z65315
+Ref: idna_to_ascii_8z65921
+Ref: idna_to_ascii_lz66521
+Ref: idna_to_unicode_4z4z67268
+Ref: idna_to_unicode_8z4z67932
+Ref: idna_to_unicode_8z8z68590
+Ref: idna_to_unicode_8zlz69242
+Ref: idna_to_unicode_lzlz69983
+Ref: idna_strerror70811
+Node: TLD Functions72427
+Ref: tld_check_4t74088
+Ref: tld_check_4tz75021
+Ref: tld_get_475907
+Ref: tld_get_4z76429
+Ref: tld_get_z76855
+Ref: tld_get_table77372
+Ref: tld_default_table78162
+Ref: tld_check_478909
+Ref: tld_check_4z80210
+Ref: tld_check_8z81427
+Ref: tld_check_lz82745
+Ref: tld_strerror84134
+Node: PR29 Functions84959
+Ref: pr29_487255
+Ref: pr29_4z87896
+Ref: pr29_8z88430
+Ref: pr29_strerror89103
+Node: Examples89826
+Node: Example 190279
+Node: Example 292089
+Node: Example 397869
+Node: Example 499626
+Node: Example 5101390
+Node: Invoking idn104114
+Node: Emacs API110950
+Node: Java API113768
+Node: C# API118941
+Node: Acknowledgements119410
+Node: History120512
+Node: PR29 discussion122175
+Node: On Label Separators126045
+Ref: On Label Separators-Footnote-1128576
+Node: GNU Free Documentation License128675
+Node: Function and Variable Index154056
+Node: Concept Index159053
 
 End Tag Table
 

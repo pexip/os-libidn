@@ -1,5 +1,5 @@
 /// <summary>
-/// Copyright (C) 2004-2016 Free Software Foundation, Inc.
+/// Copyright (C) 2004-2022 Free Software Foundation, Inc.
 ///
 /// Author: Alexander Gnauck AG-Software, mailto:gnauck@ag-software.de
 ///
@@ -27,7 +27,7 @@
 ///
 /// You should have received copies of the GNU General Public License and
 /// the GNU Lesser General Public License along with this program.  If
-/// not, see <http://www.gnu.org/licenses/>.
+/// not, see <https://www.gnu.org/licenses/>.
 /// </summary>
 
 using System.Reflection;

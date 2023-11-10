@@ -8,5 +8,10 @@ If  @code{p} does not point to a valid UTF-8 encoded character, results are
 undefined.
 
 Return value: the resulting character.
+Converts a sequence of bytes encoded as UTF-8 to a Unicode character.
+If  @code{p} does not point to a valid UTF-8 encoded character, results are
+undefined.
+
+Return value: the resulting character.
 @end deftypefun
 

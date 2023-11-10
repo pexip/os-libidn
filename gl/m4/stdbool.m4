@@ -1,27 +1,39 @@
 # Check for stdbool.h that conforms to C99.
 
-dnl Copyright (C) 2002-2006, 2009-2016 Free Software Foundation, Inc.
+dnl Copyright (C) 2002-2006, 2009-2022 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
 
-#serial 6
+#serial 9
 
 # Prepare for substituting <stdbool.h> if it is not supported.
 
-AC_DEFUN([AM_STDBOOL_H],
+AC_DEFUN([gl_STDBOOL_H],
 [
   AC_REQUIRE([AC_CHECK_HEADER_STDBOOL])
+  AC_REQUIRE([AC_CANONICAL_HOST])
 
-  # Define two additional variables used in the Makefile substitution.
-
+  dnl On some platforms, <stdbool.h> does not exist or does not conform to C99.
+  dnl On Solaris 10 with CC=cc CXX=CC, <stdbool.h> exists but is not usable
+  dnl in C++ mode (and no <cstdbool> exists). In this case, we use our
+  dnl replacement, also in C mode (for binary compatibility between C and C++).
   if test "$ac_cv_header_stdbool_h" = yes; then
-    STDBOOL_H=''
+    case "$host_os" in
+      solaris*)
+        if test -z "$GCC"; then
+          GL_GENERATE_STDBOOL_H=true
+        else
+          GL_GENERATE_STDBOOL_H=false
+        fi
+        ;;
+      *)
+        GL_GENERATE_STDBOOL_H=false
+        ;;
+    esac
   else
-    STDBOOL_H='stdbool.h'
+    GL_GENERATE_STDBOOL_H=true
   fi
-  AC_SUBST([STDBOOL_H])
-  AM_CONDITIONAL([GL_GENERATE_STDBOOL_H], [test -n "$STDBOOL_H"])
 
   if test "$ac_cv_type__Bool" = yes; then
     HAVE__BOOL=1
@@ -30,9 +42,6 @@ AC_DEFUN([AM_STDBOOL_H],
   fi
   AC_SUBST([HAVE__BOOL])
 ])
-
-# AM_STDBOOL_H will be renamed to gl_STDBOOL_H in the future.
-AC_DEFUN([gl_STDBOOL_H], [AM_STDBOOL_H])
 
 # This version of the macro is needed in autoconf <= 2.68.
 
@@ -44,7 +53,10 @@ AC_DEFUN([AC_CHECK_HEADER_STDBOOL],
            [[
              #include <stdbool.h>
 
-             #if __cplusplus < 201103
+             #ifdef __cplusplus
+              typedef bool Bool;
+             #else
+              typedef _Bool Bool;
               #ifndef bool
                "error: bool is not defined"
               #endif
@@ -66,37 +78,38 @@ AC_DEFUN([AC_CHECK_HEADER_STDBOOL],
               "error: __bool_true_false_are_defined is not defined"
              #endif
 
-             struct s { _Bool s: 1; _Bool t; } s;
+             struct s { Bool s: 1; Bool t; bool u: 1; bool v; } s;
 
              char a[true == 1 ? 1 : -1];
              char b[false == 0 ? 1 : -1];
              char c[__bool_true_false_are_defined == 1 ? 1 : -1];
              char d[(bool) 0.5 == true ? 1 : -1];
              /* See body of main program for 'e'.  */
-             char f[(_Bool) 0.0 == false ? 1 : -1];
+             char f[(Bool) 0.0 == false ? 1 : -1];
              char g[true];
-             char h[sizeof (_Bool)];
+             char h[sizeof (Bool)];
              char i[sizeof s.t];
              enum { j = false, k = true, l = false * true, m = true * 256 };
              /* The following fails for
                 HP aC++/ANSI C B3910B A.05.55 [Dec 04 2003]. */
-             _Bool n[m];
+             Bool n[m];
              char o[sizeof n == m * sizeof n[0] ? 1 : -1];
-             char p[-1 - (_Bool) 0 < 0 && -1 - (bool) 0 < 0 ? 1 : -1];
+             char p[-1 - (Bool) 0 < 0 && -1 - (bool) 0 < 0 ? 1 : -1];
              /* Catch a bug in an HP-UX C compiler.  See
-                http://gcc.gnu.org/ml/gcc-patches/2003-12/msg02303.html
-                http://lists.gnu.org/archive/html/bug-coreutils/2005-11/msg00161.html
+                https://gcc.gnu.org/ml/gcc-patches/2003-12/msg02303.html
+                https://lists.gnu.org/r/bug-coreutils/2005-11/msg00161.html
               */
-             _Bool q = true;
-             _Bool *pq = &q;
+             Bool q = true;
+             Bool *pq = &q;
+             bool *qq = &q;
            ]],
            [[
              bool e = &s;
-             *pq |= q;
-             *pq |= ! q;
+             *pq |= q; *pq |= ! q;
+             *qq |= q; *qq |= ! q;
              /* Refer to every declared value, to avoid compiler optimizations.  */
              return (!a + !b + !c + !d + !e + !f + !g + !h + !i + !!j + !k + !!l
-                     + !m + !n + !o + !p + !q + !pq);
+                     + !m + !n + !o + !p + !q + !pq + !qq);
            ]])],
         [ac_cv_header_stdbool_h=yes],
         [ac_cv_header_stdbool_h=no])])

@@ -4,11 +4,11 @@
 @var{tld}: TLD name (e.g. "com") as zero terminated ASCII byte string.
 
 @var{overrides}: Additional zero terminated array of @code{Tld_table} 
-info-structures for TLDs, or @code{NULL}  to only use library deault
+info-structures for TLDs, or @code{NULL}  to only use library default
 tables.
 
 Get the TLD table for a named TLD, using the internal defaults,
-possibly overrided by the (optional) supplied tables.
+possibly overridden by the (optional) supplied tables.
 
 Return value: Return structure corresponding to TLD  @code{tld_str} , first
 looking through  @code{overrides} then thru built-in list, or @code{NULL}  if
