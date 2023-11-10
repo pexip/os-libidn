@@ -1,5 +1,5 @@
 /* strerror-idna.c --- Convert IDNA errors into text.
-   Copyright (C) 2004-2016 Simon Josefsson
+   Copyright (C) 2004-2022 Simon Josefsson
 
    This file is part of GNU Libidn.
 
@@ -25,7 +25,7 @@
 
    You should have received copies of the GNU General Public License and
    the GNU Lesser General Public License along with this program.  If
-   not, see <http://www.gnu.org/licenses/>. */
+   not, see <https://www.gnu.org/licenses/>. */
 
 #ifdef HAVE_CONFIG_H
 # include "config.h"
@@ -60,7 +60,7 @@
  *   string does not equal the input.
  * IDNA_CONTAINS_ACE_PREFIX: The input contains the ACE prefix (for
  *   ToASCII).
- * IDNA_ICONV_ERROR: Could not convert string in locale encoding.
+ * IDNA_ICONV_ERROR: Character encoding conversion error.
  * IDNA_MALLOC_ERROR: Could not allocate buffer (this is typically a
  *   fatal error).
  * IDNA_DLOPEN_ERROR: Could not dlopen the libcidn DSO (only used
@@ -95,7 +95,7 @@ idna_strerror (Idna_rc rc)
       break;
 
     case IDNA_CONTAINS_MINUS:
-      p = _("Forbidden leading or trailing minus sign (`-')");
+      p = _("Forbidden leading or trailing minus sign ('-')");
       break;
 
     case IDNA_INVALID_LENGTH:
@@ -103,7 +103,7 @@ idna_strerror (Idna_rc rc)
       break;
 
     case IDNA_NO_ACE_PREFIX:
-      p = _("Input does not start with ACE prefix (`xn--')");
+      p = _("Input does not start with ACE prefix ('xn--')");
       break;
 
     case IDNA_ROUNDTRIP_VERIFY_ERROR:
@@ -111,11 +111,11 @@ idna_strerror (Idna_rc rc)
       break;
 
     case IDNA_CONTAINS_ACE_PREFIX:
-      p = _("Input already contain ACE prefix (`xn--')");
+      p = _("Input already contain ACE prefix ('xn--')");
       break;
 
     case IDNA_ICONV_ERROR:
-      p = _("Could not convert string in locale encoding");
+      p = _("Character encoding conversion error");
       break;
 
     case IDNA_MALLOC_ERROR:

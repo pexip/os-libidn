@@ -1,5 +1,5 @@
 /* strerror-tld.c --- Convert TLD errors into text.
-   Copyright (C) 2004-2016 Simon Josefsson
+   Copyright (C) 2004-2022 Simon Josefsson
 
    This file is part of GNU Libidn.
 
@@ -25,7 +25,7 @@
 
    You should have received copies of the GNU General Public License and
    the GNU Lesser General Public License along with this program.  If
-   not, see <http://www.gnu.org/licenses/>. */
+   not, see <https://www.gnu.org/licenses/>. */
 
 #ifdef HAVE_CONFIG_H
 # include "config.h"
@@ -49,7 +49,7 @@
  * TLD_INVALID: Invalid character found.
  * TLD_NODATA: No input data was provided.
  * TLD_MALLOC_ERROR: Error during memory allocation.
- * TLD_ICONV_ERROR: Error during iconv string conversion.
+ * TLD_ICONV_ERROR: Character encoding conversion error.
  * TLD_NO_TLD: No top-level domain found in domain string.
  *
  * Return value: Returns a pointer to a statically allocated string
@@ -81,7 +81,7 @@ tld_strerror (Tld_rc rc)
       break;
 
     case TLD_ICONV_ERROR:
-      p = _("System iconv failed");
+      p = _("Character encoding conversion error");
       break;
 
     case TLD_NO_TLD:

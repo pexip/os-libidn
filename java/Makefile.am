@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2004-2016 Simon Josefsson
+# Copyright (C) 2004-2022 Simon Josefsson
 #
 # This file is part of GNU Libidn.
 #
@@ -14,7 +14,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 SUBDIRS = src
 
@@ -24,10 +24,10 @@ INSTALL_TARGETS =
 
 if JAVA
 libidn_jardir = $(datadir)/java
-dist_libidn_jar_DATA = libidn-$(VERSION).jar
+libidn_jar_DATA = libidn-$(VERSION).jar
 
 libidn-$(VERSION).jar:
-	$(JAR) cf $@ \
+	$(AM_V_GEN)$(JAR) cf $@ \
 		-C $(builddir)/src/main/java \
 			gnu/inet/encoding/CombiningClass.class		\
 		-C $(builddir)/src/main/java \
@@ -47,15 +47,13 @@ libidn-$(VERSION).jar:
 		-C $(builddir)/src/main/java \
 			gnu/inet/encoding/PunycodeException.class	\
 		-C $(builddir)/src/main/java \
-			gnu/inet/encoding/RangeSet\$$1.class		\
-		-C $(builddir)/src/main/java \
 			gnu/inet/encoding/RangeSet\$$Builder.class	\
-		-C $(builddir)/src/main/java \
-			gnu/inet/encoding/RangeSet.class		\
 		-C $(builddir)/src/main/java \
 			gnu/inet/encoding/RangeSet\$$Range.class	\
 		-C $(builddir)/src/main/java \
 			gnu/inet/encoding/RangeSet\$$RangeContainsComparator.class \
+		-C $(builddir)/src/main/java \
+			gnu/inet/encoding/RangeSet.class		\
 		-C $(builddir)/src/main/java \
 			gnu/inet/encoding/RFC3454.class			\
 		-C $(builddir)/src/main/java \

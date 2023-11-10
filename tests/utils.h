@@ -1,5 +1,5 @@
 /* utils.h --- Prototypes for self test utilities.
- * Copyright (C) 2002-2016 Simon Josefsson
+ * Copyright (C) 2002-2022 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
@@ -25,18 +25,18 @@
 # include <stdarg.h>
 # include <stringprep.h>
 
-#ifndef __attribute__
-# if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
-#  define __attribute__(Spec)	/* empty */
+# ifndef __attribute__
+#  if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5)
+#   define __attribute__(Spec)	/* empty */
+#  endif
 # endif
-#endif
 
 extern int debug;
 extern int error_count;
 extern int break_on_error;
 
 extern void fail (const char *format, ...)
-  __attribute__ ((format (printf, 1, 2)));
+  __attribute__((format (printf, 1, 2)));
 extern void escapeprint (const char *str, size_t len);
 extern void hexprint (const char *str, size_t len);
 extern void binprint (const char *str, size_t len);

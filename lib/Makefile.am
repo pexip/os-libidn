@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2002-2016 Simon Josefsson.
-# Copyright (C) 2004, 2010-2014, 2016 Free Software Foundation, Inc.
+# Copyright (C) 2002-2022 Simon Josefsson.
+# Copyright (C) 2004-2022 Free Software Foundation, Inc.
 #
 # This file is part of GNU Libidn.
 #
@@ -15,20 +15,23 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 EXTRA_DIST = gen-stringprep-tables.pl gen-unicode-tables.pl gen-tld-tables.pl
 
 AM_CPPFLAGS = -I$(srcdir)/gl -Igl -DLIBIDN_BUILDING
 AM_CPPFLAGS += -DLOCALEDIR=\"$(localedir)\"
-AM_CFLAGS = $(WERROR_CFLAGS) $(WSTACK_CFLAGS) $(WARN_CFLAGS)
+AM_CFLAGS = $(WSTACK_CFLAGS) $(WARN_CFLAGS)
 AM_CFLAGS += $(CFLAG_VISIBILITY)
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = libidn.pc
 
 lib_LTLIBRARIES = libidn.la
 
 idn_int = idn-int.h
 
-BUILT_SOURCES = $(idn_int) gunibreak.h gunicomp.h gunidecomp.h rfc3454.c tlds.c
+BUILT_SOURCES = $(idn_int) gunibreak.h gunicomp.h gunidecomp.h rfc3454.c rfc3454.h tlds.c
 DISTCLEANFILES = $(idn_int)
 include_HEADERS = stringprep.h idna.h punycode.h idn-free.h pr29.h
 if TLD
@@ -46,16 +49,16 @@ idn-int.h:
 libidn_la_SOURCES = libidn.map \
 	gunibreak.h gunicomp.h gunidecomp.h \
 	nfkc.c toutf8.c version.c \
-	stringprep.h stringprep.c rfc3454.c profiles.c \
+	stringprep.h stringprep.c rfc3454.c rfc3454.h profiles.c \
 	punycode.h punycode.c \
 	idna.h idna.c \
 	pr29.h pr29.c \
 	idn-free.h idn-free.c \
 	strerror-idna.c strerror-pr29.c strerror-punycode.c \
-	strerror-stringprep.c strerror-tld.c
+	strerror-stringprep.c
 
 if TLD
-libidn_la_SOURCES += tld.h tld.c tlds.c
+libidn_la_SOURCES += tld.h tld.c tlds.c strerror-tld.c
 endif
 libidn_la_LIBADD = $(LTLIBICONV) $(LTLIBINTL) gl/libgnu.la
 libidn_la_LDFLAGS = \
@@ -82,7 +85,7 @@ SPEC = $(top_srcdir)/doc/specifications
 #gunibreak.h gunicomp.h gunidecomp.h: gen-unicode-tables.pl $(SPEC)/UnicodeData-3.2.0.txt $(SPEC)/LineBreak-3.2.0.txt $(SPEC)/SpecialCasing-3.2.0.txt $(SPEC)/CaseFolding-3.2.0.txt $(SPEC)/CompositionExclusions-3.2.0.txt
 #	$(PERL) $(srcdir)/gen-unicode-tables.pl -decomp 3.2 $(SPEC)
 
-rfc3454.c: gen-stringprep-tables.pl
+rfc3454.c rfc3454.h: gen-stringprep-tables.pl
 	$(PERL) $(srcdir)/gen-stringprep-tables.pl $(SPEC)/rfc3454.txt
 
 tlds.c: gen-tld-tables.pl

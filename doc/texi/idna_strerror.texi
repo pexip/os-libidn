@@ -32,7 +32,7 @@ string does not equal the input.
 @strong{IDNA_CONTAINS_ACE_PREFIX:} The input contains the ACE prefix (for
 ToASCII).
 
-@strong{IDNA_ICONV_ERROR:} Could not convert string in locale encoding.
+@strong{IDNA_ICONV_ERROR:} Character encoding conversion error.
 
 @strong{IDNA_MALLOC_ERROR:} Could not allocate buffer (this is typically a
 fatal error).

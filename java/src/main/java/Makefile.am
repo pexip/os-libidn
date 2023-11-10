@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2004-2016 Simon Josefsson
+# Copyright (C) 2004-2022 Simon Josefsson
 #
 # This file is part of GNU Libidn.
 #
@@ -14,7 +14,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 SUBDIRS = gnu .
 INSTALL_TARGETS =
@@ -24,6 +24,6 @@ if JAVA
 # Invoked by ../doc/java/Makefile.
 .PHONY: javadoc
 javadoc:
-	cd $(srcdir) && \
-		$(GJDOC) -d $(top_builddir)/doc/java gnu/inet/encoding/*.java
+	$(AM_V_GEN)cd $(srcdir) && \
+		$(JAVADOC) -d $(top_builddir)/doc/java/html gnu/inet/encoding/*.java
 endif

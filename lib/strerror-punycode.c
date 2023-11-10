@@ -1,5 +1,5 @@
 /* strerror-punycode.c --- Convert punycode errors into text.
-   Copyright (C) 2004-2016 Simon Josefsson
+   Copyright (C) 2004-2022 Simon Josefsson
 
    This file is part of GNU Libidn.
 
@@ -25,7 +25,7 @@
 
    You should have received copies of the GNU General Public License and
    the GNU Lesser General Public License along with this program.  If
-   not, see <http://www.gnu.org/licenses/>. */
+   not, see <https://www.gnu.org/licenses/>. */
 
 #ifdef HAVE_CONFIG_H
 # include "config.h"

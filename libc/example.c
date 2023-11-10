@@ -1,5 +1,5 @@
 /* example.c --- Example code showing how to use IDN enabled getaddrinfo().
- * Copyright (C) 2003-2016 Simon Josefsson
+ * Copyright (C) 2003-2022 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
@@ -33,7 +33,7 @@
  * $ gcc -o example example.c -L/usr/local/glibc/lib -Wl,-rpath,/usr/local/glibc/lib -nostdinc -I/usr/local/glibc/include -I/usr/include -I/usr/lib/gcc-lib/i486-linux/3.3.3/include
  * $ CHARSET=iso-8859-1 ./example
  * locale charset `iso-8859-1'
- * gettaddrinfo(räksmörgås.josefsson.org):
+ * gettaddrinfo(rÃ¤ksmÃ¶rgÃ¥s.josefsson.org):
  * address `217.13.230.178'
  * canonical name `178.230.13.217.in-addr.dgcsystems.net'
  * $
@@ -43,9 +43,9 @@
  */
 
 int
-main(int argc, char *argv[])
+main (int argc, char *argv[])
 {
-  char *in = argc > 1 ? argv[1] : "räksmörgås.josefsson.org";
+  char *in = argc > 1 ? argv[1] : "rÃ¤ksmÃ¶rgÃ¥s.josefsson.org";
   struct addrinfo hints;
   struct addrinfo *res = NULL;
   int rc;
@@ -54,21 +54,21 @@ main(int argc, char *argv[])
 
   //printf("locale charset `%s'\n", stringprep_locale_charset());
 
-  memset(&hints, 0, sizeof(hints));
-  hints.ai_flags = AI_CANONNAME|AI_IDN;
+  memset (&hints, 0, sizeof (hints));
+  hints.ai_flags = AI_CANONNAME | AI_IDN;
 
-  printf("gettaddrinfo(%s):\n", in);
-  rc = getaddrinfo(in, NULL, &hints, &res);
+  printf ("gettaddrinfo(%s):\n", in);
+  rc = getaddrinfo (in, NULL, &hints, &res);
   if (rc)
-    printf("gai err %d: %s\n", rc, gai_strerror(rc));
+    printf ("gai err %d: %s\n", rc, gai_strerror (rc));
   else if (res)
-    printf("address `%s'\ncanonical name `%s'\n",
-	   res->ai_addr ?
-	   /* FIXME: Use inet_ntop, so it works for IPv6 too. */
-	   inet_ntoa(((struct sockaddr_in*)res->ai_addr)->sin_addr) : "ERROR",
-	   res->ai_canonname ? res->ai_canonname : "ERROR");
+    printf ("address `%s'\ncanonical name `%s'\n", res->ai_addr ?
+	    /* FIXME: Use inet_ntop, so it works for IPv6 too. */
+	    inet_ntoa (((struct sockaddr_in *) res->
+			ai_addr)->sin_addr) : "ERROR",
+	    res->ai_canonname ? res->ai_canonname : "ERROR");
   else
-    printf("Bad magic\n");
+    printf ("Bad magic\n");
 
   return 0;
 }

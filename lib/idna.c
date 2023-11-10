@@ -1,5 +1,5 @@
 /* idna.c --- Prototypes for Internationalized Domain Name library.
-   Copyright (C) 2002-2016 Simon Josefsson
+   Copyright (C) 2002-2022 Simon Josefsson
 
    This file is part of GNU Libidn.
 
@@ -25,7 +25,7 @@
 
    You should have received copies of the GNU General Public License and
    the GNU Lesser General Public License along with this program.  If
-   not, see <http://www.gnu.org/licenses/>. */
+   not, see <https://www.gnu.org/licenses/>. */
 
 #ifdef HAVE_CONFIG_H
 # include "config.h"
@@ -280,12 +280,12 @@ step8:
 /* ToUnicode().  May realloc() utf8in.  Will free utf8in unconditionally. */
 static int
 idna_to_unicode_internal (char *utf8in,
-			  uint32_t * out, size_t * outlen, int flags)
+			  uint32_t * out, size_t *outlen, int flags)
 {
   int rc;
   char tmpout[64];
   size_t utf8len = strlen (utf8in) + 1;
-  size_t addlen = 0;
+  size_t addlen = 0, addinc = utf8len / 10 + 1;
 
   /*
    * ToUnicode consists of the following steps:
@@ -325,7 +325,8 @@ idna_to_unicode_internal (char *utf8in,
 	rc = stringprep_nameprep (utf8in, utf8len + addlen);
       else
 	rc = stringprep_nameprep_no_unassigned (utf8in, utf8len + addlen);
-      addlen += 1;
+      addlen += addinc;
+      addinc *= 2;
     }
   while (rc == STRINGPREP_TOO_SMALL_BUFFER);
 
@@ -434,7 +435,7 @@ step3:
  */
 int
 idna_to_unicode_44i (const uint32_t * in, size_t inlen,
-		     uint32_t * out, size_t * outlen, int flags)
+		     uint32_t * out, size_t *outlen, int flags)
 {
   int rc;
   size_t outlensave = *outlen;
@@ -657,7 +658,10 @@ idna_to_unicode_4z4z (const uint32_t * input, uint32_t ** output, int flags)
       buflen = (size_t) (end - start);
       buf = malloc (sizeof (buf[0]) * (buflen + 1));
       if (!buf)
-	return IDNA_MALLOC_ERROR;
+	{
+	  free (out);
+	  return IDNA_MALLOC_ERROR;
+	}
 
       /* don't check return code as per specification! */
       idna_to_unicode_44i (start, (size_t) (end - start),
@@ -854,7 +858,7 @@ idna_to_unicode_lzlz (const char *input, char **output, int flags)
  *   string does not equal the input.
  * @IDNA_CONTAINS_ACE_PREFIX: The input contains the ACE prefix (for
  *   ToASCII).
- * @IDNA_ICONV_ERROR: Could not convert string in locale encoding.
+ * @IDNA_ICONV_ERROR: Character encoding conversion error.
  * @IDNA_MALLOC_ERROR: Could not allocate buffer (this is typically a
  *   fatal error).
  * @IDNA_DLOPEN_ERROR: Could not dlopen the libcidn DSO (only used

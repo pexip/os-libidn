@@ -1,2 +1,4 @@
 usr/lib/*/*.la
+usr/share/emacs/site-lisp/idna.el
+usr/share/emacs/site-lisp/punycode.el
 usr/share/locale/*

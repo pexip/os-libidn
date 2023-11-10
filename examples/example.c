@@ -1,5 +1,5 @@
 /* example.c --- Example code showing how to use stringprep().
- * Copyright (C) 2002-2016 Simon Josefsson
+ * Copyright (C) 2002-2022 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
@@ -55,7 +55,7 @@ main (void)
 
   printf ("Before locale2utf8 (length %ld): ", (long int) strlen (buf));
   for (i = 0; i < strlen (buf); i++)
-    printf ("%02x ", buf[i] & 0xFF);
+    printf ("%02x ", (unsigned) buf[i] & 0xFF);
   printf ("\n");
 
   p = stringprep_locale_to_utf8 (buf);
@@ -69,7 +69,7 @@ main (void)
 
   printf ("Before stringprep (length %ld): ", (long int) strlen (buf));
   for (i = 0; i < strlen (buf); i++)
-    printf ("%02x ", buf[i] & 0xFF);
+    printf ("%02x ", (unsigned) buf[i] & 0xFF);
   printf ("\n");
 
   rc = stringprep (buf, BUFSIZ, 0, stringprep_nameprep);
@@ -79,7 +79,7 @@ main (void)
     {
       printf ("After stringprep (length %ld): ", (long int) strlen (buf));
       for (i = 0; i < strlen (buf); i++)
-	printf ("%02x ", buf[i] & 0xFF);
+	printf ("%02x ", (unsigned) buf[i] & 0xFF);
       printf ("\n");
     }
 

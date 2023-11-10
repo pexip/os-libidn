@@ -38,7 +38,7 @@ This usually indicate a problem in the calling application.
 @strong{STRINGPREP_UNKNOWN_PROFILE:} The supplied profile name was not
 known to the library.
 
-@strong{STRINGPREP_ICONV_ERROR:} Could not convert string in locale encoding.
+@strong{STRINGPREP_ICONV_ERROR:} Character encoding conversion error.
 
 @strong{STRINGPREP_NFKC_FAILED:} The Unicode NFKC operation failed.  This
 usually indicate an internal error in the library.

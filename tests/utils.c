@@ -1,5 +1,5 @@
 /* utils.c --- Self test utilities.
- * Copyright (C) 2002-2016 Simon Josefsson
+ * Copyright (C) 2002-2022 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
@@ -49,7 +49,7 @@ escapeprint (const char *str, size_t len)
 {
   size_t i;
 
-  printf (" (length %ld bytes):\n\t", len);
+  printf (" (length %ld bytes):\n\t", (long) len);
   for (i = 0; i < len; i++)
     {
       if (((str[i] & 0xFF) >= 'A' && (str[i] & 0xFF) <= 'Z') ||
@@ -58,7 +58,7 @@ escapeprint (const char *str, size_t len)
 	  || (str[i] & 0xFF) == ' ' || (str[i] & 0xFF) == '.')
 	printf ("%c", (str[i] & 0xFF));
       else
-	printf ("\\x%02X", (str[i] & 0xFF));
+	printf ("\\x%02X", (unsigned) (str[i] & 0xFF));
       if ((i + 1) % 16 == 0 && (i + 1) < len)
 	printf ("'\n\t'");
     }
@@ -73,7 +73,7 @@ hexprint (const char *str, size_t len)
   printf ("\t;; ");
   for (i = 0; i < len; i++)
     {
-      printf ("%02x ", (str[i] & 0xFF));
+      printf ("%02x ", (unsigned) (str[i] & 0xFF));
       if ((i + 1) % 8 == 0)
 	printf (" ");
       if ((i + 1) % 16 == 0 && i + 1 < len)

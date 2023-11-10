@@ -1,4 +1,4 @@
-/* Copyright (C) 2008-2016 Free Software Foundation, Inc.
+/* Copyright (C) 2008-2022 Free Software Foundation, Inc.
    Written by Adam Strzelecki <ono@java.pl>
 
    This file is part of GNU Libidn.
@@ -25,27 +25,27 @@
 
    You should have received copies of the GNU General Public License and
    the GNU Lesser General Public License along with this program.  If
-   not, see <http://www.gnu.org/licenses/>. */
+   not, see <https://www.gnu.org/licenses/>. */
 
 #ifndef _AC_STDINT_H
-#define _AC_STDINT_H 1
-#ifndef _GENERATED_STDINT_H
-#define _GENERATED_STDINT_H
+# define _AC_STDINT_H 1
+# ifndef _GENERATED_STDINT_H
+#  define _GENERATED_STDINT_H
 
-#define uint8_t		unsigned char
-#define uint16_t	unsigned short
-#define uint32_t	unsigned int
-#define int8_t		signed char
-#define int16_t		signed short
-#define int32_t		signed int
+#  define uint8_t		unsigned char
+#  define uint16_t	unsigned short
+#  define uint32_t	unsigned int
+#  define int8_t		signed char
+#  define int16_t		signed short
+#  define int32_t		signed int
 
-#define gint16		int16_t
+#  define gint16		int16_t
 
-#ifdef  _WIN64
-typedef __int64		ssize_t;
-#else
-typedef _W64 int	ssize_t;
-#endif
+#  ifdef  _WIN64
+typedef __int64 ssize_t;
+#  else
+typedef _W64 int ssize_t;
+#  endif
 
-#endif
+# endif
 #endif

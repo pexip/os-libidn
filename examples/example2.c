@@ -1,5 +1,5 @@
 /* example2.c --- Example code showing how to use punycode.
- * Copyright (C) 2002-2016 Simon Josefsson
+ * Copyright (C) 2002-2022 Simon Josefsson
  * Copyright (C) 2002  Adam M. Costello
  *
  * This file is part of GNU Libidn.
@@ -15,7 +15,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 

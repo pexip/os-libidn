@@ -16,7 +16,7 @@ non-zero values, for logical comparison purposes.
 
 @strong{TLD_MALLOC_ERROR:} Error during memory allocation.
 
-@strong{TLD_ICONV_ERROR:} Error during iconv string conversion.
+@strong{TLD_ICONV_ERROR:} Character encoding conversion error.
 
 @strong{TLD_NO_TLD:} No top-level domain found in domain string.
 

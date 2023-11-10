@@ -1,5 +1,5 @@
 /* idn.c --- Command line interface to libidn.
- * Copyright (C) 2003-2016 Simon Josefsson
+ * Copyright (C) 2003-2022 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
@@ -48,9 +48,9 @@
 #include "idn_cmd.h"
 
 #define GREETING \
-  "Copyright 2002-2015 Simon Josefsson.\n"				 \
+  "Copyright 2002-2022 Simon Josefsson.\n"				 \
   "GNU Libidn is free software with ABSOLUTELY NO WARRANTY.  For more\n" \
-  "information about these matters, see <http://www.gnu.org/licenses/>.\n"
+  "information about these matters, see <https://www.gnu.org/licenses/>.\n"
 
 const char version_etc_copyright[] =
   /* Do *not* mark this string for translation.  %s is a copyright
@@ -62,7 +62,7 @@ static void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
-    fprintf (stderr, _("Try `%s --help' for more information.\n"),
+    fprintf (stderr, _("Try '%s --help' for more information.\n"),
 	     program_name);
   else
     {
@@ -77,11 +77,11 @@ Internationalized Domain Name (IDN) convert STRINGS, or standard input.\n\
 Command line interface to the internationalized domain name library.\n\
 \n\
 All strings are expected to be encoded in the preferred charset used\n\
-by your locale.  Use `--debug' to find out what this charset is.  You\n\
+by your locale.  Use --debug to find out what this charset is.  You\n\
 can override the charset used by setting environment variable CHARSET.\n\
 \n\
-To process a string that starts with `-', for example `-foo', use `--'\n\
-to signal the end of parameters, as in `idn --quiet -a -- -foo'.\n\
+To process a string that starts with '-', for example '-foo', use '--'\n\
+to signal the end of parameters, as in: idn --quiet -a -- -foo\n\
 \n\
 Mandatory arguments to long options are mandatory for short options too.\n\
 "), stdout);
@@ -109,9 +109,8 @@ Mandatory arguments to long options are mandatory for short options too.\n\
 "), stdout);
       fputs (_("\
   -p, --profile=STRING     Use specified stringprep profile instead\n\
-                             Valid stringprep profiles: `Nameprep',\n\
-                             `iSCSI', `Nodeprep', `Resourceprep', \n\
-                             `trace', `SASLprep'\n\
+                             Valid stringprep profiles: Nameprep\n\
+                             iSCSI Nodeprep Resourceprep trace SASLprep\n\
 "), stdout);
       fputs (_("\
       --debug              Print debugging information\n\
@@ -139,7 +138,7 @@ main (int argc, char *argv[])
   textdomain (PACKAGE);
 
   if (cmdline_parser (argc, argv, &args_info) != 0)
-    return EXIT_FAILURE;
+    usage (EXIT_FAILURE);
 
   if (args_info.version_given)
     {
@@ -170,21 +169,20 @@ main (int argc, char *argv[])
       (args_info.idna_to_unicode_given ? 1 : 0) +
       (args_info.nfkc_given ? 1 : 0) != 1)
     {
-      error (0, 0, _("only one of -s, -e, -d, -a, -u or -n can be specified"));
+      error (0, 0,
+	     _("only one of -s, -e, -d, -a, -u or -n can be specified"));
       usage (EXIT_FAILURE);
     }
 
   if (!args_info.quiet_given
-      && args_info.inputs_num == 0
-      && isatty (fileno (stdin)))
+      && args_info.inputs_num == 0 && isatty (fileno (stdin)))
     fprintf (stderr, "%s %s\n" GREETING, PACKAGE, VERSION);
 
   if (args_info.debug_given)
-    fprintf (stderr, _("Charset `%s'.\n"), stringprep_locale_charset ());
+    fprintf (stderr, _("Charset: %s\n"), stringprep_locale_charset ());
 
   if (!args_info.quiet_given
-      && args_info.inputs_num == 0
-      && isatty (fileno (stdin)))
+      && args_info.inputs_num == 0 && isatty (fileno (stdin)))
     fprintf (stderr, _("Type each input string on a line by itself, "
 		       "terminated by a newline character.\n"));
 
@@ -419,7 +417,7 @@ main (int argc, char *argv[])
 	      size_t i;
 	      for (i = 0; p[i]; i++)
 		fprintf (stderr, "output[%lu] = U+%04x\n",
-			 (unsigned long) i, p[i]);
+			 (unsigned long) i, (unsigned) p[i]);
 	    }
 
 	  fprintf (stdout, "%s\n", p);

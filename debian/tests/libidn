@@ -5,12 +5,11 @@ set -e
 WORKDIR=$(mktemp -d)
 trap "rm -rf $WORKDIR" 0 INT QUIT ABRT PIPE TERM
 
-gcc -o $WORKDIR/foo -DWITH_TLD=1 tests/tst_symbols.c `pkg-config --cflags --libs libidn`
-$WORKDIR/foo
-
-for f in $(ls tests/tst_*.c | grep -v tst_symbols); do
-    gcc -o $WORKDIR/foo $f tests/utils.c `pkg-config --cflags --libs libidn`
+for f in tests/tst_*.c; do
+    gcc -DWITH_TLD=1 -o $WORKDIR/foo $f tests/utils.c `pkg-config --cflags --libs libidn`
+    echo "PASS: gcc $f"
     $WORKDIR/foo
+    echo "PASS: run $f"
 done
 
 cd $WORKDIR

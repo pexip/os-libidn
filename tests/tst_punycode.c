@@ -1,5 +1,5 @@
 /* tst_punycode.c --- Self tests for punycode.
- * Copyright (C) 2002-2016 Simon Josefsson
+ * Copyright (C) 2002-2022 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
@@ -173,7 +173,8 @@ doit (void)
   char *p;
   uint32_t *q;
   int rc;
-  size_t i, outlen;
+  size_t outlen;
+  unsigned i;
 
   p = malloc (sizeof (*p) * BUFSIZ);
   if (p == NULL)
@@ -186,7 +187,7 @@ doit (void)
   for (i = 0; i < sizeof (punycode) / sizeof (punycode[0]); i++)
     {
       if (debug)
-	printf ("PUNYCODE entry %ld: %s\n", i, punycode[i].name);
+	printf ("PUNYCODE entry %u: %s\n", i, punycode[i].name);
 
       if (debug)
 	{
@@ -199,7 +200,7 @@ doit (void)
 			    NULL, &outlen, p);
       if (rc != punycode[i].rc)
 	{
-	  fail ("punycode_encode() entry %ld failed: %d\n", i, rc);
+	  fail ("punycode_encode() entry %u failed: %d\n", i, rc);
 	  if (debug)
 	    printf ("FATAL\n");
 	  continue;
@@ -221,7 +222,7 @@ doit (void)
 	  if (strlen (punycode[i].out) != strlen (p) ||
 	      memcmp (punycode[i].out, p, strlen (p)) != 0)
 	    {
-	      fail ("punycode() entry %ld failed\n", i);
+	      fail ("punycode() entry %u failed\n", i);
 	      if (debug)
 		printf ("ERROR\n");
 	    }
@@ -241,7 +242,7 @@ doit (void)
 			    &outlen, q, NULL);
       if (rc != punycode[i].rc)
 	{
-	  fail ("punycode() entry %ld failed: %d\n", i, rc);
+	  fail ("punycode() entry %u failed: %d\n", i, rc);
 	  if (debug)
 	    printf ("FATAL\n");
 	  continue;
@@ -262,7 +263,7 @@ doit (void)
 	  if (punycode[i].inlen != outlen ||
 	      memcmp (punycode[i].in, q, outlen) != 0)
 	    {
-	      fail ("punycode_decode() entry %ld failed\n", i);
+	      fail ("punycode_decode() entry %u failed\n", i);
 	      if (debug)
 		printf ("ERROR\n");
 	    }

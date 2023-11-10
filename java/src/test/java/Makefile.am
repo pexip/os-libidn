@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-# Copyright (C) 2004-2016 Free Software Foundation, Inc.
+# Copyright (C) 2004-2022 Free Software Foundation, Inc.
 #
 # This file is part of GNU Libidn.
 #
@@ -14,7 +14,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 JAVAROOT = $(top_builddir)/java/src/test/java
 AM_JAVACFLAGS = -classpath $(top_builddir)/java/libidn-$(VERSION).jar:$(top_srcdir)/java/libidn-$(VERSION).jar

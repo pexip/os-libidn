@@ -1,4 +1,4 @@
-/* Copyright (C) 2004-2016 Free Software Foundation, Inc.
+/* Copyright (C) 2004-2022 Free Software Foundation, Inc.
    Author: Oliver Hitz
 
    This file is part of GNU Libidn.
@@ -25,7 +25,7 @@
 
    You should have received copies of the GNU General Public License and
    the GNU Lesser General Public License along with this program.  If
-   not, see <http://www.gnu.org/licenses/>. */
+   not, see <https://www.gnu.org/licenses/>. */
 
 import gnu.inet.encoding.IDNA;
 import gnu.inet.encoding.IDNAException;
@@ -83,7 +83,7 @@ public class TestIDNA
       if (!f.exists()) {
 	System.err.println("Unable to find draft-josefsson-idn-test-vectors.html.");
 	System.err.println("Please download the latest version of this file from:");
-	System.err.println("http://www.gnu.org/software/libidn/");
+	System.err.println("https://www.gnu.org/software/libidn/");
 	System.exit(1);
       }
 

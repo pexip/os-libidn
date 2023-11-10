@@ -1,5 +1,5 @@
 /* tst_stringprep.c --- Self tests for stringprep().
- * Copyright (C) 2002-2016 Simon Josefsson
+ * Copyright (C) 2002-2022 Simon Josefsson
  *
  * This file is part of GNU Libidn.
  *
@@ -14,7 +14,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
@@ -101,7 +101,7 @@ const struct stringprep strprep[] = {
    STRINGPREP_CONTAINS_PROHIBITED},
   {"Surrogate code U+DF42",
    "\xED\xBD\x82", NULL, "Nameprep", 0, STRINGPREP_ICONV_ERROR
-   /* was STRINGPREP_CONTAINS_PROHIBITED */},
+   /* was STRINGPREP_CONTAINS_PROHIBITED */ },
   {"Non-plain text character U+FFFD",
    "\xEF\xBF\xBD", NULL, "Nameprep", 0, STRINGPREP_CONTAINS_PROHIBITED},
   {"Ideographic description character U+2FF5",
@@ -205,7 +205,7 @@ doit (void)
 {
   char *p;
   int rc;
-  size_t i;
+  unsigned i;
 
   if (!stringprep_check_version (STRINGPREP_VERSION))
     fail ("stringprep_check_version failed (header %s runtime %s)\n",
@@ -224,7 +224,7 @@ doit (void)
   for (i = 0; i < sizeof (strprep) / sizeof (strprep[0]); i++)
     {
       if (debug)
-	printf ("STRINGPREP entry %ld\n", i);
+	printf ("STRINGPREP entry %u\n", i);
 
       if (debug)
 	{
@@ -247,12 +247,12 @@ doit (void)
 	  continue;
 	else if (l == NULL)
 	  {
-	    fail ("bad UTF-8 in entry %ld\n", i);
+	    fail ("bad UTF-8 in entry %u\n", i);
 	    continue;
 	  }
 	else if (strcmp (strprep[i].in, x) != 0)
 	  {
-	    fail ("bad UTF-8 in entry %ld\n", i);
+	    fail ("bad UTF-8 in entry %u\n", i);
 	    if (debug)
 	      {
 		puts ("expected:");
@@ -274,7 +274,7 @@ doit (void)
 			       "Nameprep", strprep[i].flags);
       if (rc != strprep[i].rc)
 	{
-	  fail ("stringprep() entry %ld failed: %d\n", i, rc);
+	  fail ("stringprep() entry %u failed: %d\n", i, rc);
 	  if (debug)
 	    printf ("FATAL\n");
 	  if (rc == STRINGPREP_OK)
@@ -302,7 +302,7 @@ doit (void)
 	  if (strlen (strprep[i].out) != strlen (p) ||
 	      memcmp (strprep[i].out, p, strlen (p)) != 0)
 	    {
-	      fail ("stringprep() entry %ld failed\n", i);
+	      fail ("stringprep() entry %ld failed\n", (long) i);
 	      if (debug)
 		printf ("ERROR\n");
 	    }

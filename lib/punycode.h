@@ -1,5 +1,5 @@
 /* punycode.h --- Declarations for punycode functions.
-   Copyright (C) 2002-2016 Simon Josefsson
+   Copyright (C) 2002-2022 Simon Josefsson
 
    This file is part of GNU Libidn.
 
@@ -25,7 +25,7 @@
 
    You should have received copies of the GNU General Public License and
    the GNU Lesser General Public License along with this program.  If
-   not, see <http://www.gnu.org/licenses/>. */
+   not, see <https://www.gnu.org/licenses/>. */
 
 /*
  * This file is derived from RFC 3492bis written by Adam M. Costello,
@@ -66,6 +66,14 @@
 #ifndef PUNYCODE_H
 # define PUNYCODE_H
 
+/**
+ * SECTION:punycode
+ * @title: punycode.h
+ * @short_description: Punycode-related functions
+ *
+ * Punycode-related functions.
+ */
+
 # ifndef IDNAPI
 #  if defined LIBIDN_BUILDING && defined HAVE_VISIBILITY && HAVE_VISIBILITY
 #   define IDNAPI __attribute__((__visibility__("default")))
@@ -78,16 +86,16 @@
 #  endif
 # endif
 
-#ifdef __cplusplus
+# ifdef __cplusplus
 extern "C"
 {
-#endif
+# endif
 
 /************************************************************/
 /* Public interface (would normally go in its own .h file): */
 
-#include <stddef.h>		/* size_t */
-#include <idn-int.h>		/* uint32_t */
+# include <stddef.h>		/* size_t */
+# include <idn-int.h>		/* uint32_t */
 
   enum punycode_status
   {
@@ -117,7 +125,7 @@ extern "C"
   extern IDNAPI int punycode_encode (size_t input_length,
 				     const punycode_uint input[],
 				     const unsigned char case_flags[],
-				     size_t * output_length, char output[]);
+				     size_t *output_length, char output[]);
 
 /*
     punycode_encode() converts a sequence of code points (presumed to be
@@ -176,7 +184,7 @@ extern "C"
 
   extern IDNAPI int punycode_decode (size_t input_length,
 				     const char input[],
-				     size_t * output_length,
+				     size_t *output_length,
 				     punycode_uint output[],
 				     unsigned char case_flags[]);
 
@@ -233,7 +241,7 @@ extern "C"
         might contain garbage.
 */
 
-#ifdef __cplusplus
+# ifdef __cplusplus
 }
-#endif
+# endif
 #endif				/* PUNYCODE_H */
